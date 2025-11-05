@@ -1,0 +1,2429 @@
+@font-face {
+  font-family: "Regular";
+  src: url("../fonts/DM_Sans/static/DMSans-Regular.ttf");
+}
+@font-face {
+  font-family: "Bold";
+  src: url("../fonts//DM_Sans/static/DMSans-SemiBold.ttf");
+}
+@font-face {
+  font-family: "light";
+  src: url("../fonts/DM_Sans/static/DMSans-Light.ttf");
+}
+:root {
+  --arabic-fm-r: "Regular", sans-serif;
+  --arabic-fm-b: "Bold", sans-serif;
+  --arabic-fm-l: "light", sans-serif;
+  /* Modular scale ratio */
+  --ratio: 1.2;
+  /* Base font size */
+  --font-p: 1rem; /* 16px base */
+  /* Derived font sizes */
+  --font-small: calc(var(--font-p) / var(--ratio)); /* ~13.33px */
+  --font-h6: calc(var(--font-p) * var(--ratio)); /* ~19.2px */
+  --font-h5: calc(var(--font-h6) * var(--ratio)); /* ~23.04px */
+  --font-h4: calc(var(--font-h5) * var(--ratio)); /* ~27.65px */
+  --font-h3: calc(var(--font-h4) * var(--ratio)); /* ~33.18px */
+  --font-h2: calc(var(--font-h3) * var(--ratio)); /* ~39.81px */
+  --font-h1: calc(var(--font-h2) * var(--ratio)); /* ~47.77px */
+  /* Letter spacing (negative for large headings) */
+  --space-p: 0%;
+  --space-small: 0.2%;
+  --space-h6: -0.5%;
+  --space-h3: -1.5%;
+  --space-h1: -2%;
+  /* Line height */
+  --line-p: 150%;
+  --line-small: 140%;
+  --line-h6: 140%;
+  --line-h3: 120%;
+  --line-h1: 100%;
+  /* 8pt Grid spacing system */
+  --space-mini: 4px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  /* Colors */
+  --primary-clr: #2daf9e; /* Primary color */
+  --secondary-clr: #e6f7f4; /* Secondary color */
+  --accent-clr: #f1f5f9; /* Accent color */
+  --bar-clr:#beeaf0;
+  --body-bg-clr: #ffffff; /* Light background color */
+  --border-clr: #e6eef3; /* border color */
+  --txt-clr: #000; /* Dark text color */
+  --txt-clr-light: #ffffff; /* Light background color */
+  --txt-clr-gray: #94a3b8;
+  --txt-clr-sec: #034047;
+  --txt-clr-error: #ff4d4d; /* Error text color */
+  --txt-clr-success: #4caf50; /* Success text color */
+  --txt-clr-warning: #ff9800; /* Warning text color */
+  --txt-clr-info: #2196f3; /* Info text color */
+  --txt-clr-primary: #6200ea; /* Primary text color */
+  --txt-clr-secondary: #03dac6; /* Secondary text color */
+  --txt-clr-accent: #ff4081; /* Accent text color */
+  --txt-clr-disabled: #9e9e9e; /* Disabled text color*/
+  --txt-clr-placeholder: #9e9e9e; /* Placeholder text color */
+  --border-radius-small: 6px; /* Small border radius */
+  --border-radius-medium: 12px; /* Large border radius */
+  --border-radius-large: 24px; /* Large border radius */
+  --border-radius-very-large: 48px; /* Large border radius */
+  --border-radius-circle: 50%; /* Circle border radius */
+  --svg-fill: #000; /* Default SVG fill color */
+  --svg-fill-light: #ffffff; /* Light SVG fill color */
+  --svg-fill-gray: #94a3b8; /* Gray SVG fill color*/
+  --svg-fill-sec: #034047; /* Seen SVG fill color*/
+  --svg-size: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  interpolate-size: allow-keywords !important;
+  transition-behavior: allow-discrete !important;
+  color: var(--txt-clr);
+}
+
+body {
+  width: 100dvw;
+  height: 100dvh;
+  overflow-x: hidden;
+  background: var(--body-bg-clr-gray);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0;
+  min-height: 100dvh;
+}
+.container > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--border-clr);
+  z-index: 10;
+  background: var(--body-bg-clr);
+}
+nav a {
+  border-radius: var(--border-radius-very-large);
+  padding: var(--space-1);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+nav a::first-letter {
+  text-transform: capitalize;
+}
+nav a span {
+  display: grid;
+  place-content: center;
+}
+nav a span svg {
+  width: var(--svg-size);
+}
+nav a p {
+  display: grid;
+  place-content: center;
+}
+nav .donate {
+  background: var(--primary-clr);
+}
+nav .donate p {
+  color: var(--txt-clr-light);
+}
+nav .donate svg {
+  stroke: var(--svg-fill-light);
+  fill: none;
+}
+nav .logo span {
+  padding: var(--space-mini);
+  border-radius: var(--border-radius-medium);
+  background: var(--secondary-clr);
+}
+nav .logo span svg {
+  stroke: var(--svg-fill);
+}
+nav .logo p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  text-transform: capitalize;
+  font-family: var(--arabic-fm-b);
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 50dvh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1);
+}
+
+.porgress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  margin-right: auto;
+}
+.porgress span {
+  padding: var(--space-mini);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-circle);
+  transition: background 0.3s ease 0.3s;
+}
+.porgress p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  transition: color 0.3s ease 0.3s;
+}
+.porgress p::first-letter {
+  text-transform: capitalize;
+}
+
+.home .hero,
+.updates .hero {
+  position: relative;
+  width: clamp(250px, 100%, 500px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.home .hero > img,
+.updates .hero > img {
+  width: 100%;
+  border-radius: var(--border-radius-large);
+}
+.home .hero h2,
+.updates .hero h2 {
+  font-size: var(--font-h3);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h3);
+  line-height: var(--line-h3);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.home .hero > p,
+.updates .hero > p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.home .hero .links,
+.updates .hero .links {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-2);
+}
+.home .hero .links a,
+.updates .hero .links a {
+  width: 100%;
+  border-radius: var(--border-radius-very-large);
+  display: grid;
+  place-content: center;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  text-transform: capitalize;
+  padding: var(--space-1);
+}
+.home .hero .links a:nth-child(1),
+.updates .hero .links a:nth-child(1) {
+  background: var(--primary-clr);
+  color: var(--txt-clr-light);
+}
+.home .hero .links a:nth-child(2),
+.updates .hero .links a:nth-child(2) {
+  background: var(--secondary-clr);
+}
+.home .hero .support,
+.updates .hero .support {
+  width: 100%;
+  position: relative;
+  border-radius: var(--border-radius-large);
+  border: 1px solid var(--border-clr);
+  padding: var(--space-1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.home .hero .support > span,
+.updates .hero .support > span {
+  display: grid;
+  place-content: center;
+  padding: var(--space-1);
+}
+.home .hero .support > span svg,
+.updates .hero .support > span svg {
+  fill: var(--svg-fill);
+  scale: 1.2;
+}
+.home .hero .support .text span,
+.updates .hero .support .text span {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.home .hero .support .text p,
+.updates .hero .support .text p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.home .hero .card,
+.updates .hero .card {
+  width: clamp(250px, 100%, 500px);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.home .hero .card > .title,
+.updates .hero .card > .title {
+  width: 100%;
+  padding: var(--space-1) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.home .hero .card > .title > p,
+.updates .hero .card > .title > p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+  padding: 0 var(--space-1);
+}
+.home .hero .card > .title a,
+.home .hero .card > .title button,
+.updates .hero .card > .title a,
+.updates .hero .card > .title button {
+  padding: var(--space-1) var(--space-2);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.home .hero .card > .title a p,
+.home .hero .card > .title button p,
+.updates .hero .card > .title a p,
+.updates .hero .card > .title button p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.home .hero .card > .title a span,
+.home .hero .card > .title button span,
+.updates .hero .card > .title a span,
+.updates .hero .card > .title button span {
+  display: grid;
+  place-content: center;
+}
+.home .hero .card > .title a span svg,
+.home .hero .card > .title button span svg,
+.updates .hero .card > .title a span svg,
+.updates .hero .card > .title button span svg {
+  width: calc(var(--space-5) / 2);
+  fill: none;
+  stroke: var(--svg-fill-sec);
+  fill: var(--svg-fill-sec);
+}
+.home .hero .card > .title h1,
+.updates .hero .card > .title h1 {
+  width: 100%;
+  font-size: var(--font-h4);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h4);
+  line-height: var(--line-h4);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+  text-transform: capitalize;
+  padding: 0 var(--space-1);
+}
+.home .hero .card > .title .top,
+.updates .hero .card > .title .top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-mini);
+  flex-wrap: wrap;
+}
+.home .hero .card > .title > span,
+.updates .hero .card > .title > span {
+  position: relative;
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+  padding: 0 var(--space-1);
+}
+.home .hero .card > .title > span::first-letter,
+.updates .hero .card > .title > span::first-letter {
+  text-transform: capitalize;
+}
+.home .hero .card > .title > span::after,
+.updates .hero .card > .title > span::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-1 * var(--space-3) / 2);
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--border-clr);
+}
+.home .hero .card .updates,
+.updates .hero .card .updates {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.home .hero .card .updates .news,
+.updates .hero .card .updates .news {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-2);
+  border: 1px solid var(--border-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-large);
+}
+.home .hero .card .updates .news .img,
+.updates .hero .card .updates .news .img {
+  width: 120px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: var(--border-radius-medium);
+}
+.home .hero .card .updates .news .img img,
+.updates .hero .card .updates .news .img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: var(--border-radius-medium);
+}
+.home .hero .card .updates .news .text,
+.updates .hero .card .updates .news .text {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex-grow: 1;
+}
+.home .hero .card .updates .news .text .title,
+.updates .hero .card .updates .news .text .title {
+  width: 100%;
+}
+.home .hero .card .updates .news .text .title p,
+.updates .hero .card .updates .news .text .title p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.home .hero .card .updates .news .text .date,
+.updates .hero .card .updates .news .text .date {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  color: var(--txt-clr-gray);
+  font-family: var(--arabic-fm-l);
+}
+.home .hero .card .updates .news .text .date span,
+.updates .hero .card .updates .news .text .date span {
+  color: var(--txt-clr-gray);
+  font-family: var(--arabic-fm-l);
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+}
+.home .hero .card .updates .news .text .desc,
+.updates .hero .card .updates .news .text .desc {
+  width: 100%;
+}
+.home .hero .card .updates .news .text .desc p,
+.updates .hero .card .updates .news .text .desc p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+  text-transform: capitalize;
+}
+.home .hero .card .updates .news span,
+.updates .hero .card .updates .news span {
+  display: grid;
+  place-content: center;
+  margin-block: auto;
+}
+.home .hero .card .updates .news span svg,
+.updates .hero .card .updates .news span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-gray);
+  fill: none;
+}
+.home .hero .card .progress,
+.updates .hero .card .progress {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.home .hero .card .progress .top,
+.updates .hero .card .progress .top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.home .hero .card .progress .top .text,
+.updates .hero .card .progress .top .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.home .hero .card .progress .top .text span,
+.updates .hero .card .progress .top .text span {
+  display: grid;
+  place-content: center;
+}
+.home .hero .card .progress .top .text span svg,
+.updates .hero .card .progress .top .text span svg {
+  width: var(--svg-size);
+  fill: var(--svg-fill);
+}
+.home .hero .card .progress .top .text p,
+.updates .hero .card .progress .top .text p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.home .hero .card .progress .top .amount,
+.updates .hero .card .progress .top .amount {
+  padding: var(--space-1) var(--space-2);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.home .hero .card .progress .top .amount p,
+.home .hero .card .progress .top .amount span,
+.updates .hero .card .progress .top .amount p,
+.updates .hero .card .progress .top .amount span {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  font-family: var(--arabic-fm-l);
+  text-transform: capitalize;
+}
+.home .hero .card .progress .bar,
+.updates .hero .card .progress .bar {
+  width: 100%;
+  height: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+}
+.home .hero .card .progress .bar .fill,
+.updates .hero .card .progress .bar .fill {
+  height: 100%;
+  background: var(--bar-clr);
+  border-radius: var(--border-radius-large);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+.home .hero .card .progress .bottom,
+.updates .hero .card .progress .bottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  color: var(--txt-clr-gray);
+}
+.home .hero .card .progress .bottom p,
+.home .hero .card .progress .bottom span,
+.updates .hero .card .progress .bottom p,
+.updates .hero .card .progress .bottom span {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+  text-transform: capitalize;
+}
+.home .hero .card .progress > a,
+.updates .hero .card .progress > a {
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-light);
+  background: var(--primary-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-large);
+}
+.home .hero .card .progress > a span,
+.updates .hero .card .progress > a span {
+  text-transform: capitalize;
+  color: var(--txt-clr-light);
+}
+
+.donation,
+.pay {
+  width: clamp(250px, 100%, 600px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.donation h2,
+.pay h2 {
+  font-size: var(--font-h3);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h3);
+  line-height: var(--line-h3);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.donation .cause,
+.donation .amount,
+.donation .details,
+.donation .payment,
+.pay .cause,
+.pay .amount,
+.pay .details,
+.pay .payment {
+  width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.donation .cause > p,
+.donation .amount > p,
+.donation .details > p,
+.donation .payment > p,
+.pay .cause > p,
+.pay .amount > p,
+.pay .details > p,
+.pay .payment > p {
+  width: 100%;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+}
+.donation .cause > p::first-letter,
+.donation .amount > p::first-letter,
+.donation .details > p::first-letter,
+.donation .payment > p::first-letter,
+.pay .cause > p::first-letter,
+.pay .amount > p::first-letter,
+.pay .details > p::first-letter,
+.pay .payment > p::first-letter {
+  text-transform: capitalize;
+}
+.donation .cause button,
+.donation .cause a,
+.donation .amount button,
+.donation .amount a,
+.donation .details button,
+.donation .details a,
+.donation .payment button,
+.donation .payment a,
+.pay .cause button,
+.pay .cause a,
+.pay .amount button,
+.pay .amount a,
+.pay .details button,
+.pay .details a,
+.pay .payment button,
+.pay .payment a {
+  padding: var(--space-1) var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  transition: background 0.3s ease;
+}
+.donation .cause button p,
+.donation .cause a p,
+.donation .amount button p,
+.donation .amount a p,
+.donation .details button p,
+.donation .details a p,
+.donation .payment button p,
+.donation .payment a p,
+.pay .cause button p,
+.pay .cause a p,
+.pay .amount button p,
+.pay .amount a p,
+.pay .details button p,
+.pay .details a p,
+.pay .payment button p,
+.pay .payment a p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  transition: color 0.3s ease;
+}
+.donation .cause button span,
+.donation .cause a span,
+.donation .amount button span,
+.donation .amount a span,
+.donation .details button span,
+.donation .details a span,
+.donation .payment button span,
+.donation .payment a span,
+.pay .cause button span,
+.pay .cause a span,
+.pay .amount button span,
+.pay .amount a span,
+.pay .details button span,
+.pay .details a span,
+.pay .payment button span,
+.pay .payment a span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause button span svg,
+.donation .cause a span svg,
+.donation .amount button span svg,
+.donation .amount a span svg,
+.donation .details button span svg,
+.donation .details a span svg,
+.donation .payment button span svg,
+.donation .payment a span svg,
+.pay .cause button span svg,
+.pay .cause a span svg,
+.pay .amount button span svg,
+.pay .amount a span svg,
+.pay .details button span svg,
+.pay .details a span svg,
+.pay .payment button span svg,
+.pay .payment a span svg {
+  fill: var(--svg-fill-sec);
+  transition: fill 0.3s ease;
+}
+.donation .cause button.active,
+.donation .cause a.active,
+.donation .amount button.active,
+.donation .amount a.active,
+.donation .details button.active,
+.donation .details a.active,
+.donation .payment button.active,
+.donation .payment a.active,
+.pay .cause button.active,
+.pay .cause a.active,
+.pay .amount button.active,
+.pay .amount a.active,
+.pay .details button.active,
+.pay .details a.active,
+.pay .payment button.active,
+.pay .payment a.active {
+  background: var(--primary-clr);
+}
+.donation .cause button.active p,
+.donation .cause a.active p,
+.donation .amount button.active p,
+.donation .amount a.active p,
+.donation .details button.active p,
+.donation .details a.active p,
+.donation .payment button.active p,
+.donation .payment a.active p,
+.pay .cause button.active p,
+.pay .cause a.active p,
+.pay .amount button.active p,
+.pay .amount a.active p,
+.pay .details button.active p,
+.pay .details a.active p,
+.pay .payment button.active p,
+.pay .payment a.active p {
+  color: var(--txt-clr-light);
+}
+.donation .cause button.active span svg,
+.donation .cause a.active span svg,
+.donation .amount button.active span svg,
+.donation .amount a.active span svg,
+.donation .details button.active span svg,
+.donation .details a.active span svg,
+.donation .payment button.active span svg,
+.donation .payment a.active span svg,
+.pay .cause button.active span svg,
+.pay .cause a.active span svg,
+.pay .amount button.active span svg,
+.pay .amount a.active span svg,
+.pay .details button.active span svg,
+.pay .details a.active span svg,
+.pay .payment button.active span svg,
+.pay .payment a.active span svg {
+  fill: var(--svg-fill-light);
+  stroke: var(--svg-fill-light) !important;
+}
+.donation .cause.amount > button, .donation .cause.details > button,
+.donation .amount.amount > button,
+.donation .amount.details > button,
+.donation .details.amount > button,
+.donation .details.details > button,
+.donation .payment.amount > button,
+.donation .payment.details > button,
+.pay .cause.amount > button,
+.pay .cause.details > button,
+.pay .amount.amount > button,
+.pay .amount.details > button,
+.pay .details.amount > button,
+.pay .details.details > button,
+.pay .payment.amount > button,
+.pay .payment.details > button {
+  padding: calc(var(--space-2) - 4px);
+  flex-grow: 1;
+}
+.donation .cause.amount label,
+.donation .cause.amount .p-autocomplete, .donation .cause.details label,
+.donation .cause.details .p-autocomplete,
+.donation .amount.amount label,
+.donation .amount.amount .p-autocomplete,
+.donation .amount.details label,
+.donation .amount.details .p-autocomplete,
+.donation .details.amount label,
+.donation .details.amount .p-autocomplete,
+.donation .details.details label,
+.donation .details.details .p-autocomplete,
+.donation .payment.amount label,
+.donation .payment.amount .p-autocomplete,
+.donation .payment.details label,
+.donation .payment.details .p-autocomplete,
+.pay .cause.amount label,
+.pay .cause.amount .p-autocomplete,
+.pay .cause.details label,
+.pay .cause.details .p-autocomplete,
+.pay .amount.amount label,
+.pay .amount.amount .p-autocomplete,
+.pay .amount.details label,
+.pay .amount.details .p-autocomplete,
+.pay .details.amount label,
+.pay .details.amount .p-autocomplete,
+.pay .details.details label,
+.pay .details.details .p-autocomplete,
+.pay .payment.amount label,
+.pay .payment.amount .p-autocomplete,
+.pay .payment.details label,
+.pay .payment.details .p-autocomplete {
+  position: relative;
+  width: 100%;
+  border-radius: var(--border-radius-large);
+}
+.donation .cause.amount label input,
+.donation .cause.amount .p-autocomplete input, .donation .cause.details label input,
+.donation .cause.details .p-autocomplete input,
+.donation .amount.amount label input,
+.donation .amount.amount .p-autocomplete input,
+.donation .amount.details label input,
+.donation .amount.details .p-autocomplete input,
+.donation .details.amount label input,
+.donation .details.amount .p-autocomplete input,
+.donation .details.details label input,
+.donation .details.details .p-autocomplete input,
+.donation .payment.amount label input,
+.donation .payment.amount .p-autocomplete input,
+.donation .payment.details label input,
+.donation .payment.details .p-autocomplete input,
+.pay .cause.amount label input,
+.pay .cause.amount .p-autocomplete input,
+.pay .cause.details label input,
+.pay .cause.details .p-autocomplete input,
+.pay .amount.amount label input,
+.pay .amount.amount .p-autocomplete input,
+.pay .amount.details label input,
+.pay .amount.details .p-autocomplete input,
+.pay .details.amount label input,
+.pay .details.amount .p-autocomplete input,
+.pay .details.details label input,
+.pay .details.details .p-autocomplete input,
+.pay .payment.amount label input,
+.pay .payment.amount .p-autocomplete input,
+.pay .payment.details label input,
+.pay .payment.details .p-autocomplete input {
+  width: 100%;
+  border-radius: var(--border-radius-large);
+  border: 1px solid var(--border-clr);
+  outline: none;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+  padding: var(--space-1);
+}
+.donation .cause.amount label > p,
+.donation .cause.amount .p-autocomplete > p, .donation .cause.details label > p,
+.donation .cause.details .p-autocomplete > p,
+.donation .amount.amount label > p,
+.donation .amount.amount .p-autocomplete > p,
+.donation .amount.details label > p,
+.donation .amount.details .p-autocomplete > p,
+.donation .details.amount label > p,
+.donation .details.amount .p-autocomplete > p,
+.donation .details.details label > p,
+.donation .details.details .p-autocomplete > p,
+.donation .payment.amount label > p,
+.donation .payment.amount .p-autocomplete > p,
+.donation .payment.details label > p,
+.donation .payment.details .p-autocomplete > p,
+.pay .cause.amount label > p,
+.pay .cause.amount .p-autocomplete > p,
+.pay .cause.details label > p,
+.pay .cause.details .p-autocomplete > p,
+.pay .amount.amount label > p,
+.pay .amount.amount .p-autocomplete > p,
+.pay .amount.details label > p,
+.pay .amount.details .p-autocomplete > p,
+.pay .details.amount label > p,
+.pay .details.amount .p-autocomplete > p,
+.pay .details.details label > p,
+.pay .details.details .p-autocomplete > p,
+.pay .payment.amount label > p,
+.pay .payment.amount .p-autocomplete > p,
+.pay .payment.details label > p,
+.pay .payment.details .p-autocomplete > p {
+  position: relative;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  width: 100%;
+  border-radius: var(--border-radius-large);
+  border: 1px solid var(--border-clr);
+  outline: none;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr);
+  padding: var(--space-1);
+  text-transform: capitalize;
+}
+.donation .cause.amount label > p button,
+.donation .cause.amount .p-autocomplete > p button, .donation .cause.details label > p button,
+.donation .cause.details .p-autocomplete > p button,
+.donation .amount.amount label > p button,
+.donation .amount.amount .p-autocomplete > p button,
+.donation .amount.details label > p button,
+.donation .amount.details .p-autocomplete > p button,
+.donation .details.amount label > p button,
+.donation .details.amount .p-autocomplete > p button,
+.donation .details.details label > p button,
+.donation .details.details .p-autocomplete > p button,
+.donation .payment.amount label > p button,
+.donation .payment.amount .p-autocomplete > p button,
+.donation .payment.details label > p button,
+.donation .payment.details .p-autocomplete > p button,
+.pay .cause.amount label > p button,
+.pay .cause.amount .p-autocomplete > p button,
+.pay .cause.details label > p button,
+.pay .cause.details .p-autocomplete > p button,
+.pay .amount.amount label > p button,
+.pay .amount.amount .p-autocomplete > p button,
+.pay .amount.details label > p button,
+.pay .amount.details .p-autocomplete > p button,
+.pay .details.amount label > p button,
+.pay .details.amount .p-autocomplete > p button,
+.pay .details.details label > p button,
+.pay .details.details .p-autocomplete > p button,
+.pay .payment.amount label > p button,
+.pay .payment.amount .p-autocomplete > p button,
+.pay .payment.details label > p button,
+.pay .payment.details .p-autocomplete > p button {
+  background: transparent;
+  padding: var(--space-mini);
+  margin-left: auto;
+}
+.donation .cause.amount label > p button::first-letter,
+.donation .cause.amount .p-autocomplete > p button::first-letter, .donation .cause.details label > p button::first-letter,
+.donation .cause.details .p-autocomplete > p button::first-letter,
+.donation .amount.amount label > p button::first-letter,
+.donation .amount.amount .p-autocomplete > p button::first-letter,
+.donation .amount.details label > p button::first-letter,
+.donation .amount.details .p-autocomplete > p button::first-letter,
+.donation .details.amount label > p button::first-letter,
+.donation .details.amount .p-autocomplete > p button::first-letter,
+.donation .details.details label > p button::first-letter,
+.donation .details.details .p-autocomplete > p button::first-letter,
+.donation .payment.amount label > p button::first-letter,
+.donation .payment.amount .p-autocomplete > p button::first-letter,
+.donation .payment.details label > p button::first-letter,
+.donation .payment.details .p-autocomplete > p button::first-letter,
+.pay .cause.amount label > p button::first-letter,
+.pay .cause.amount .p-autocomplete > p button::first-letter,
+.pay .cause.details label > p button::first-letter,
+.pay .cause.details .p-autocomplete > p button::first-letter,
+.pay .amount.amount label > p button::first-letter,
+.pay .amount.amount .p-autocomplete > p button::first-letter,
+.pay .amount.details label > p button::first-letter,
+.pay .amount.details .p-autocomplete > p button::first-letter,
+.pay .details.amount label > p button::first-letter,
+.pay .details.amount .p-autocomplete > p button::first-letter,
+.pay .details.details label > p button::first-letter,
+.pay .details.details .p-autocomplete > p button::first-letter,
+.pay .payment.amount label > p button::first-letter,
+.pay .payment.amount .p-autocomplete > p button::first-letter,
+.pay .payment.details label > p button::first-letter,
+.pay .payment.details .p-autocomplete > p button::first-letter {
+  text-transform: capitalize;
+}
+.donation .cause.amount label > p .fade,
+.donation .cause.amount .p-autocomplete > p .fade, .donation .cause.details label > p .fade,
+.donation .cause.details .p-autocomplete > p .fade,
+.donation .amount.amount label > p .fade,
+.donation .amount.amount .p-autocomplete > p .fade,
+.donation .amount.details label > p .fade,
+.donation .amount.details .p-autocomplete > p .fade,
+.donation .details.amount label > p .fade,
+.donation .details.amount .p-autocomplete > p .fade,
+.donation .details.details label > p .fade,
+.donation .details.details .p-autocomplete > p .fade,
+.donation .payment.amount label > p .fade,
+.donation .payment.amount .p-autocomplete > p .fade,
+.donation .payment.details label > p .fade,
+.donation .payment.details .p-autocomplete > p .fade,
+.pay .cause.amount label > p .fade,
+.pay .cause.amount .p-autocomplete > p .fade,
+.pay .cause.details label > p .fade,
+.pay .cause.details .p-autocomplete > p .fade,
+.pay .amount.amount label > p .fade,
+.pay .amount.amount .p-autocomplete > p .fade,
+.pay .amount.details label > p .fade,
+.pay .amount.details .p-autocomplete > p .fade,
+.pay .details.amount label > p .fade,
+.pay .details.amount .p-autocomplete > p .fade,
+.pay .details.details label > p .fade,
+.pay .details.details .p-autocomplete > p .fade,
+.pay .payment.amount label > p .fade,
+.pay .payment.amount .p-autocomplete > p .fade,
+.pay .payment.details label > p .fade,
+.pay .payment.details .p-autocomplete > p .fade {
+  color: var(--txt-clr-gray);
+}
+.donation .cause.amount label .error-border,
+.donation .cause.amount .p-autocomplete .error-border, .donation .cause.details label .error-border,
+.donation .cause.details .p-autocomplete .error-border,
+.donation .amount.amount label .error-border,
+.donation .amount.amount .p-autocomplete .error-border,
+.donation .amount.details label .error-border,
+.donation .amount.details .p-autocomplete .error-border,
+.donation .details.amount label .error-border,
+.donation .details.amount .p-autocomplete .error-border,
+.donation .details.details label .error-border,
+.donation .details.details .p-autocomplete .error-border,
+.donation .payment.amount label .error-border,
+.donation .payment.amount .p-autocomplete .error-border,
+.donation .payment.details label .error-border,
+.donation .payment.details .p-autocomplete .error-border,
+.pay .cause.amount label .error-border,
+.pay .cause.amount .p-autocomplete .error-border,
+.pay .cause.details label .error-border,
+.pay .cause.details .p-autocomplete .error-border,
+.pay .amount.amount label .error-border,
+.pay .amount.amount .p-autocomplete .error-border,
+.pay .amount.details label .error-border,
+.pay .amount.details .p-autocomplete .error-border,
+.pay .details.amount label .error-border,
+.pay .details.amount .p-autocomplete .error-border,
+.pay .details.details label .error-border,
+.pay .details.details .p-autocomplete .error-border,
+.pay .payment.amount label .error-border,
+.pay .payment.amount .p-autocomplete .error-border,
+.pay .payment.details label .error-border,
+.pay .payment.details .p-autocomplete .error-border {
+  border: 1px solid var(--txt-clr-error);
+}
+.donation .cause.amount label .placeholder,
+.donation .cause.amount .p-autocomplete .placeholder, .donation .cause.details label .placeholder,
+.donation .cause.details .p-autocomplete .placeholder,
+.donation .amount.amount label .placeholder,
+.donation .amount.amount .p-autocomplete .placeholder,
+.donation .amount.details label .placeholder,
+.donation .amount.details .p-autocomplete .placeholder,
+.donation .details.amount label .placeholder,
+.donation .details.amount .p-autocomplete .placeholder,
+.donation .details.details label .placeholder,
+.donation .details.details .p-autocomplete .placeholder,
+.donation .payment.amount label .placeholder,
+.donation .payment.amount .p-autocomplete .placeholder,
+.donation .payment.details label .placeholder,
+.donation .payment.details .p-autocomplete .placeholder,
+.pay .cause.amount label .placeholder,
+.pay .cause.amount .p-autocomplete .placeholder,
+.pay .cause.details label .placeholder,
+.pay .cause.details .p-autocomplete .placeholder,
+.pay .amount.amount label .placeholder,
+.pay .amount.amount .p-autocomplete .placeholder,
+.pay .amount.details label .placeholder,
+.pay .amount.details .p-autocomplete .placeholder,
+.pay .details.amount label .placeholder,
+.pay .details.amount .p-autocomplete .placeholder,
+.pay .details.details label .placeholder,
+.pay .details.details .p-autocomplete .placeholder,
+.pay .payment.amount label .placeholder,
+.pay .payment.amount .p-autocomplete .placeholder,
+.pay .payment.details label .placeholder,
+.pay .payment.details .p-autocomplete .placeholder {
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  top: 50%;
+  left: var(--space-1);
+  transform: translate(0%, -50%);
+  z-index: 1;
+}
+.donation .cause.amount label .placeholder span,
+.donation .cause.amount .p-autocomplete .placeholder span, .donation .cause.details label .placeholder span,
+.donation .cause.details .p-autocomplete .placeholder span,
+.donation .amount.amount label .placeholder span,
+.donation .amount.amount .p-autocomplete .placeholder span,
+.donation .amount.details label .placeholder span,
+.donation .amount.details .p-autocomplete .placeholder span,
+.donation .details.amount label .placeholder span,
+.donation .details.amount .p-autocomplete .placeholder span,
+.donation .details.details label .placeholder span,
+.donation .details.details .p-autocomplete .placeholder span,
+.donation .payment.amount label .placeholder span,
+.donation .payment.amount .p-autocomplete .placeholder span,
+.donation .payment.details label .placeholder span,
+.donation .payment.details .p-autocomplete .placeholder span,
+.pay .cause.amount label .placeholder span,
+.pay .cause.amount .p-autocomplete .placeholder span,
+.pay .cause.details label .placeholder span,
+.pay .cause.details .p-autocomplete .placeholder span,
+.pay .amount.amount label .placeholder span,
+.pay .amount.amount .p-autocomplete .placeholder span,
+.pay .amount.details label .placeholder span,
+.pay .amount.details .p-autocomplete .placeholder span,
+.pay .details.amount label .placeholder span,
+.pay .details.amount .p-autocomplete .placeholder span,
+.pay .details.details label .placeholder span,
+.pay .details.details .p-autocomplete .placeholder span,
+.pay .payment.amount label .placeholder span,
+.pay .payment.amount .p-autocomplete .placeholder span,
+.pay .payment.details label .placeholder span,
+.pay .payment.details .p-autocomplete .placeholder span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause.amount label .placeholder span svg,
+.donation .cause.amount .p-autocomplete .placeholder span svg, .donation .cause.details label .placeholder span svg,
+.donation .cause.details .p-autocomplete .placeholder span svg,
+.donation .amount.amount label .placeholder span svg,
+.donation .amount.amount .p-autocomplete .placeholder span svg,
+.donation .amount.details label .placeholder span svg,
+.donation .amount.details .p-autocomplete .placeholder span svg,
+.donation .details.amount label .placeholder span svg,
+.donation .details.amount .p-autocomplete .placeholder span svg,
+.donation .details.details label .placeholder span svg,
+.donation .details.details .p-autocomplete .placeholder span svg,
+.donation .payment.amount label .placeholder span svg,
+.donation .payment.amount .p-autocomplete .placeholder span svg,
+.donation .payment.details label .placeholder span svg,
+.donation .payment.details .p-autocomplete .placeholder span svg,
+.pay .cause.amount label .placeholder span svg,
+.pay .cause.amount .p-autocomplete .placeholder span svg,
+.pay .cause.details label .placeholder span svg,
+.pay .cause.details .p-autocomplete .placeholder span svg,
+.pay .amount.amount label .placeholder span svg,
+.pay .amount.amount .p-autocomplete .placeholder span svg,
+.pay .amount.details label .placeholder span svg,
+.pay .amount.details .p-autocomplete .placeholder span svg,
+.pay .details.amount label .placeholder span svg,
+.pay .details.amount .p-autocomplete .placeholder span svg,
+.pay .details.details label .placeholder span svg,
+.pay .details.details .p-autocomplete .placeholder span svg,
+.pay .payment.amount label .placeholder span svg,
+.pay .payment.amount .p-autocomplete .placeholder span svg,
+.pay .payment.details label .placeholder span svg,
+.pay .payment.details .p-autocomplete .placeholder span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+.donation .cause.amount label .placeholder p,
+.donation .cause.amount .p-autocomplete .placeholder p, .donation .cause.details label .placeholder p,
+.donation .cause.details .p-autocomplete .placeholder p,
+.donation .amount.amount label .placeholder p,
+.donation .amount.amount .p-autocomplete .placeholder p,
+.donation .amount.details label .placeholder p,
+.donation .amount.details .p-autocomplete .placeholder p,
+.donation .details.amount label .placeholder p,
+.donation .details.amount .p-autocomplete .placeholder p,
+.donation .details.details label .placeholder p,
+.donation .details.details .p-autocomplete .placeholder p,
+.donation .payment.amount label .placeholder p,
+.donation .payment.amount .p-autocomplete .placeholder p,
+.donation .payment.details label .placeholder p,
+.donation .payment.details .p-autocomplete .placeholder p,
+.pay .cause.amount label .placeholder p,
+.pay .cause.amount .p-autocomplete .placeholder p,
+.pay .cause.details label .placeholder p,
+.pay .cause.details .p-autocomplete .placeholder p,
+.pay .amount.amount label .placeholder p,
+.pay .amount.amount .p-autocomplete .placeholder p,
+.pay .amount.details label .placeholder p,
+.pay .amount.details .p-autocomplete .placeholder p,
+.pay .details.amount label .placeholder p,
+.pay .details.amount .p-autocomplete .placeholder p,
+.pay .details.details label .placeholder p,
+.pay .details.details .p-autocomplete .placeholder p,
+.pay .payment.amount label .placeholder p,
+.pay .payment.amount .p-autocomplete .placeholder p,
+.pay .payment.details label .placeholder p,
+.pay .payment.details .p-autocomplete .placeholder p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+}
+.donation .cause.amount label .placeholder p::first-letter,
+.donation .cause.amount .p-autocomplete .placeholder p::first-letter, .donation .cause.details label .placeholder p::first-letter,
+.donation .cause.details .p-autocomplete .placeholder p::first-letter,
+.donation .amount.amount label .placeholder p::first-letter,
+.donation .amount.amount .p-autocomplete .placeholder p::first-letter,
+.donation .amount.details label .placeholder p::first-letter,
+.donation .amount.details .p-autocomplete .placeholder p::first-letter,
+.donation .details.amount label .placeholder p::first-letter,
+.donation .details.amount .p-autocomplete .placeholder p::first-letter,
+.donation .details.details label .placeholder p::first-letter,
+.donation .details.details .p-autocomplete .placeholder p::first-letter,
+.donation .payment.amount label .placeholder p::first-letter,
+.donation .payment.amount .p-autocomplete .placeholder p::first-letter,
+.donation .payment.details label .placeholder p::first-letter,
+.donation .payment.details .p-autocomplete .placeholder p::first-letter,
+.pay .cause.amount label .placeholder p::first-letter,
+.pay .cause.amount .p-autocomplete .placeholder p::first-letter,
+.pay .cause.details label .placeholder p::first-letter,
+.pay .cause.details .p-autocomplete .placeholder p::first-letter,
+.pay .amount.amount label .placeholder p::first-letter,
+.pay .amount.amount .p-autocomplete .placeholder p::first-letter,
+.pay .amount.details label .placeholder p::first-letter,
+.pay .amount.details .p-autocomplete .placeholder p::first-letter,
+.pay .details.amount label .placeholder p::first-letter,
+.pay .details.amount .p-autocomplete .placeholder p::first-letter,
+.pay .details.details label .placeholder p::first-letter,
+.pay .details.details .p-autocomplete .placeholder p::first-letter,
+.pay .payment.amount label .placeholder p::first-letter,
+.pay .payment.amount .p-autocomplete .placeholder p::first-letter,
+.pay .payment.details label .placeholder p::first-letter,
+.pay .payment.details .p-autocomplete .placeholder p::first-letter {
+  text-transform: capitalize;
+}
+.donation .cause.details .selected-causes,
+.donation .cause.details .total-charged,
+.donation .amount.details .selected-causes,
+.donation .amount.details .total-charged,
+.donation .details.details .selected-causes,
+.donation .details.details .total-charged,
+.donation .payment.details .selected-causes,
+.donation .payment.details .total-charged,
+.pay .cause.details .selected-causes,
+.pay .cause.details .total-charged,
+.pay .amount.details .selected-causes,
+.pay .amount.details .total-charged,
+.pay .details.details .selected-causes,
+.pay .details.details .total-charged,
+.pay .payment.details .selected-causes,
+.pay .payment.details .total-charged {
+  position: relative;
+  pointer-events: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  padding: calc(var(--space-2) - 4px);
+  border-radius: var(--border-radius-large);
+}
+.donation .cause.details .selected-causes span,
+.donation .cause.details .total-charged span,
+.donation .amount.details .selected-causes span,
+.donation .amount.details .total-charged span,
+.donation .details.details .selected-causes span,
+.donation .details.details .total-charged span,
+.donation .payment.details .selected-causes span,
+.donation .payment.details .total-charged span,
+.pay .cause.details .selected-causes span,
+.pay .cause.details .total-charged span,
+.pay .amount.details .selected-causes span,
+.pay .amount.details .total-charged span,
+.pay .details.details .selected-causes span,
+.pay .details.details .total-charged span,
+.pay .payment.details .selected-causes span,
+.pay .payment.details .total-charged span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause.details .selected-causes span svg,
+.donation .cause.details .total-charged span svg,
+.donation .amount.details .selected-causes span svg,
+.donation .amount.details .total-charged span svg,
+.donation .details.details .selected-causes span svg,
+.donation .details.details .total-charged span svg,
+.donation .payment.details .selected-causes span svg,
+.donation .payment.details .total-charged span svg,
+.pay .cause.details .selected-causes span svg,
+.pay .cause.details .total-charged span svg,
+.pay .amount.details .selected-causes span svg,
+.pay .amount.details .total-charged span svg,
+.pay .details.details .selected-causes span svg,
+.pay .details.details .total-charged span svg,
+.pay .payment.details .selected-causes span svg,
+.pay .payment.details .total-charged span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+.donation .cause.details .selected-causes p,
+.donation .cause.details .total-charged p,
+.donation .amount.details .selected-causes p,
+.donation .amount.details .total-charged p,
+.donation .details.details .selected-causes p,
+.donation .details.details .total-charged p,
+.donation .payment.details .selected-causes p,
+.donation .payment.details .total-charged p,
+.pay .cause.details .selected-causes p,
+.pay .cause.details .total-charged p,
+.pay .amount.details .selected-causes p,
+.pay .amount.details .total-charged p,
+.pay .details.details .selected-causes p,
+.pay .details.details .total-charged p,
+.pay .payment.details .selected-causes p,
+.pay .payment.details .total-charged p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+}
+.donation .cause.details .selected-causes p::first-letter,
+.donation .cause.details .total-charged p::first-letter,
+.donation .amount.details .selected-causes p::first-letter,
+.donation .amount.details .total-charged p::first-letter,
+.donation .details.details .selected-causes p::first-letter,
+.donation .details.details .total-charged p::first-letter,
+.donation .payment.details .selected-causes p::first-letter,
+.donation .payment.details .total-charged p::first-letter,
+.pay .cause.details .selected-causes p::first-letter,
+.pay .cause.details .total-charged p::first-letter,
+.pay .amount.details .selected-causes p::first-letter,
+.pay .amount.details .total-charged p::first-letter,
+.pay .details.details .selected-causes p::first-letter,
+.pay .details.details .total-charged p::first-letter,
+.pay .payment.details .selected-causes p::first-letter,
+.pay .payment.details .total-charged p::first-letter {
+  text-transform: capitalize;
+}
+.donation .cause.details .selected-causes #amount,
+.donation .cause.details .total-charged #amount,
+.donation .amount.details .selected-causes #amount,
+.donation .amount.details .total-charged #amount,
+.donation .details.details .selected-causes #amount,
+.donation .details.details .total-charged #amount,
+.donation .payment.details .selected-causes #amount,
+.donation .payment.details .total-charged #amount,
+.pay .cause.details .selected-causes #amount,
+.pay .cause.details .total-charged #amount,
+.pay .amount.details .selected-causes #amount,
+.pay .amount.details .total-charged #amount,
+.pay .details.details .selected-causes #amount,
+.pay .details.details .total-charged #amount,
+.pay .payment.details .selected-causes #amount,
+.pay .payment.details .total-charged #amount {
+  margin-left: auto;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+}
+.donation .cause.details .total-charged,
+.donation .amount.details .total-charged,
+.donation .details.details .total-charged,
+.donation .payment.details .total-charged,
+.pay .cause.details .total-charged,
+.pay .amount.details .total-charged,
+.pay .details.details .total-charged,
+.pay .payment.details .total-charged {
+  margin-top: var(--space-1);
+}
+.donation .cause.details .total-charged p,
+.donation .amount.details .total-charged p,
+.donation .details.details .total-charged p,
+.donation .payment.details .total-charged p,
+.pay .cause.details .total-charged p,
+.pay .amount.details .total-charged p,
+.pay .details.details .total-charged p,
+.pay .payment.details .total-charged p {
+  font-family: var(--arabic-fm-b);
+}
+.donation .cause.details .total-charged::after,
+.donation .amount.details .total-charged::after,
+.donation .details.details .total-charged::after,
+.donation .payment.details .total-charged::after,
+.pay .cause.details .total-charged::after,
+.pay .amount.details .total-charged::after,
+.pay .details.details .total-charged::after,
+.pay .payment.details .total-charged::after {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--space-3) / 2);
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--secondary-clr);
+}
+.donation .cause.details label input,
+.donation .amount.details label input,
+.donation .details.details label input,
+.donation .payment.details label input,
+.pay .cause.details label input,
+.pay .amount.details label input,
+.pay .details.details label input,
+.pay .payment.details label input {
+  background: var(--accent-clr);
+}
+.donation .cause.details label .placeholder span svg,
+.donation .amount.details label .placeholder span svg,
+.donation .details.details label .placeholder span svg,
+.donation .payment.details label .placeholder span svg,
+.pay .cause.details label .placeholder span svg,
+.pay .amount.details label .placeholder span svg,
+.pay .details.details label .placeholder span svg,
+.pay .payment.details label .placeholder span svg {
+  stroke: var(--svg-fill-gray);
+}
+.donation .cause.details label .placeholder p,
+.donation .amount.details label .placeholder p,
+.donation .details.details label .placeholder p,
+.donation .payment.details label .placeholder p,
+.pay .cause.details label .placeholder p,
+.pay .amount.details label .placeholder p,
+.pay .details.details label .placeholder p,
+.pay .payment.details label .placeholder p {
+  color: var(--txt-clr-gray);
+}
+.donation .cause.details .twoInputs,
+.donation .amount.details .twoInputs,
+.donation .details.details .twoInputs,
+.donation .payment.details .twoInputs,
+.pay .cause.details .twoInputs,
+.pay .amount.details .twoInputs,
+.pay .details.details .twoInputs,
+.pay .payment.details .twoInputs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.donation .cause.details .twoInputs label,
+.donation .amount.details .twoInputs label,
+.donation .details.details .twoInputs label,
+.donation .payment.details .twoInputs label,
+.pay .cause.details .twoInputs label,
+.pay .amount.details .twoInputs label,
+.pay .details.details .twoInputs label,
+.pay .payment.details .twoInputs label {
+  flex-grow: 1;
+}
+.donation .cause.details > span,
+.donation .amount.details > span,
+.donation .details.details > span,
+.donation .payment.details > span,
+.pay .cause.details > span,
+.pay .amount.details > span,
+.pay .details.details > span,
+.pay .payment.details > span {
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.donation .cause.details > span svg,
+.donation .amount.details > span svg,
+.donation .details.details > span svg,
+.donation .payment.details > span svg,
+.pay .cause.details > span svg,
+.pay .amount.details > span svg,
+.pay .details.details > span svg,
+.pay .payment.details > span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-gray);
+}
+.donation .cause.details > span span,
+.donation .amount.details > span span,
+.donation .details.details > span span,
+.donation .payment.details > span span,
+.pay .cause.details > span span,
+.pay .amount.details > span span,
+.pay .details.details > span span,
+.pay .payment.details > span span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause.payment button span svg,
+.donation .amount.payment button span svg,
+.donation .details.payment button span svg,
+.donation .payment.payment button span svg,
+.pay .cause.payment button span svg,
+.pay .amount.payment button span svg,
+.pay .details.payment button span svg,
+.pay .payment.payment button span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.donation .cause.payment button p::first-letter,
+.donation .amount.payment button p::first-letter,
+.donation .details.payment button p::first-letter,
+.donation .payment.payment button p::first-letter,
+.pay .cause.payment button p::first-letter,
+.pay .amount.payment button p::first-letter,
+.pay .details.payment button p::first-letter,
+.pay .payment.payment button p::first-letter {
+  text-transform: capitalize;
+}
+.donation .cause.payment span,
+.donation .amount.payment span,
+.donation .details.payment span,
+.donation .payment.payment span,
+.pay .cause.payment span,
+.pay .amount.payment span,
+.pay .details.payment span,
+.pay .payment.payment span {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.donation .cause.review > div,
+.donation .amount.review > div,
+.donation .details.review > div,
+.donation .payment.review > div,
+.pay .cause.review > div,
+.pay .amount.review > div,
+.pay .details.review > div,
+.pay .payment.review > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-medium);
+}
+.donation .cause.review > div p,
+.donation .amount.review > div p,
+.donation .details.review > div p,
+.donation .payment.review > div p,
+.pay .cause.review > div p,
+.pay .amount.review > div p,
+.pay .details.review > div p,
+.pay .payment.review > div p {
+  color: var(--txt-clr);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.donation .cause.review > div p::first-letter,
+.donation .amount.review > div p::first-letter,
+.donation .details.review > div p::first-letter,
+.donation .payment.review > div p::first-letter,
+.pay .cause.review > div p::first-letter,
+.pay .amount.review > div p::first-letter,
+.pay .details.review > div p::first-letter,
+.pay .payment.review > div p::first-letter {
+  text-transform: capitalize;
+}
+.donation .cause.review > div span,
+.donation .amount.review > div span,
+.donation .details.review > div span,
+.donation .payment.review > div span,
+.pay .cause.review > div span,
+.pay .amount.review > div span,
+.pay .details.review > div span,
+.pay .payment.review > div span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause.review > div span svg,
+.donation .amount.review > div span svg,
+.donation .details.review > div span svg,
+.donation .payment.review > div span svg,
+.pay .cause.review > div span svg,
+.pay .amount.review > div span svg,
+.pay .details.review > div span svg,
+.pay .payment.review > div span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill);
+  fill: none;
+}
+.donation .donateBtn,
+.pay .donateBtn {
+  width: 100%;
+  background: var(--primary-clr);
+  border-radius: var(--border-radius-large);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-light);
+  text-align: center;
+  padding: calc(var(--space-2) - 4px);
+}
+.donation .backBtn,
+.pay .backBtn {
+  margin-inline: auto;
+  border-radius: var(--border-radius-large);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  text-align: center;
+  padding: var(--space-1) var(--space-2);
+}
+.donation .backBtn::first-letter,
+.pay .backBtn::first-letter {
+  text-transform: capitalize;
+}
+
+#message {
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  text-align: center;
+  color: var(--txt-clr-gray);
+}
+#message::first-letter {
+  text-transform: capitalize;
+}
+
+.success {
+  min-height: 50dvh;
+  width: clamp(250px, 100%, 500px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.success .card {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.success .card .top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.success .card .top .logo {
+  display: grid;
+  place-content: center;
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-circle);
+  padding: var(--space-2);
+}
+.success .card .top .logo svg {
+  scale: 1.5;
+  color: var(--secondary-clr);
+}
+.success .card .top > .title {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+}
+.success .card .top > .title h1 {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+}
+.success .card .top > .title h1::first-letter {
+  text-transform: capitalize;
+}
+.success .card .top > .title span {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.success .card .top > .title span::first-letter {
+  text-transform: capitalize;
+}
+.success .card .message {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-1) var(--space-2);
+}
+.success .card .message span {
+  display: grid;
+  place-content: center;
+}
+.success .card .message span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.success .card .message p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+}
+.success .card .message p:first-letter {
+  text-transform: capitalize;
+}
+.success .card .impact {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+}
+.success .card .impact p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+}
+.success .card .impact p::first-letter {
+  text-transform: capitalize;
+}
+.success .card .impact .impacts {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+.success .card .impact .impacts div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  border: 1px dashed var(--border-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-very-large);
+}
+.success .card .impact .impacts div > p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-l);
+  text-transform: capitalize;
+}
+.success .card .impact .impacts div span {
+  display: grid;
+  place-content: center;
+}
+.success .card .impact .impacts div span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill);
+  fill: var(--svg-fill);
+}
+.success .card .next {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  padding: var(--space-2) var(--space-2);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+}
+.success .card .next p {
+  width: 100%;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+}
+.success .card .next p::first-letter {
+  text-transform: capitalize;
+}
+.success .card .next > span {
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.success .card .next > span::first-letter {
+  text-transform: capitalize;
+}
+.success .card .next a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+}
+.success .card .next a span {
+  display: grid;
+  place-content: center;
+}
+.success .card .next a span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.success .card .next a p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+}
+.success .card .next #main {
+  background: var(--primary-clr);
+}
+.success .card .next #main p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-light);
+}
+.success .card .next #main span svg {
+  stroke: var(--svg-fill-light);
+}
+.success .card .title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.success .card .title p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.success .card .title a {
+  padding: var(--space-1) var(--space-2);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.success .card .title a p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.success .card .title a span {
+  display: grid;
+  place-content: center;
+}
+.success .card .title a span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+
+.Article article {
+  width: clamp(250px, 100%, 600px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.Article article img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  max-height: 250px;
+  border-radius: var(--border-radius-large);
+}
+.Article article h1 {
+  font-size: var(--font-h4);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h4);
+  line-height: var(--line-h4);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.Article article .user_info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  color: var(--txt-clr-gray);
+}
+.Article article .user_info #avatar {
+  display: grid;
+  place-content: center;
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-circle);
+  padding: var(--space-mini);
+}
+.Article article .user_info #avatar svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-gray);
+}
+.Article article .user_info p {
+  text-transform: capitalize;
+}
+.Article article .user_info p,
+.Article article .user_info #date {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.Article article > .impacts {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+.Article article > .impacts div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-1) var(--space-2);
+}
+.Article article > .impacts div p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  text-transform: capitalize;
+}
+.Article article .card {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-2) calc(var(--space-2) - 1px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-mini);
+  flex-wrap: wrap;
+}
+.Article article .card > span {
+  position: relative;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.Article article .card > span::first-letter {
+  text-transform: capitalize;
+}
+.Article article .card > span::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-1 * var(--space-3) / 2);
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--border-clr);
+}
+.Article article .card > p {
+  width: 100%;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  margin-top: var(--space-2);
+}
+.Article article .card > p::first-letter {
+  text-transform: capitalize;
+}
+.Article article .card ul {
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.Article article .card ul li {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+}
+.Article article .card ul li::first-letter {
+  text-transform: capitalize;
+}
+.Article article .card .top {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.Article article .card .top > span {
+  position: relative;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.Article article .card .top > span::first-letter {
+  text-transform: capitalize;
+}
+.Article article .card .top .title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.Article article .card .top .title p {
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.Article article .card .top .title a {
+  padding: var(--space-1) var(--space-2);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.Article article .card .top .title a p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  text-transform: capitalize;
+}
+.Article article .card .top .title a span {
+  display: grid;
+  place-content: center;
+}
+.Article article .card .top .title a span svg {
+  width: var(--space-2);
+  fill: none;
+  stroke: var(--svg-fill-sec);
+}
+.Article article .card .note {
+  width: 100%;
+  margin-top: var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--border-radius-large);
+}
+.Article article .card .note span {
+  display: grid;
+  place-content: center;
+}
+.Article article .card .note span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.Article article .card .note p {
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+}
+.Article article .card .note p::first-letter {
+  text-transform: capitalize;
+}
+.Article article .card > .impacts {
+  margin-top: var(--space-1);
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+.Article article .card > .impacts div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-medium);
+  padding: var(--space-1) var(--space-1);
+}
+.Article article .card > .impacts div p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  text-transform: capitalize;
+}
+.Article article .card > .impacts div span {
+  display: grid;
+  place-content: center;
+}
+.Article article .card > .impacts div span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.Article article .card a,
+.Article article .card button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  padding: var(--space-1) var(--space-2);
+}
+.Article article .card a p,
+.Article article .card button p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+.Article article .card a span,
+.Article article .card button span {
+  display: grid;
+  place-content: center;
+}
+.Article article .card a span svg,
+.Article article .card button span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+  fill: none;
+}
+.Article article .card #main {
+  background: var(--primary-clr);
+}
+.Article article .card #main p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-light);
+  font-family: var(--arabic-fm-b);
+}
+.Article article .card #main span svg {
+  stroke: var(--svg-fill-light);
+}
+
+footer {
+  margin-top: auto;
+  position: relative;
+  width: clamp(250px, 100%, 550px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-2);
+  border-top: 1px solid var(--border-clr);
+}
+footer .contact {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+footer .contact div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+footer .contact div span {
+  display: grid;
+  place-content: center;
+}
+footer .contact div span svg {
+  stroke: var(--svg-fill-gray);
+  width: var(--svg-size);
+}
+footer .contact div a {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+footer p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+
+.fillNone svg {
+  fill: none !important;
+}
+
+.firstLetter::first-letter {
+  text-transform: capitalize !important;
+}/*# sourceMappingURL=main.css.map */

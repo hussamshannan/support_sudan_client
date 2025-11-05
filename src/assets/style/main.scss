@@ -1,0 +1,1155 @@
+@import "./settings/settings";
+
+.container {
+  @include flex(center, flex-start, column, 0);
+  min-height: 100dvh;
+  > div {
+    @include flex(center, flex-start, column, 0);
+  }
+}
+nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--space-1);
+  @include flex(center, space-between, row, var(--space-1));
+  border-bottom: 1px solid var(--border-clr);
+  z-index: 10;
+  background: var(--body-bg-clr);
+  a {
+    border-radius: var(--border-radius-very-large);
+    padding: var(--space-1);
+    @include p();
+    @include flex(center, space-between, row, var(--space-1));
+    &::first-letter {
+      text-transform: capitalize;
+    }
+    span {
+      @include center();
+      svg {
+        width: var(--svg-size);
+      }
+    }
+    p {
+      @include center();
+    }
+  }
+  .donate {
+    background: var(--primary-clr);
+    p {
+      color: var(--txt-clr-light);
+    }
+    svg {
+      stroke: var(--svg-fill-light);
+      fill: none;
+    }
+  }
+  .logo {
+    span {
+      padding: var(--space-mini);
+      border-radius: var(--border-radius-medium);
+      background: var(--secondary-clr);
+      svg {
+        stroke: var(--svg-fill);
+      }
+    }
+    p {
+      @include p();
+      color: var(--txt-clr);
+      text-transform: capitalize;
+      font-family: var(--arabic-fm-b);
+    }
+  }
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 50dvh;
+  @include flex(center, flex-start, column, var(--space-1));
+  padding: var(--space-2) var(--space-1);
+}
+.porgress {
+  //   width: clamp(250px, 100%, 550px);
+  @include flex(center, center, row, var(--space-1));
+  margin-right: auto;
+  span {
+    padding: var(--space-mini);
+    background: var(--secondary-clr);
+    border-radius: var(--border-radius-circle);
+    transition: background 0.3s ease 0.3s;
+  }
+  p {
+    @include small();
+    &::first-letter {
+      text-transform: capitalize;
+    }
+    transition: color 0.3s ease 0.3s;
+  }
+}
+.home,
+.updates {
+  .hero {
+    position: relative;
+    width: clamp(250px, 100%, 500px);
+    @include flex(flex-start, flex-start, column, var(--space-2));
+
+    > img {
+      width: 100%;
+      border-radius: var(--border-radius-large);
+    }
+    h2 {
+      @include h3();
+      color: var(--txt-clr);
+      font-family: var(--arabic-fm-b);
+
+      text-transform: capitalize;
+    }
+    > p {
+      @include small();
+      color: var(--txt-clr-gray);
+    }
+    .links {
+      width: 100%;
+      @include flex(center, space-between, row, var(--space-2));
+      a {
+        width: 100%;
+        border-radius: var(--border-radius-very-large);
+        @include center();
+        @include p();
+
+        text-transform: capitalize;
+        padding: var(--space-1);
+        &:nth-child(1) {
+          background: var(--primary-clr);
+          color: var(--txt-clr-light);
+        }
+        &:nth-child(2) {
+          background: var(--secondary-clr);
+        }
+      }
+    }
+    .support {
+      width: 100%;
+      position: relative;
+      border-radius: var(--border-radius-large);
+      border: 1px solid var(--border-clr);
+      padding: var(--space-1);
+      @include flex(flex-start, flex-start, row, var(--space-1));
+      > span {
+        @include center();
+        padding: var(--space-1);
+        svg {
+          fill: var(--svg-fill);
+          scale: 1.2;
+        }
+      }
+      .text {
+        span {
+          @include small();
+          font-family: var(--arabic-fm-b);
+          text-transform: capitalize;
+        }
+        p {
+          @include small();
+          color: var(--txt-clr-gray);
+        }
+      }
+    }
+    .card {
+      width: clamp(250px, 100%, 500px);
+      border: 1px solid var(--border-clr);
+      border-radius: var(--border-radius-large);
+      padding: var(--space-1);
+      @include flex(flex-start, center, row, var(--space-2));
+      flex-wrap: wrap;
+      > .title {
+        width: 100%;
+        padding: var(--space-1) 0;
+
+        @include flex(center, space-between, row, var(--space-2));
+        flex-wrap: wrap;
+        > p {
+          @include p();
+          color: var(--txt-clr);
+          font-family: var(--arabic-fm-b);
+          text-transform: capitalize;
+          padding: 0 var(--space-1);
+        }
+        a,
+        button {
+          padding: var(--space-1) var(--space-2);
+          background: var(--secondary-clr);
+          border-radius: var(--border-radius-large);
+          @include flex(center, center, row, var(--space-1));
+          p {
+            @include small();
+            color: var(--txt-clr-sec);
+            font-family: var(--arabic-fm-b);
+            text-transform: capitalize;
+          }
+          span {
+            @include center();
+            svg {
+              width: calc(var(--space-5) / 2);
+              fill: none;
+              stroke: var(--svg-fill-sec);
+              fill: var(--svg-fill-sec);
+            }
+          }
+        }
+        h1 {
+          width: 100%;
+          @include h4();
+          font-family: var(--arabic-fm-b);
+          color: var(--txt-clr);
+          text-transform: capitalize;
+          padding: 0 var(--space-1);
+        }
+        .top {
+          width: 100%;
+          @include flex(center, space-between, row, var(--space-mini));
+          flex-wrap: wrap;
+        }
+
+        > span {
+          position: relative;
+          width: 100%;
+          @include small();
+          color: var(--txt-clr-gray);
+          padding: 0 var(--space-1);
+
+          &::first-letter {
+            text-transform: capitalize;
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: calc(-1 * var(--space-3) / 2);
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--border-clr);
+          }
+        }
+      }
+
+      .updates {
+        width: 100%;
+        @include flex(flex-start, flex-start, column, var(--space-1));
+        .news {
+          width: 100%;
+          @include flex(flex-start, flex-start, row, var(--space-2));
+          border: 1px solid var(--border-clr);
+          padding: var(--space-1);
+          border-radius: var(--border-radius-large);
+          .img {
+            width: 120px;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: var(--border-radius-medium);
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: var(--border-radius-medium);
+            }
+          }
+          .text {
+            @include flex(flex-start, flex-start, column, var(--space-1));
+            flex-grow: 1;
+            .title {
+              width: 100%;
+              p {
+                @include small();
+                color: var(--txt-clr);
+                font-family: var(--arabic-fm-b);
+                text-transform: capitalize;
+              }
+            }
+            .date {
+              width: 100%;
+              @include flex(center, flex-start, row, var(--space-1));
+              color: var(--txt-clr-gray);
+              font-family: var(--arabic-fm-l);
+              span {
+                color: var(--txt-clr-gray);
+                font-family: var(--arabic-fm-l);
+
+                @include small();
+              }
+            }
+            .desc {
+              width: 100%;
+              p {
+                @include small();
+                color: var(--txt-clr-gray);
+                text-transform: capitalize;
+              }
+            }
+          }
+          span {
+            @include center();
+            margin-block: auto;
+            svg {
+              width: var(--space-2);
+              stroke: var(--svg-fill-gray);
+              fill: none;
+            }
+          }
+        }
+      }
+      .progress {
+        width: 100%;
+        border: 1px solid var(--border-clr);
+        border-radius: var(--border-radius-large);
+        padding: var(--space-1);
+        @include flex(flex-start, flex-start, column, var(--space-1));
+        .top {
+          width: 100%;
+          @include flex(center, space-between, row, var(--space-1));
+          .text {
+            @include flex(center, center, row, var(--space-1));
+            span {
+              @include center();
+              svg {
+                width: var(--svg-size);
+                fill: var(--svg-fill);
+              }
+            }
+            p {
+              @include small();
+              color: var(--txt-clr);
+              font-family: var(--arabic-fm-b);
+              text-transform: capitalize;
+            }
+          }
+          .amount {
+            padding: var(--space-1) var(--space-2);
+            background: var(--secondary-clr);
+            border-radius: var(--border-radius-large);
+            @include flex(center, center, row, var(--space-1));
+            p,
+            span {
+              @include small();
+              color: var(--txt-clr-sec);
+              font-family: var(--arabic-fm-l);
+              text-transform: capitalize;
+            }
+          }
+        }
+        .bar {
+          width: 100%;
+          height: var(--space-1);
+          background: var(--secondary-clr);
+          border-radius: var(--border-radius-large);
+          overflow: hidden;
+          .fill {
+            height: 100%;
+            background: var(--bar-clr);
+            border-radius: var(--border-radius-large);
+            width: 0%;
+            transition: width 0.5s ease;
+          }
+        }
+        .bottom {
+          width: 100%;
+          @include flex(center, flex-start, row, var(--space-1));
+          color: var(--txt-clr-gray);
+
+          p,
+          span {
+            @include small();
+            color: var(--txt-clr-gray);
+
+            text-transform: capitalize;
+          }
+        }
+        > a {
+          width: 100%;
+          text-align: center;
+          @include p();
+          color: var(--txt-clr-light);
+          background: var(--primary-clr);
+          padding: var(--space-1);
+          border-radius: var(--border-radius-large);
+          span {
+            text-transform: capitalize;
+            color: var(--txt-clr-light);
+          }
+        }
+      }
+    }
+  }
+}
+
+.donation,
+.pay {
+  width: clamp(250px, 100%, 600px);
+  @include flex(flex-start, flex-start, column, var(--space-2));
+  h2 {
+    @include h3();
+    color: var(--txt-clr);
+    font-family: var(--arabic-fm-b);
+    // &::first-letter{
+    text-transform: capitalize;
+    // }
+  }
+  .cause,
+  .amount,
+  .details,
+  .payment {
+    width: 100%;
+    padding: var(--space-2);
+    border: 1px solid var(--border-clr);
+    border-radius: var(--border-radius-large);
+    @include flex(center, flex-start, row, var(--space-2));
+    flex-wrap: wrap;
+
+    > p {
+      width: 100%;
+      @include p();
+
+      color: var(--txt-clr);
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+    button,
+    a {
+      padding: var(--space-1) var(--space-2);
+      @include flex(center, center, row, var(--space-1));
+      background: var(--secondary-clr);
+      border-radius: var(--border-radius-large);
+      transition: background 0.3s ease;
+      p {
+        @include small();
+        color: var(--txt-clr-sec);
+        transition: color 0.3s ease;
+      }
+      span {
+        @include center();
+        svg {
+          fill: var(--svg-fill-sec);
+          transition: fill 0.3s ease;
+        }
+      }
+      &.active {
+        background: var(--primary-clr);
+        p {
+          color: var(--txt-clr-light);
+        }
+        span {
+          svg {
+            fill: var(--svg-fill-light);
+            stroke: var(--svg-fill-light) !important;
+          }
+        }
+      }
+    }
+    &.amount,
+    &.details {
+      > button {
+        padding: calc(var(--space-2) - 4px);
+        flex-grow: 1;
+      }
+
+      label,
+      .p-autocomplete {
+        position: relative;
+        width: 100%;
+        border-radius: var(--border-radius-large);
+        input {
+          width: 100%;
+      
+          border-radius: var(--border-radius-large);
+          border: 1px solid var(--border-clr);
+          outline: none;
+          @include p();
+          color: var(--txt-clr-sec);
+          padding: var(--space-1);
+        }
+
+        > p {
+          position: relative;
+          background: transparent;
+          @include flex(center, flex-start, row, var(--space-1));
+
+          width: 100%;
+          border-radius: var(--border-radius-large);
+          border: 1px solid var(--border-clr);
+          outline: none;
+          @include small();
+          color: var(--txt-clr);
+          padding: var(--space-1);
+          //    &::first-letter{
+          text-transform: capitalize;
+          //   }
+          button {
+            background: transparent;
+            padding: var(--space-mini);
+            &::first-letter {
+              text-transform: capitalize;
+            }
+            margin-left: auto;
+          }
+          .fade {
+            color: var(--txt-clr-gray);
+          }
+        }
+        .error-border {
+          border: 1px solid var(--txt-clr-error);
+        }
+        .placeholder {
+          position: absolute;
+          pointer-events: none;
+          width: 100%;
+          @include flex(center, flex-start, row, var(--space-1));
+          top: 50%;
+          left: var(--space-1);
+          transform: translate(0%, -50%);
+          z-index: 1;
+          span {
+            @include center();
+            svg {
+              width: var(--space-2);
+              stroke: var(--svg-fill-sec);
+            }
+          }
+          p {
+            @include small();
+            color: var(--txt-clr-sec);
+            &::first-letter {
+              text-transform: capitalize;
+            }
+          }
+        }
+      }
+    }
+    &.details {
+      .selected-causes,
+      .total-charged {
+        position: relative;
+        pointer-events: none;
+        width: 100%;
+        @include flex(center, flex-start, row, var(--space-1));
+        background: var(--secondary-clr);
+        padding: calc(var(--space-2) - 4px);
+        border-radius: var(--border-radius-large);
+        span {
+          @include center();
+          svg {
+            width: var(--space-2);
+            stroke: var(--svg-fill-sec);
+          }
+        }
+        p {
+          @include small();
+          color: var(--txt-clr-sec);
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+        #amount {
+          margin-left: auto;
+          @include small();
+          color: var(--txt-clr-sec);
+        }
+      }
+      .total-charged {
+        margin-top: var(--space-1);
+        p {
+          font-family: var(--arabic-fm-b);
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          top: calc(-1 * var(--space-3) / 2);
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: var(--secondary-clr);
+        }
+      }
+
+      label {
+        input {
+          background: var(--accent-clr);
+        }
+        .placeholder {
+          span {
+            svg {
+              stroke: var(--svg-fill-gray);
+            }
+          }
+          p {
+            color: var(--txt-clr-gray);
+          }
+        }
+      }
+      .twoInputs {
+        width: 100%;
+        @include flex(center, center, row, var(--space-1));
+
+        label {
+          flex-grow: 1;
+        }
+      }
+      > span {
+        width: 100%;
+
+        @include small();
+        color: var(--txt-clr-gray);
+
+        @include flex(center, flex-start, row, var(--space-1));
+        svg {
+          width: var(--space-2);
+          stroke: var(--svg-fill-gray);
+        }
+        span {
+          @include center();
+        }
+      }
+    }
+    &.payment {
+      button {
+        span {
+          svg {
+            width: var(--svg-size);
+            stroke: var(--svg-fill-sec);
+          }
+        }
+        p {
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+      span {
+        @include small();
+        color: var(--txt-clr-gray);
+      }
+    }
+    &.review {
+      > div {
+        @include flex(center, space-between, row, var(--space-1));
+
+        padding: var(--space-1);
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-medium);
+        p {
+          color: var(--txt-clr);
+          @include p();
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+        span {
+          @include center();
+          svg {
+            width: var(--space-2);
+            stroke: var(--svg-fill);
+            fill: none;
+          }
+        }
+      }
+    }
+  }
+  .donateBtn {
+    width: 100%;
+    background: var(--primary-clr);
+    border-radius: var(--border-radius-large);
+    @include p();
+    color: var(--txt-clr-light);
+    text-align: center;
+    padding: calc(var(--space-2) - 4px);
+  }
+  .backBtn {
+    margin-inline: auto;
+    border-radius: var(--border-radius-large);
+    @include p();
+    color: var(--txt-clr);
+    text-align: center;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+    padding: var(--space-1) var(--space-2);
+  }
+}
+#message {
+  width: 100%;
+  @include small();
+  text-align: center;
+  color: var(--txt-clr-gray);
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+.success {
+  min-height: 50dvh;
+  width: clamp(250px, 100%, 500px);
+  @include flex(center, flex-start, column, var(--space-2));
+  .card {
+    width: 100%;
+    border: 1px solid var(--border-clr);
+    border-radius: var(--border-radius-large);
+    padding: var(--space-1);
+    @include flex(flex-start, center, row, var(--space-2));
+    flex-wrap: wrap;
+
+    .top {
+      width: 100%;
+      @include flex(center, center, row, var(--space-1));
+      .logo {
+        @include center();
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-circle);
+        padding: var(--space-2);
+        svg {
+          scale: 1.5;
+          color: var(--secondary-clr);
+        }
+      }
+      > .title {
+        flex-grow: 1;
+        position: relative;
+        @include flex(flex-start, center, column, 0);
+        h1 {
+          @include h6();
+          font-family: var(--arabic-fm-b);
+          color: var(--txt-clr);
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+        span {
+          @include small();
+          color: var(--txt-clr-gray);
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+    .message {
+      width: 100%;
+      @include flex(center, flex-start, row, var(--space-1));
+      background: var(--secondary-clr);
+      border-radius: var(--border-radius-large);
+      padding: var(--space-1) var(--space-2);
+      span {
+        @include center();
+        svg {
+          width: var(--svg-size);
+          stroke: var(--svg-fill-sec);
+        }
+      }
+      p {
+        @include p();
+        color: var(--txt-clr-sec);
+        &:first-letter {
+          text-transform: capitalize;
+        }
+      }
+    }
+    .impact {
+      width: 100%;
+      @include flex(flex-start, flex-start, column, var(--space-1));
+      padding: var(--space-2) var(--space-2);
+      border: 1px solid var(--border-clr);
+      border-radius: var(--border-radius-large);
+      p {
+        @include p();
+        color: var(--txt-clr);
+        font-family: var(--arabic-fm-b);
+        &::first-letter {
+          text-transform: capitalize;
+        }
+      }
+      .impacts {
+        @include flex(flex-start, flex-start, column, var(--space-1));
+        width: 100%;
+        div {
+          width: 100%;
+          @include flex(center, flex-start, row, var(--space-1));
+          border: 1px dashed var(--border-clr);
+          padding: var(--space-1);
+          border-radius: var(--border-radius-very-large);
+          > p {
+            @include p();
+            color: var(--txt-clr);
+            font-family: var(--arabic-fm-l);
+            text-transform: capitalize;
+          }
+          span {
+            @include center();
+            svg {
+              width: var(--svg-size);
+              stroke: var(--svg-fill);
+              fill: var(--svg-fill);
+            }
+          }
+        }
+      }
+    }
+    .next {
+      width: 100%;
+      @include flex(center, flex-start, row, var(--space-1));
+      flex-wrap: wrap;
+      padding: var(--space-2) var(--space-2);
+      border: 1px solid var(--border-clr);
+      border-radius: var(--border-radius-large);
+      p {
+        width: 100%;
+        @include p();
+        color: var(--txt-clr);
+        font-family: var(--arabic-fm-b);
+        &::first-letter {
+          text-transform: capitalize;
+        }
+      }
+      > span {
+        width: 100%;
+        @include small();
+        color: var(--txt-clr-gray);
+        &::first-letter {
+          text-transform: capitalize;
+        }
+      }
+      a {
+        @include flex(center, center, row, var(--space-1));
+        padding: var(--space-1) var(--space-1);
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-large);
+        span {
+          @include center();
+          svg {
+            width: var(--svg-size);
+            stroke: var(--svg-fill-sec);
+          }
+        }
+        p {
+          @include small();
+          color: var(--txt-clr-sec);
+          // text-transform: capitalize;
+        }
+      }
+      #main {
+        background: var(--primary-clr);
+        p {
+          @include p();
+          color: var(--txt-clr-light);
+          // text-transform: capitalize;
+        }
+        span {
+          svg {
+            stroke: var(--svg-fill-light);
+          }
+        }
+      }
+    }
+    .title {
+      width: 100%;
+      @include flex(center, space-between, row, var(--space-1));
+      p {
+        @include p();
+        color: var(--txt-clr);
+        font-family: var(--arabic-fm-b);
+        text-transform: capitalize;
+      }
+      a {
+        padding: var(--space-1) var(--space-2);
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-large);
+        @include flex(center, center, row, var(--space-1));
+        p {
+          @include small();
+          color: var(--txt-clr-sec);
+          font-family: var(--arabic-fm-b);
+          text-transform: capitalize;
+        }
+        span {
+          @include center();
+          svg {
+            width: var(--space-2);
+            stroke: var(--svg-fill-sec);
+          }
+        }
+      }
+    }
+  }
+}
+.Article {
+  article {
+    width: clamp(250px, 100%, 600px);
+    @include flex(flex-start, flex-start, column, var(--space-2));
+    img {
+      object-fit: cover;
+      width: 100%;
+      max-height: 250px;
+      border-radius: var(--border-radius-large);
+    }
+    h1 {
+      @include h4();
+      color: var(--txt-clr);
+      font-family: var(--arabic-fm-b);
+      text-transform: capitalize;
+    }
+    .user_info {
+      width: 100%;
+      @include flex(center, flex-start, row, var(--space-1));
+      color: var(--txt-clr-gray);
+
+      #avatar {
+        @include center();
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-circle);
+        padding: var(--space-mini);
+        svg {
+          width: var(--svg-size);
+          stroke: var(--svg-fill-gray);
+        }
+      }
+      p {
+        text-transform: capitalize;
+      }
+      p,
+      #date {
+        @include small();
+        color: var(--txt-clr-gray);
+      }
+    }
+    > .impacts {
+      width: 100%;
+      @include flex(flex-start, flex-start, row, var(--space-1));
+      flex-wrap: wrap;
+      div {
+        @include flex(center, center, row, var(--space-1));
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-large);
+        padding: var(--space-1) var(--space-2);
+        p {
+          @include small();
+          color: var(--txt-clr-sec);
+          text-transform: capitalize;
+        }
+      }
+    }
+    .card {
+      width: 100%;
+      border: 1px solid var(--border-clr);
+      border-radius: var(--border-radius-large);
+      padding: var(--space-2) calc(var(--space-2) - 1px);
+      @include flex(flex-start, flex-start, row, var(--space-mini));
+      flex-wrap: wrap;
+
+      > span {
+        position: relative;
+        @include small();
+        color: var(--txt-clr-gray);
+        &::first-letter {
+          text-transform: capitalize;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: calc(-1 * var(--space-3) / 2);
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: var(--border-clr);
+        }
+      }
+      > p {
+        width: 100%;
+        @include p();
+        color: var(--txt-clr);
+        &::first-letter {
+          text-transform: capitalize;
+        }
+        margin-top: var(--space-2);
+      }
+      ul {
+        width: 100%;
+        padding: var(--space-1) var(--space-2);
+        @include flex(flex-start, flex-start, column, var(--space-1));
+
+        li {
+          @include p();
+          color: var(--txt-clr);
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+      .top {
+        width: 100%;
+        @include flex(flex-start, flex-start, column, var(--space-1));
+
+        > span {
+          position: relative;
+          @include small();
+          color: var(--txt-clr-gray);
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+        .title {
+          width: 100%;
+          @include flex(center, space-between, row, var(--space-1));
+          p {
+            width: 100%;
+            @include small();
+            color: var(--txt-clr);
+            font-family: var(--arabic-fm-b);
+            text-transform: capitalize;
+          }
+          a {
+            padding: var(--space-1) var(--space-2);
+            background: var(--secondary-clr);
+            border-radius: var(--border-radius-large);
+            @include flex(center, center, row, var(--space-1));
+            p {
+              @include small();
+              color: var(--txt-clr-sec);
+              text-transform: capitalize;
+            }
+            span {
+              @include center();
+              svg {
+                width: var(--space-2);
+                fill: none;
+                stroke: var(--svg-fill-sec);
+              }
+            }
+          }
+        }
+      }
+      .note {
+        width: 100%;
+        margin-top: var(--space-2);
+        @include flex(flex-start, flex-start, row, var(--space-1));
+        background: var(--secondary-clr);
+        padding: var(--space-2) var(--space-1);
+        border-radius: var(--border-radius-large);
+        span {
+          @include center();
+          svg {
+            width: var(--svg-size);
+            stroke: var(--svg-fill-sec);
+          }
+        }
+        p {
+          width: 100%;
+          @include small();
+          color: var(--txt-clr-sec);
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+      > .impacts {
+        margin-top: var(--space-1);
+        width: 100%;
+        @include flex(flex-start, flex-start, row, var(--space-1));
+        flex-wrap: wrap;
+        div {
+          @include flex(center, center, row, var(--space-1));
+          background: var(--secondary-clr);
+          border-radius: var(--border-radius-medium);
+          padding: var(--space-1) var(--space-1);
+          p {
+            @include small();
+            color: var(--txt-clr-sec);
+            text-transform: capitalize;
+          }
+          span {
+            @include center();
+            svg {
+              width: var(--svg-size);
+              stroke: var(--svg-fill-sec);
+            }
+          }
+        }
+      }
+      a,
+      button {
+        @include flex(center, center, row, var(--space-1));
+        background: var(--secondary-clr);
+        border-radius: var(--border-radius-large);
+        padding: var(--space-1) var(--space-2);
+        p {
+          @include small();
+          color: var(--txt-clr-sec);
+          font-family: var(--arabic-fm-b);
+          text-transform: capitalize;
+        }
+        span {
+          @include center();
+          svg {
+            width: var(--space-2);
+            stroke: var(--svg-fill-sec);
+            fill: none;
+          }
+        }
+      }
+      #main {
+        background: var(--primary-clr);
+        p {
+          @include small();
+          color: var(--txt-clr-light);
+          font-family: var(--arabic-fm-b);
+        }
+        span {
+          svg {
+            stroke: var(--svg-fill-light);
+          }
+        }
+      }
+    }
+  }
+}
+footer {
+  margin-top: auto;
+  position: relative;
+  width: clamp(250px, 100%, 550px);
+  @include flex(center, flex-start, column, var(--space-2));
+  padding: var(--space-5) var(--space-2);
+  border-top: 1px solid var(--border-clr);
+  .contact {
+    width: 100%;
+    position: relative;
+    @include flex(flex-start, center, column, var(--space-1));
+    div {
+      @include flex(center, center, row, var(--space-1));
+      span {
+        @include center();
+        svg {
+          stroke: var(--svg-fill-gray);
+          width: var(--svg-size);
+        }
+      }
+      a {
+        @include small();
+        color: var(--txt-clr-gray);
+      }
+    }
+  }
+  p {
+    @include small();
+    color: var(--txt-clr-gray);
+  }
+}
+.fillNone {
+  svg {
+    fill: none !important;
+  }
+}
+
+.firstLetter {
+  &::first-letter {
+    text-transform: capitalize !important;
+  }
+}
