@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import icons from "../assets/icons/icons";
-import Progress from "../components/progress";
+import Progress from "../components/Progress";
 import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 import { toast } from "react-hot-toast";
 import { PiPaypalLogoFill } from "react-icons/pi";
