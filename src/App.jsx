@@ -5,7 +5,7 @@ import Donate from "./pages/Donation";
 import CreditCardPayment from "./pages/CreditCardPayment";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import PayNreview from "./pages/payNreview";
+import PayNreview from "./pages/PayNreview";
 import Success from "./pages/Success";
 import Article from "./pages/Article";
 import Updates from "./pages/Updates";
