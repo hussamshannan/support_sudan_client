@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import icons from "../assets/icons/icons";
-import Progress from "../components/progress";
+import Progress from "../components/Progress";
 import { Link, replace, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
