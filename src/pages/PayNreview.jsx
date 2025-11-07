@@ -1,70 +1,194 @@
 import React, { useState, useEffect } from "react";
 import icons from "../assets/icons/icons";
 import Progress from "../components/progress";
-import { Link, useLocation } from "react-router-dom";
+import { Link, replace, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
-function payNreview() {
+axios.defaults.baseURL = "http://localhost:3001/api";
+
+function PayNreview() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { cardDetails, cause, amount, name, email } = location.state || {};
+  const [showUserDetails, setShowUserDetails] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [stripeLoaded, setStripeLoaded] = useState(false);
+
+  const causes = cause;
+  const [details, setDetails] = useState({
+    name: name || "",
+    email: email || "",
+  });
+
+  // Check if cardDetails exists
+  useEffect(() => {
+    if (!cardDetails) {
+      toast.error(
+        "No payment data found. Please go back and enter card details.",
+        {
+          style: {
+            borderRadius: "var(--border-radius-large)",
+            background: "var(--secondary-clr)",
+            fontFamily: "var(--arabic-fm-r)",
+            color: "var(--txt-clr)",
+          },
+        }
+      );
+      navigate("/donate");
+    }
+  }, [cardDetails, navigate]);
+
+  // Load Stripe script
   useEffect(() => {
     if (!window.document.getElementById("stripe-script")) {
-      var s = window.document.createElement("script");
+      const s = window.document.createElement("script");
       s.id = "stripe-script";
       s.type = "text/javascript";
       s.src = "https://js.stripe.com/v2/";
       s.onload = () => {
-        window["Stripe"].setPublishableKey(
+        window.Stripe.setPublishableKey(
           import.meta.env.VITE_STRIPE_PULISHABLE_KEY
         );
+        setStripeLoaded(true);
+      };
+      s.onerror = () => {
+        toast.error("Failed to load payment processor", {
+          style: {
+            borderRadius: "var(--border-radius-large)",
+            background: "var(--secondary-clr)",
+            fontFamily: "var(--arabic-fm-r)",
+            color: "var(--txt-clr)",
+          },
+        });
       };
       window.document.body.appendChild(s);
+    } else {
+      setStripeLoaded(true);
     }
   }, []);
-  const location = useLocation();
-  const { cardDetails, cause, amount, name, email } = location.state || {};
-  const [showUserDetails, setshowUserDetails] = useState(false);
-  console.log(cardDetails);
-  const causes = cause;
-  const [details, setDetails] = useState({ name, email });
+
   // User details input
   const handleDetailsChange = (e) => {
     const { name, value } = e.target;
     setDetails((prev) => ({ ...prev, [name]: value }));
   };
+
   const onSubmit = async () => {
-    await sleep(300);
+    if (!stripeLoaded) {
+      toast.error("Payment processor not ready. Please try again.", {
+        style: {
+          borderRadius: "var(--border-radius-large)",
+          background: "var(--secondary-clr)",
+          fontFamily: "var(--arabic-fm-r)",
+          color: "var(--txt-clr)",
+        },
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+
     try {
+      const [exp_month, exp_year] = cardDetails.expiry.split("/");
+
       window.Stripe.card.createToken(
         {
-          number: cardDetails.cardNumber.replace(/\s+/g, ""),
-          exp_month: cardDetails.expiry.split("/")[0],
-          exp_year: cardDetails.expiry.split("/")[1],
+          number: cardDetails.cardNumber.replace(/\s/g, ""),
+          exp_month: parseInt(exp_month, 10),
+          exp_year: parseInt(exp_year, 10),
           cvc: cardDetails.cvv,
-          name: name,
+          name: cardDetails.name,
         },
-        (status, response) => {
-          if (status === 200) {
-            axios
-              .post("/stripe-payment", {
-                token: response,
-                email: email,
-                amount: amount,
-              })
-              .then((res) => window.alert(JSON.stringify(res.data, 0, 2)))
-              .catch((err) => console.log(err));
-          } else {
-            console.log(response.error.message);
+        async (status, response) => {
+          if (response.error) {
+            toast.error(response.error.message);
+            setIsProcessing(false);
+            return;
           }
+
+          if (status === 200) {
+            try {
+
+              // Send only the token ID, not the entire response object
+              const paymentResponse = await axios.post("/stripe-payment", {
+                token: response.id, // This should be a string, not an object
+                email: details.email || email,
+                amount: amount,
+                cause: causes,
+                name_oncard: cardDetails.name,
+                name: details.name,
+                country: cardDetails.country || "",
+              });
+
+              console.log("Payment successful:", paymentResponse.data);
+
+              setDetails({ name: "", email: "" });
+
+              toast.success("Payment processed successfully!", {
+                style: {
+                  borderRadius: "var(--border-radius-large)",
+                  background: "var(--secondary-clr)",
+                  fontFamily: "var(--arabic-fm-r)",
+                  color: "var(--txt-clr)",
+                },
+              });
+
+              navigate("/success", { replace: true });
+            } catch (error) {
+              console.error("Server error:", error);
+              const errorMessage =
+                error.response?.data?.error || "Payment processing failed";
+              toast.error(errorMessage, {
+                style: {
+                  borderRadius: "var(--border-radius-large)",
+                  background: "var(--secondary-clr)",
+                  fontFamily: "var(--arabic-fm-r)",
+                  color: "var(--txt-clr)",
+                },
+              });
+            }
+          }
+          setIsProcessing(false);
         }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast.error("An unexpected error occurred.", {
+        style: {
+          borderRadius: "var(--border-radius-large)",
+          background: "var(--secondary-clr)",
+          fontFamily: "var(--arabic-fm-r)",
+          color: "var(--txt-clr)",
+        },
+      });
+      setIsProcessing(false);
+    }
   };
+
+  // If no card details, show error message
+  if (!cardDetails) {
+    return (
+      <div className="page pay">
+        <Progress />
+        <h2>Review & Confirm</h2>
+        <div className="error-message">
+          <p>
+            No payment data found. Please go back and enter your card details.
+          </p>
+          <Link to="/donate" className="backBtn">
+            Back to Donation
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page pay">
       <Progress />
       <h2>review & confirm</h2>
       <div className="details review">
-        {/* Card Number */}
-
         {/* Display Selected Causes */}
         <div className="selected-causes">
           <span>{icons.heart}</span>
@@ -73,19 +197,23 @@ function payNreview() {
         </div>
 
         <label htmlFor="payment_method">
+          <span>{icons.creditCard}</span>
           <p>
-            <span>{icons.cridetCard}</span>payment method
-            <button>cridet card</button>
+            payment method
+            <button>credit card</button>
           </p>
         </label>
+
         <label htmlFor="doner_details">
+          <span>{icons.user}</span>
           <p>
-            <span>{icons.user}</span>doner details
-            <button onClick={() => setshowUserDetails((prev) => !prev)}>
-              Edit
+            donor details
+            <button onClick={() => setShowUserDetails((prev) => !prev)}>
+              {showUserDetails ? "Cancel" : "Edit"}
             </button>
           </p>
         </label>
+
         {showUserDetails && (
           <>
             <label htmlFor="name">
@@ -102,6 +230,7 @@ function payNreview() {
                 name="name"
                 value={details.name}
                 onChange={handleDetailsChange}
+                disabled={isProcessing}
               />
             </label>
 
@@ -118,19 +247,21 @@ function payNreview() {
                 name="email"
                 value={details.email}
                 onChange={handleDetailsChange}
+                disabled={isProcessing}
               />
             </label>
           </>
         )}
 
         <label htmlFor="donation_type">
+          <span>{icons.stars}</span>
           <p>
-            <span>{icons.stars}</span>one-time donation
+            one-time donation
             <button className="fade">change to monthly</button>
           </p>
         </label>
+
         <div className="total-charged">
-          {/* <span>{icons.heart}</span> */}
           <p>total charged today</p>
           <span id="amount">${amount}</span>
         </div>
@@ -138,10 +269,12 @@ function payNreview() {
         <span>
           <span>{icons.close_lock}</span>Cards are encrypted and never stored.
         </span>
+
         <div>
           <span>{icons.shield}</span>
           <p>secure</p>
         </div>
+
         <div>
           <span>{icons.check_badge}</span>
           <p>trusted partners</p>
@@ -149,25 +282,28 @@ function payNreview() {
       </div>
 
       {/* Submit / Donate Button */}
-      <button onClick={onSubmit} className="donateBtn">
-        Confirm Donation
+      <button
+        onClick={onSubmit}
+        className={`donateBtn ${isProcessing ? "processing" : ""}`}
+        disabled={isProcessing || !stripeLoaded}
+      >
+        {isProcessing ? "Processing..." : "Confirm Donation"}
       </button>
-      {/* <Link to={"/success"} className="donateBtn">
-        Confirm Donation
-      </Link> */}
-      <p id="message">a receipt will be sent to your email immediately.</p>
-      <Link
-        to={`/pay?cause=${encodeURIComponent(
-          causes
-        )}&amount=${encodeURIComponent(amount)}&name=${encodeURIComponent(
-          name
-        )}&email=${encodeURIComponent(email)}`}
+      {details.email ? (
+        <p id="message">a receipt will be sent to your email immediately.</p>
+      ) : (
+        <></>
+      )}
+
+      <button
+        onClick={() => navigate(-1)}
         className="backBtn"
+        disabled={isProcessing}
       >
         back
-      </Link>
+      </button>
     </div>
   );
 }
 
-export default payNreview;
+export default PayNreview;

@@ -905,6 +905,62 @@ nav .logo p {
   fill: var(--svg-fill-light);
   stroke: var(--svg-fill-light) !important;
 }
+.donation .cause .note,
+.donation .amount .note,
+.donation .details .note,
+.donation .payment .note,
+.pay .cause .note,
+.pay .amount .note,
+.pay .details .note,
+.pay .payment .note {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: var(--secondary-clr);
+  padding: var(--space-2);
+  border-radius: var(--border-radius-large);
+}
+.donation .cause .note span,
+.donation .amount .note span,
+.donation .details .note span,
+.donation .payment .note span,
+.pay .cause .note span,
+.pay .amount .note span,
+.pay .details .note span,
+.pay .payment .note span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause .note span svg,
+.donation .amount .note span svg,
+.donation .details .note span svg,
+.donation .payment .note span svg,
+.pay .cause .note span svg,
+.pay .amount .note span svg,
+.pay .details .note span svg,
+.pay .payment .note span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+.donation .cause .note p,
+.donation .amount .note p,
+.donation .details .note p,
+.donation .payment .note p,
+.pay .cause .note p,
+.pay .amount .note p,
+.pay .details .note p,
+.pay .payment .note p {
+  width: 100%;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-sec);
+  text-transform: capitalize;
+}
 .donation .cause.amount > button, .donation .cause.details > button,
 .donation .amount.amount > button,
 .donation .amount.details > button,
@@ -1726,6 +1782,67 @@ nav .logo p {
   width: var(--space-2);
   stroke: var(--svg-fill);
   fill: none;
+}
+.donation .cause.review > label,
+.donation .amount.review > label,
+.donation .details.review > label,
+.donation .payment.review > label,
+.pay .cause.review > label,
+.pay .amount.review > label,
+.pay .details.review > label,
+.pay .payment.review > label {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-1);
+}
+.donation .cause.review > label p,
+.donation .amount.review > label p,
+.donation .details.review > label p,
+.donation .payment.review > label p,
+.pay .cause.review > label p,
+.pay .amount.review > label p,
+.pay .details.review > label p,
+.pay .payment.review > label p {
+  border: none;
+  flex-grow: 1;
+  padding: 0;
+}
+.donation .cause.review > label span,
+.donation .amount.review > label span,
+.donation .details.review > label span,
+.donation .payment.review > label span,
+.pay .cause.review > label span,
+.pay .amount.review > label span,
+.pay .details.review > label span,
+.pay .payment.review > label span {
+  display: grid;
+  place-content: center;
+}
+.donation .cause.review > label span svg,
+.donation .amount.review > label span svg,
+.donation .details.review > label span svg,
+.donation .payment.review > label span svg,
+.pay .cause.review > label span svg,
+.pay .amount.review > label span svg,
+.pay .details.review > label span svg,
+.pay .payment.review > label span svg {
+  stroke: var(--svg-fill);
+  width: var(--space-2);
+}
+.donation .cause.review > label:has(.placeholder),
+.donation .amount.review > label:has(.placeholder),
+.donation .details.review > label:has(.placeholder),
+.donation .payment.review > label:has(.placeholder),
+.pay .cause.review > label:has(.placeholder),
+.pay .amount.review > label:has(.placeholder),
+.pay .details.review > label:has(.placeholder),
+.pay .payment.review > label:has(.placeholder) {
+  padding: 0;
 }
 .donation .donateBtn,
 .pay .donateBtn {

@@ -449,6 +449,27 @@ nav {
         }
       }
     }
+    .note {
+      width: 100%;
+      @include flex(center, flex-start, row, var(--space-1));
+      background: var(--secondary-clr);
+      padding: var(--space-2);
+      border-radius: var(--border-radius-large);
+      span {
+        @include center();
+        svg {
+          width: var(--space-2);
+          stroke: var(--svg-fill-sec);
+        }
+      }
+      p {
+        width: 100%;
+        @include small();
+        color: var(--txt-clr-sec);
+
+        text-transform: capitalize;
+      }
+    }
     &.amount,
     &.details {
       > button {
@@ -463,7 +484,7 @@ nav {
         border-radius: var(--border-radius-large);
         input {
           width: 100%;
-      
+
           border-radius: var(--border-radius-large);
           border: 1px solid var(--border-clr);
           outline: none;
@@ -635,7 +656,6 @@ nav {
     &.review {
       > div {
         @include flex(center, space-between, row, var(--space-1));
-
         padding: var(--space-1);
         background: var(--secondary-clr);
         border-radius: var(--border-radius-medium);
@@ -653,6 +673,27 @@ nav {
             stroke: var(--svg-fill);
             fill: none;
           }
+        }
+      }
+      > label {
+        width: 100%;
+        border: 1px solid var(--border-clr);
+        @include flex(center, center, row, var(--space-1));
+        padding: var(--space-1);
+        p {
+          border: none;
+          flex-grow: 1;
+          padding: 0;
+        }
+        span {
+          @include center();
+          svg {
+            stroke: var(--svg-fill);
+            width: var(--space-2);
+          }
+        }
+        &:has(.placeholder) {
+          padding: 0;
         }
       }
     }

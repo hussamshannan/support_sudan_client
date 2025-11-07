@@ -20,7 +20,7 @@ function Nav() {
     <nav>
       <Link to={"/"} className="logo">
         <span>{icons.heart}</span>
-        <p>help sudan</p>
+        <p>Sudacand</p>
       </Link>
       {!hide ? (
         <Link to={"/donate"} className="donate">

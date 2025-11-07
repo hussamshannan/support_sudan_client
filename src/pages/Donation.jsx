@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import icons from "../assets/icons/icons";
 import Progress from "../components/progress";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 import { toast } from "react-hot-toast";
 import { PiPaypalLogoFill } from "react-icons/pi";
+
 function Donation() {
   const [selectedCause, setSelectedCause] = useState(""); // single cause
   const [activeAmount, setActiveAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
   const [details, setDetails] = useState({ name: "", email: "" });
   const [selectedPayment, setSelectedPayment] = useState(""); // payment method
+  const navigate = useNavigate(); // Initialize navigate
 
   // Select only one cause
   const handleSelectCause = (cause) => {
@@ -52,6 +54,30 @@ function Donation() {
 
   // Check if required fields are filled
   const isFormValid = selectedCause && finalAmount && selectedPayment;
+
+  // Handle navigation with state
+  const handleDonateClick = () => {
+    if (isFormValid) {
+      navigate("/pay", {
+        state: {
+          cause: selectedCause,
+          amount: finalAmount,
+          name: details.name,
+          email: details.email,
+          payment: selectedPayment,
+        },
+      });
+    } else {
+      toast.error("Please fill out the form", {
+        style: {
+          borderRadius: "var(--border-radius-large)",
+          background: "var(--secondary-clr)",
+          fontFamily: "var(--arabic-fm-r)",
+          color: "var(--txt-clr)",
+        },
+      });
+    }
+  };
 
   return (
     <div className="page donation">
@@ -174,38 +200,10 @@ function Donation() {
         </span>
       </div>
 
-      {isFormValid ? (
-        <Link
-          to={`/pay?cause=${encodeURIComponent(
-            selectedCause
-          )}&amount=${encodeURIComponent(
-            finalAmount
-          )}&name=${encodeURIComponent(
-            details.name
-          )}&email=${encodeURIComponent(
-            details.email
-          )}&payment=${encodeURIComponent(selectedPayment)}`}
-          className="donateBtn"
-        >
-          Donate securely
-        </Link>
-      ) : (
-        <button
-          className="donateBtn"
-          onClick={() => {
-            toast.error("Please fill out the form", {
-              style: {
-                borderRadius: "var(--border-radius-large)",
-                background: "var(--secondary-clr)",
-                fontFamily: "var(--arabic-fm-r)",
-                color: "var(--txt-clr)",
-              },
-            });
-          }}
-        >
-          Donate securely
-        </button>
-      )}
+      {/* Single button that handles both cases */}
+      <button className="donateBtn" onClick={handleDonateClick}>
+        Donate securely
+      </button>
     </div>
   );
 }
