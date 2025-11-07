@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 function Progress() {
   const location = useLocation();
   const [isTrue, setIsTrue] = useState(false);
+  const { payment } = location.state || {};
 
   return (
     <div className="porgress">
@@ -40,23 +41,29 @@ function Progress() {
         pay
       </p>
 
-      <p>{">"}</p>
-      <span
-        style={{
-          background: location.pathname.endsWith("/payNreview")
-            ? `var(--primary-clr)`
-            : ``,
-        }}
-      ></span>
-      <p
-        style={{
-          color: location.pathname.endsWith("/payNreview")
-            ? `var(--txt-clr)`
-            : `var(--txt-clr-gray)`,
-        }}
-      >
-        review
-      </p>
+      {payment !== "paypal" ? (
+        <>
+          <p>{">"}</p>
+          <span
+            style={{
+              background: location.pathname.endsWith("/payNreview")
+                ? `var(--primary-clr)`
+                : ``,
+            }}
+          ></span>
+          <p
+            style={{
+              color: location.pathname.endsWith("/payNreview")
+                ? `var(--txt-clr)`
+                : `var(--txt-clr-gray)`,
+            }}
+          >
+            review
+          </p>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
