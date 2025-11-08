@@ -1844,6 +1844,16 @@ nav .logo p {
 .pay .payment.review > label:has(.placeholder) {
   padding: 0;
 }
+.donation .cause.review > label:has(input),
+.donation .amount.review > label:has(input),
+.donation .details.review > label:has(input),
+.donation .payment.review > label:has(input),
+.pay .cause.review > label:has(input),
+.pay .amount.review > label:has(input),
+.pay .details.review > label:has(input),
+.pay .payment.review > label:has(input) {
+  padding: 0;
+}
 .donation .donateBtn,
 .pay .donateBtn {
   width: 100%;

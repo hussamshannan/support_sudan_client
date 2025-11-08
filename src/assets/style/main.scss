@@ -695,6 +695,9 @@ nav {
         &:has(.placeholder) {
           padding: 0;
         }
+        &:has(input) {
+          padding: 0;
+        }
       }
     }
   }
