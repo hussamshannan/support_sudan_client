@@ -3,11 +3,11 @@ import icons from "../assets/icons/icons";
 import Progress from "../components/Progress";
 import { Link, replace, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:3001/api";
+import useAxios from "../hooks/useAxios";
 
 function PayNreview() {
+  const { data, error, loading, get, post } = useAxios();
+
   const location = useLocation();
   const navigate = useNavigate();
   const { cardDetails, cause, amount, name, email } = location.state || {};
@@ -76,7 +76,7 @@ function PayNreview() {
 
   const onSubmit = async () => {
     if (!stripeLoaded) {
-      toast.error("Payment processor not ready. Please try again.", {
+      toast.error("Payment processor not ready.", {
         style: {
           borderRadius: "var(--border-radius-large)",
           background: "var(--secondary-clr)",
@@ -102,16 +102,22 @@ function PayNreview() {
         },
         async (status, response) => {
           if (response.error) {
-            toast.error(response.error.message);
+             toast.error(response.error.message, {
+               style: {
+                 borderRadius: "var(--border-radius-large)",
+                 background: "var(--secondary-clr)",
+                 fontFamily: "var(--arabic-fm-r)",
+                 color: "var(--txt-clr)",
+               },
+             });
             setIsProcessing(false);
             return;
           }
 
           if (status === 200) {
             try {
-
               // Send only the token ID, not the entire response object
-              const paymentResponse = await axios.post("/stripe-payment", {
+              const paymentResponse = await post("/stripe-payment", {
                 token: response.id, // This should be a string, not an object
                 email: details.email || email,
                 amount: amount,

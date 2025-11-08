@@ -4,8 +4,10 @@ import Progress from "../components/Progress";
 import { toast } from "react-hot-toast";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useAxios from "../hooks/useAxios";
 
 function CreditCardPayment() {
+  const { data, error, loading, get, post } = useAxios();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -153,23 +155,22 @@ function CreditCardPayment() {
     setIsProcessing(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/paypal-create-order",
+      const response = await post(
+        "/paypal/paypal-create-order",
         {
-          method: "POST",
+          amount: amount,
+          cause: cause,
+          name: donorName,
+          email: donorEmail,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            amount: amount,
-            cause: cause,
-            name: donorName,
-            email: donorEmail,
-          }),
         }
       );
-
-      const data = await response.json();
+      console.log(response);
+      const data = response;
 
       if (data.success) {
         // Redirect to PayPal approval URL
@@ -179,7 +180,7 @@ function CreditCardPayment() {
       }
     } catch (error) {
       console.error("PayPal order creation error:", error);
-      toast.error("Failed to initiate PayPal payment. Please try again.", {
+      toast.error("Failed to initiate PayPal payment.", {
         style: {
           borderRadius: "var(--border-radius-large)",
           background: "var(--secondary-clr)",

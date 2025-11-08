@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import icons from "../assets/icons/icons";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 function Success() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const token = queryParams.get("token");
+    const payerId = queryParams.get("PayerID");
+
+    if (token && payerId) {
+      toast.success("Payment processed successfully!", {
+        style: {
+          borderRadius: "var(--border-radius-large)",
+          background: "var(--secondary-clr)",
+          fontFamily: "var(--arabic-fm-r)",
+          color: "var(--txt-clr)",
+        },
+      });
+      const cleanUrl = window.location.origin + location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }, [location.search]);
   return (
     <div className="page success">
       <div className="card">
