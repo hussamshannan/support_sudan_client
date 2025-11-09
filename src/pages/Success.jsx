@@ -7,6 +7,8 @@ import { toast } from "react-hot-toast";
 function Success() {
   const location = useLocation();
 
+  const cause = location.state.cause;
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get("token");
@@ -42,16 +44,48 @@ function Success() {
         <div className="impact">
           <p>your impact</p>
           <div className="impacts">
-            <div>
-              <span>{icons.water}</span>
-              <p>clean water</p>
-              <span className="fade"></span>
-            </div>
-            <div>
-              <span>{icons.food}</span>
-              <p>food support</p>
-              <span className="fade"></span>
-            </div>
+            {cause === "Food & Water" ? (
+              <>
+                <div>
+                  <span>{icons.water}</span>
+                  <p>clean water</p>
+                  <span className="fade"></span>
+                </div>
+                <div>
+                  <span>{icons.food}</span>
+                  <p>food support</p>
+                  <span className="fade"></span>
+                </div>
+              </>
+            ) : cause === "Medical Aid" ? (
+              <>
+                <div>
+                  <span>{icons.med}</span>
+                  <p>medical supplies</p>
+                  <span className="fade"></span>
+                </div>
+                <div>
+                  <span>{icons.health}</span>
+                  <p>healthcare support</p>
+                  <span className="fade"></span>
+                </div>
+              </>
+            ) : cause === "Shelter & Education" ? (
+              <>
+                <div>
+                  <span>{icons.shelter}</span>
+                  <p>safe shelter</p>
+                  <span className="fade"></span>
+                </div>
+                <div>
+                  <span className="fillNone">{icons.school}</span>
+                  <p>education access</p>
+                  <span className="fade"></span>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="next">

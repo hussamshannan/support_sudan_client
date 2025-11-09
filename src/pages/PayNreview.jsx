@@ -102,14 +102,14 @@ function PayNreview() {
         },
         async (status, response) => {
           if (response.error) {
-             toast.error(response.error.message, {
-               style: {
-                 borderRadius: "var(--border-radius-large)",
-                 background: "var(--secondary-clr)",
-                 fontFamily: "var(--arabic-fm-r)",
-                 color: "var(--txt-clr)",
-               },
-             });
+            toast.error(response.error.message, {
+              style: {
+                borderRadius: "var(--border-radius-large)",
+                background: "var(--secondary-clr)",
+                fontFamily: "var(--arabic-fm-r)",
+                color: "var(--txt-clr)",
+              },
+            });
             setIsProcessing(false);
             return;
           }
@@ -117,7 +117,7 @@ function PayNreview() {
           if (status === 200) {
             try {
               // Send only the token ID, not the entire response object
-              const paymentResponse = await post("/stripe-payment", {
+              const paymentResponse = await post("/stripe/stripe-payment", {
                 token: response.id, // This should be a string, not an object
                 email: details.email || email,
                 amount: amount,
@@ -126,9 +126,15 @@ function PayNreview() {
                 name: details.name,
                 country: cardDetails.country || "",
               });
-
-              console.log("Payment successful:", paymentResponse.data);
-
+              if (!paymentResponse.success)
+                return toast.error(paymentResponse.message, {
+                  style: {
+                    borderRadius: "var(--border-radius-large)",
+                    background: "var(--secondary-clr)",
+                    fontFamily: "var(--arabic-fm-r)",
+                    color: "var(--txt-clr)",
+                  },
+                });
               setDetails({ name: "", email: "" });
 
               toast.success("Payment processed successfully!", {
@@ -140,7 +146,7 @@ function PayNreview() {
                 },
               });
 
-              navigate("/success", { replace: true });
+              navigate("/success", { state: { cause: cause } });
             } catch (error) {
               console.error("Server error:", error);
               const errorMessage =
