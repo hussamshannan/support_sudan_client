@@ -1,11 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import img from "../assets/img/mobile/wadi-lissa-RsgIenJC8ag-unsplash.jpg";
 import water from "../assets/img/mobile/francesco-ungaro-Iuptsh6o5IM-unsplash.jpg";
-import heath from "../assets/img/mobile/nappy-d2D_OF14-70-unsplash.jpg";
-
+import health from "../assets/img/mobile/nappy-d2D_OF14-70-unsplash.jpg";
+import useAxios from "../hooks/useAxios";
+import { useLocation } from "react-router-dom";
 import icons from "../assets/icons/icons";
+
 function Updates() {
+  const [info, setInfo] = useState({ cause: "", email: "", receiptUrl: "" });
+
+
+  const [target, setTarget] = useState(null);
+  const location = useLocation();
+  const { get } = useAxios();
+
+  // Set info from location or localStorage
+  useEffect(() => {
+    if (location.state) {
+      setInfo(location.state);
+    } else {
+      const storedData = localStorage.getItem("donationData");
+      if (storedData) setInfo(JSON.parse(storedData));
+    }
+  }, [location.state]);
+
+  // Fetch donation target based on the cause
+  useEffect(() => {
+    if (!info.cause) return;
+
+    const getTargets = async () => {
+      try {
+        const response = await get(
+          `/targets/${encodeURIComponent(info.cause)}`
+        );
+        if (response.success) {
+          setTarget(response.data);
+        }
+      } catch (err) {
+        console.error("Error fetching target:", err);
+      }
+    };
+
+    getTargets();
+  }, [info.cause, get]);
+
+  // Determine display values
+  const causeDisplay = info.cause || "Water";
+  const goalAmount = target?.targetAmount || 10000;
+  const raisedAmount = target?.totalRaised || 0;
+  const donors = target?.donorCount || 0;
+  const progressPercent = target?.progress || 0;
+
   return (
     <div className="page updates" dir="auto">
       <div className="hero">
@@ -66,7 +112,7 @@ function Updates() {
             </Link>
             <Link to={"/Article"} className="news">
               <div className="img">
-                <img src={heath} alt="" />
+                <img src={health} alt="" />
               </div>
               <div className="text">
                 <div className="title">
@@ -117,30 +163,39 @@ function Updates() {
 
           <div className="progress">
             <div className="top">
-              <div className="text ">
+              <div className="text">
                 <span>{icons.target}</span>
-                <p>water fund</p>
+                <p>{causeDisplay.toLowerCase()} fund</p>
               </div>
               <div className="amount">
                 <p>
-                  <span>goal: </span>$10,000
+                  <span>goal: </span>${goalAmount.toLocaleString()}
                 </p>
               </div>
             </div>
+
             <div className="bar">
-              <div className="fill" style={{ width: "62%" }}></div>
+              <div
+                className="fill"
+                style={{ width: `${progressPercent}%` }}
+              ></div>
             </div>
+
             <div className="bottom">
               <p>
-                $6,200 <span>raised</span>
+                ${raisedAmount.toLocaleString()} <span>raised</span>
               </p>
               •
               <p>
-                400 <span>doners</span>
+                {donors} <span>donors</span>
               </p>
             </div>
-            <Link to={"/donate"} className="firstLetter">
-              Donate to <span>water</span>
+
+            <Link
+              to={`/donate?cause=${encodeURIComponent(info.cause || "")}`}
+              className="firstLetter"
+            >
+              Donate to <span>{causeDisplay.toLowerCase()}</span>
             </Link>
           </div>
         </div>

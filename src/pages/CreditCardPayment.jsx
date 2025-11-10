@@ -146,52 +146,60 @@ function CreditCardPayment() {
   };
 
   // Handle PayPal payment creation
-  const handlePayPalPayment = async () => {
-    if (!isFormValid()) {
-      handleInvalidSubmit();
-      return;
-    }
+const handlePayPalPayment = async () => {
+  if (!isFormValid()) {
+    handleInvalidSubmit();
+    return;
+  }
 
-    setIsProcessing(true);
+  setIsProcessing(true);
 
-    try {
-      const response = await post(
-        "/paypal/paypal-create-order",
-        {
-          amount: amount,
-          cause: cause,
-          name: donorName,
-          email: donorEmail,
+  try {
+    const response = await post(
+      "/paypal/paypal-create-order",
+      {
+        amount: amount,
+        cause: cause,
+        name: donorName,
+        email: donorEmail,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response);
-      const data = response;
-
-      if (data.success) {
-        // Redirect to PayPal approval URL
-        window.location.href = data.approvalUrl;
-      } else {
-        throw new Error(data.error || "Failed to create PayPal order");
       }
-    } catch (error) {
-      console.error("PayPal order creation error:", error);
-      toast.error("Failed to initiate PayPal payment.", {
-        style: {
-          borderRadius: "var(--border-radius-large)",
-          background: "var(--secondary-clr)",
-          fontFamily: "var(--arabic-fm-r)",
-          color: "var(--txt-clr)",
-        },
-      });
-    } finally {
-      setIsProcessing(false);
+    );
+
+    if (response.success) {
+      // Save initial donation info for later use
+      localStorage.setItem(
+        "donationData",
+        JSON.stringify({
+          cause,
+          email: donorEmail,
+        })
+      );
+
+      // Redirect user to PayPal for approval
+      window.location.href = response.approvalUrl;
+    } else {
+      throw new Error(response.error || "Failed to create PayPal order");
     }
-  };
+  } catch (error) {
+    console.error("PayPal order creation error:", error);
+    toast.error("Failed to initiate PayPal payment.", {
+      style: {
+        borderRadius: "var(--border-radius-large)",
+        background: "var(--secondary-clr)",
+        fontFamily: "var(--arabic-fm-r)",
+        color: "var(--txt-clr)",
+      },
+    });
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
 
   // Secure navigation with React Router state (for credit card)
   const handleSecurePayment = () => {

@@ -135,8 +135,13 @@ function PayNreview() {
                     color: "var(--txt-clr)",
                   },
                 });
-              setDetails({ name: "", email: "" });
-
+              localStorage.setItem(
+                "donationData",
+                JSON.stringify({
+                  cause,
+                  email: email,
+                })
+              );
               toast.success("Payment processed successfully!", {
                 style: {
                   borderRadius: "var(--border-radius-large)",
@@ -146,7 +151,14 @@ function PayNreview() {
                 },
               });
 
-              navigate("/success", { state: { cause: cause } });
+              navigate("/success", {
+                state: {
+                  cause: cause,
+                  email: details.email,
+                  receiptUrl: paymentResponse.receiptUrl,
+                },
+              });
+              setDetails({ name: "", email: "" });
             } catch (error) {
               console.error("Server error:", error);
               const errorMessage =

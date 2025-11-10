@@ -1,35 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import icons from "../assets/icons/icons";
 import Progress from "../components/Progress";
-import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { PiPaypalLogoFill } from "react-icons/pi";
 
 function Donation() {
-  const [selectedCause, setSelectedCause] = useState(""); // single cause
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Get cause from URL query params (e.g., /donate?cause=Food%20%26%20Water)
+  const queryParams = new URLSearchParams(location.search);
+  const urlCause = queryParams.get("cause") || "";
+
+  const [selectedCause, setSelectedCause] = useState(urlCause); // initialize from URL
   const [activeAmount, setActiveAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
   const [details, setDetails] = useState({ name: "", email: "" });
-  const [selectedPayment, setSelectedPayment] = useState(""); // payment method
-  const navigate = useNavigate(); // Initialize navigate
+  const [selectedPayment, setSelectedPayment] = useState("");
 
-  // Select only one cause
+  useEffect(() => {
+    if (urlCause) setSelectedCause(urlCause); // update if URL changes
+  }, [urlCause]);
+
   const handleSelectCause = (cause) => {
     setSelectedCause((prev) => (prev === cause ? "" : cause));
   };
 
-  // Amount selection
   const handleClickAmount = (amount) => {
     setActiveAmount(amount);
-    setCustomAmount(""); // reset custom amount when preset selected
+    setCustomAmount("");
   };
 
-  // Select payment method
   const handleSelectPayment = (method) => {
     setSelectedPayment(method);
   };
 
-  // Format number with commas
   const formatNumberWithCommas = (number) =>
     number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -51,11 +57,8 @@ function Donation() {
   };
 
   const finalAmount = customAmount !== "" ? getRawAmount() : activeAmount;
-
-  // Check if required fields are filled
   const isFormValid = selectedCause && finalAmount && selectedPayment;
 
-  // Handle navigation with state
   const handleDonateClick = () => {
     if (isFormValid) {
       navigate("/pay", {
@@ -78,7 +81,6 @@ function Donation() {
       });
     }
   };
-
   return (
     <div className="page donation">
       <Progress />

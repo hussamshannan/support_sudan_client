@@ -1985,6 +1985,7 @@ nav .logo p {
 .success .card .message span svg {
   width: var(--svg-size);
   stroke: var(--svg-fill-sec);
+  fill: var(--svg-fill-sec);
 }
 .success .card .message p {
   font-size: var(--font-p);

@@ -1,13 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import icons from "../assets/icons/icons";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 function Success() {
+  const [info, setInfo] = useState({ cause: "", email: "", receiptUrl: "" });
   const location = useLocation();
 
-  const cause = location.state.cause;
+  useEffect(() => {
+    if (location.state) {
+      // If data was passed through navigation state
+      setInfo(location.state);
+    } else {
+      // If data is stored in localStorage
+      const storedData = localStorage.getItem("donationData");
+      if (storedData) {
+        setInfo(JSON.parse(storedData));
+      }
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -27,6 +39,7 @@ function Success() {
       window.history.replaceState({}, document.title, cleanUrl);
     }
   }, [location.search]);
+
   return (
     <div className="page success">
       <div className="card">
@@ -37,14 +50,30 @@ function Success() {
             <span>Your contribution has been received.</span>
           </div>
         </div>
-        <div className="message">
-          <span>{icons.inbox}</span>
-          <p>receipt sent to your email</p>
-        </div>
+        {!info.email && info.receiptUrl ? (
+          <Link className="message" to={info.receiptUrl}>
+            <span>{icons.receipt}</span>
+            <p>your receipt is ready</p>
+            <span style={{ marginLeft: "auto" }}>{icons.arrowOutward}</span>
+          </Link>
+        ) : info.email && info.receiptUrl ? (
+          <div className="message">
+            <span className="fillNone">{icons.inbox}</span>
+            <p>receipt sent to your email</p>
+          </div>
+        ) : info.email && !info.receiptUrl ? (
+          <div className="message">
+            <span className="fillNone">{icons.inbox}</span>
+            <p>receipt sent to your email</p>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="impact">
           <p>your impact</p>
           <div className="impacts">
-            {cause === "Food & Water" ? (
+            {info.cause === "Food & Water" ? (
               <>
                 <div>
                   <span>{icons.water}</span>
@@ -57,7 +86,7 @@ function Success() {
                   <span className="fade"></span>
                 </div>
               </>
-            ) : cause === "Medical Aid" ? (
+            ) : info.cause === "Medical Aid" ? (
               <>
                 <div>
                   <span>{icons.med}</span>
@@ -70,7 +99,7 @@ function Success() {
                   <span className="fade"></span>
                 </div>
               </>
-            ) : cause === "Shelter & Education" ? (
+            ) : info.cause === "Shelter & Education" ? (
               <>
                 <div>
                   <span>{icons.shelter}</span>
