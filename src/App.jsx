@@ -25,7 +25,7 @@ import Loading from "./components/Loading";
 const Home = lazy(() => import("./pages/Home"));
 const Donate = lazy(() => import("./pages/Donation"));
 const CreditCardPayment = lazy(() => import("./pages/CreditCardPayment"));
-const PayNreview = lazy(() => import("./pages/payNreview"));
+const PayNreview = lazy(() => import("./pages/PayNreview"));
 const Success = lazy(() => import("./pages/Success"));
 const Article = lazy(() => import("./pages/Article"));
 const Updates = lazy(() => import("./pages/Updates"));
