@@ -65,18 +65,28 @@
 
   // accent color
   --accent-clr: #f1f5f9; /* Accent color */
-  --bar-clr:#beeaf0;
-  // background colors
+
+  --bar-clr: #beeaf0;
+
+  --sidebar-clr: #f3f7f6;
+
   --body-bg-clr: #ffffff; /* Light background color */
 
   --border-clr: #e6eef3; /* border color */
+
+  --bg-err-clr: #fef2f2;
+
+  --border-err-clr: #fecaca;
+
+  --dark-bg-err: #b91c1c;
+
   // text colors
   --txt-clr: #000; /* Dark text color */
   --txt-clr-light: #ffffff; /* Light background color */
   --txt-clr-gray: #94a3b8;
   --txt-clr-sec: #034047;
   // status colors
-  --txt-clr-error: #ff4d4d; /* Error text color */
+  --txt-clr-err: #ff4d4d; /* Error text color */
   --txt-clr-success: #4caf50; /* Success text color */
   --txt-clr-warning: #ff9800; /* Warning text color */
   --txt-clr-info: #2196f3; /* Info text color */
@@ -168,7 +178,7 @@
 }
 body {
   width: 100dvw;
-  height: 100dvh;
+  height: auto;
   overflow-x: hidden;
   background: var(--body-bg-clr-gray);
   user-select: none;

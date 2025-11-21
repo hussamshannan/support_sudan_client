@@ -4,7 +4,7 @@ import axios from "axios";
 // Create axios instance with default config
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api",
-  timeout: 10000,
+  timeout: 100000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,10 +13,15 @@ const axiosInstance = axios.create({
 // Request interceptor to add auth token
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token"); // Changed from authToken to token
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // REMOVED: Custom header causing CORS issues
+    // We'll handle role checking on the server side with the token
+
     return config;
   },
   (error) => {
@@ -28,10 +33,18 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
       // Handle unauthorized access
-      localStorage.removeItem("authToken");
-      window.location.href = "/login";
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("id");
+      localStorage.removeItem("role");
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      // Fixed: Redirect to /signin instead of /admin/login
+      if (!window.location.pathname.includes("/signin")) {
+        window.location.href = "/admin/login";
+      }
     }
     return Promise.reject(error);
   }
@@ -90,7 +103,10 @@ const useAxios = () => {
     } catch (err) {
       if (isMounted.current) {
         setError({
-          message: err.response?.data?.error || err.message,
+          message:
+            err.response?.data?.message ||
+            err.response?.data?.error ||
+            err.message,
           status: err.response?.status,
           code: err.code,
         });

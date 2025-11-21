@@ -1,8 +1,61 @@
-import React from "react";
-import water from "../assets/img/mobile/francesco-ungaro-Iuptsh6o5IM-unsplash.jpg";
+import React, { useEffect, useState } from "react";
 import icons from "../assets/icons/icons";
-import { Link } from "react-router-dom";
-function Article() {
+import useAxios from "../hooks/useAxios";
+import Loading from "../components/Loading";
+
+import { Link, useParams } from "react-router-dom";
+function Article({ show }) {
+  const { data, error, loading, get, post, put } = useAxios();
+  const { articleId } = useParams();
+
+  const [article, setArticle] = useState({ actions: [] });
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    fetchArticles(page);
+  }, [page]);
+
+  const fetchArticles = async (pageNum) => {
+    try {
+      const res = await get(`/articles/${articleId}`);
+
+      console.log(res);
+      setArticle(res);
+    } catch (err) {
+      console.error("Error fetching articles:", err);
+    }
+  };
+  const formatRelativeDate = (dateString) => {
+    const now = new Date();
+    const past = new Date(dateString);
+    const diffInMs = now - past;
+
+    const minutes = Math.floor(diffInMs / (1000 * 60));
+    const hours = Math.floor(diffInMs / (1000 * 60 * 60));
+    const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor(days / 7);
+
+    if (minutes < 1) return "just now";
+    if (minutes === 1) return "1 minute ago";
+    if (minutes < 60) return `${minutes} minutes ago`;
+
+    if (hours === 1) return "1 hour ago";
+    if (hours < 24) return `${hours} hours ago`;
+
+    if (days === 1) return "1 day ago";
+    if (days < 7) return `${days} days ago`;
+
+    if (weeks === 1) return "1 week ago";
+    if (weeks < 4) return `${weeks} weeks ago`;
+
+    // If older than ~1 month, show the full date
+    return past.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   const handleShare = async () => {
     const shareUrl = `${window.location.origin}/donate`;
 
@@ -22,58 +75,68 @@ function Article() {
       alert("Link copied to clipboard!");
     }
   };
-  return (
-    <div className="page Article" dir="auto">
+
+  return show ? (
+    <div className={`page Article`} dir="auto">
+      {loading && <Loading />}
+
       <article>
-        <img src={water} alt="" />
-        <h1>Field Update: Clean Water Points Restored</h1>
+        <div className="media-container">
+          <img src={article?.mediaUrl} alt={article?.title} />
+        </div>
+        <h1>{article?.title}</h1>
         <div className="user_info">
           <span id="avatar">{icons.user}</span>
-          <p>hussam shannan</p> •<span id="date">2 days ago</span>
+          <p>{article?.userName}</p> •
+          <span id="date">{formatRelativeDate(article?.updatedAt)}</span>
         </div>
-        <div className="impacts">
+        <div className="impacts info">
           <div className="impact">
-            <p>water</p>
+            <p>{article?.impactType}</p>
           </div>
           <div className="impact">
-            <p>impact</p>
+            <p>{article?.impactKind}</p>
           </div>
           <div className="impact">
-            <p>khartoum</p>
+            <p>{article?.location}</p>
           </div>
         </div>
         <div className="card">
-          <span>
-            Our teams restored 12 wells across Gezira, giving 18,000+ people
-            daily access to safe water. Repairs focused on handpumps, pipe
-            replacement, and chlorination to prevent waterborne disease.
-          </span>
+          <span>{article?.content}</span>
           <p>what was done</p>
           <ul>
-            <li>12 wells repaired and tested for safety</li>
-            <li>4,000 water purification tablets distributed</li>
-            <li>Community-led maintenance groups trained</li>
+            {article?.actions.map((action, index) => (
+              <li key={index}>{action}</li>
+            ))}
           </ul>
-          <div className="note">
-            <span>{icons.stars}</span>
-            <p>
-              Estimated impact: 18,000+ people now have reliable access to safe
-              water daily.
-            </p>
-          </div>
+          {article?.showNote && (
+            <div className="note">
+              <span>{icons.stars}</span>
+              <p>{article.note}</p>
+            </div>
+          )}
+
           <div className="impacts">
-            <div className="impact">
-              <span>{icons.group}</span>
-              <p>18K people</p>
-            </div>
-            <div className="impact">
-              <span>{icons.wrench}</span> <p>12 wells</p>
-            </div>
-            <div className="impact">
-              <span>{icons.calendar}</span> <p>2 weeks</p>
-            </div>
+            {article?.impacts
+              ?.filter((impact) => impact.isVisible) // show only visible ones
+              .map((impact, index) => (
+                <div className="impact" key={impact._id || index}>
+                  {/* choose an icon based on the label */}
+                  <span>
+                    {impact.label.toLowerCase().includes("people")
+                      ? icons.group
+                      : impact.label.toLowerCase().includes("well")
+                      ? icons.wrench
+                      : impact.label.toLowerCase().includes("time")
+                      ? icons.calendar
+                      : icons.stars}
+                  </span>
+                  <p>{impact.value}</p>
+                </div>
+              ))}
           </div>
         </div>
+
         <div className="card">
           <div className="top">
             <div className="title">
@@ -96,11 +159,93 @@ function Article() {
           </button>
         </div>
       </article>
+
       <p id="message">
         100% encrypted payments. Monthly impact updates included in your
         receipt.
       </p>
     </div>
+  ) : (
+    <article>
+      <div className="media-container">
+        <img src={article?.mediaUrl} alt={article?.title} />
+      </div>
+      <h1>{article?.title}</h1>
+      <div className="user_info">
+        <span id="avatar">{icons.user}</span>
+        <p>{article?.userName}</p> •
+        <span id="date">{formatRelativeDate(article?.updatedAt)}</span>
+      </div>
+      <div className="impacts info">
+        <div className="impact">
+          <p>{article?.impactType}</p>
+        </div>
+        <div className="impact">
+          <p>{article?.impactKind}</p>
+        </div>
+        <div className="impact">
+          <p>{article?.location}</p>
+        </div>
+      </div>
+      <div className="card">
+        <span>{article?.content}</span>
+        <p>what was done</p>
+        <ul>
+          {article?.actions.map((action, index) => (
+            <li key={index}>{action}</li>
+          ))}
+        </ul>
+        {article?.showNote && (
+          <div className="note">
+            <span>{icons.stars}</span>
+            <p>{article.note}</p>
+          </div>
+        )}
+
+        <div className="impacts">
+          {article?.impacts
+            ?.filter((impact) => impact.isVisible) // show only visible ones
+            .map((impact, index) => (
+              <div className="impact" key={impact._id || index}>
+                {/* choose an icon based on the label */}
+                <span>
+                  {impact.label.toLowerCase().includes("people")
+                    ? icons.group
+                    : impact.label.toLowerCase().includes("well")
+                    ? icons.wrench
+                    : impact.label.toLowerCase().includes("time")
+                    ? icons.calendar
+                    : icons.stars}
+                </span>
+                <p>{impact.value}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+      {show && (
+        <div className="card">
+          <div className="top">
+            <div className="title">
+              <p>help expand clean water access</p>
+              <Link to={"/"}>
+                <span>{icons.arrow_left}</span>
+                <p>back</p>
+              </Link>
+            </div>
+            <span>
+              $25 dollar can provide clean water to 5 people for a month
+            </span>
+          </div>
+          <Link to={"/donate"} id="main">
+            <span>{icons.heart}</span>
+            <p>donate</p>
+          </Link>
+          <button onClick={handleShare} className="share-btn">
+            <span>{icons.share}</span> <p>Share</p>
+          </button>
+        </div>
+      )}
+    </article>
   );
 }
 

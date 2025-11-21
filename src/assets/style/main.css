@@ -52,14 +52,18 @@
   --primary-clr: #2daf9e; /* Primary color */
   --secondary-clr: #e6f7f4; /* Secondary color */
   --accent-clr: #f1f5f9; /* Accent color */
-  --bar-clr:#beeaf0;
+  --bar-clr: #beeaf0;
+  --sidebar-clr: #f3f7f6;
   --body-bg-clr: #ffffff; /* Light background color */
   --border-clr: #e6eef3; /* border color */
+  --bg-err-clr: #fef2f2;
+  --border-err-clr: #fecaca;
+  --dark-bg-err: #b91c1c;
   --txt-clr: #000; /* Dark text color */
   --txt-clr-light: #ffffff; /* Light background color */
   --txt-clr-gray: #94a3b8;
   --txt-clr-sec: #034047;
-  --txt-clr-error: #ff4d4d; /* Error text color */
+  --txt-clr-err: #ff4d4d; /* Error text color */
   --txt-clr-success: #4caf50; /* Success text color */
   --txt-clr-warning: #ff9800; /* Warning text color */
   --txt-clr-info: #2196f3; /* Info text color */
@@ -91,7 +95,7 @@
 
 body {
   width: 100dvw;
-  height: 100dvh;
+  height: auto;
   overflow-x: hidden;
   background: var(--body-bg-clr-gray);
   -webkit-user-select: none;
@@ -126,6 +130,24 @@ p {
   min-height: 100dvh;
 }
 .container > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0;
+}
+.container.admin {
+  width: 100dvw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0;
+}
+
+.admin-container {
+  flex-grow: 1;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -202,6 +224,139 @@ nav .logo p {
   text-transform: capitalize;
   font-family: var(--arabic-fm-b);
 }
+nav.admin {
+  width: -moz-fit-content;
+  width: fit-content;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-right: 1px solid var(--border-clr);
+  padding: var(--space-2) var(--space-2);
+}
+nav.admin .top {
+  width: -moz-max-content;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+nav.admin .top span {
+  display: grid;
+  place-content: center;
+  background: var(--secondary-clr);
+  padding: var(--space-mini);
+  border-radius: var(--border-radius-medium);
+}
+nav.admin .top span svg {
+  stroke: var(--svg-fill-sec);
+  width: var(--svg-size);
+}
+nav.admin .top h6 {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  font-family: var(--arabic-fm-b);
+  text-transform: capitalize;
+}
+nav.admin .mid {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+nav.admin .mid > span {
+  color: var(--txt-clr-gray);
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  text-transform: capitalize;
+}
+nav.admin .mid ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-mini);
+  list-style: none;
+}
+nav.admin .mid ul li {
+  padding: 0 var(--space-mini);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  background: transparent;
+  transition: background 0.3s ease;
+  border-radius: var(--border-radius-small);
+}
+nav.admin .mid ul li span {
+  display: grid;
+  place-content: center;
+}
+nav.admin .mid ul li span svg {
+  stroke: var(--svg-fill);
+  stroke-width: 1.5px;
+  width: var(--svg-size);
+}
+nav.admin .mid ul li a {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  text-transform: capitalize;
+}
+nav.admin .mid ul li.active {
+  background: var(--secondary-clr);
+}
+nav.admin .bottom {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+nav.admin .bottom button {
+  padding: var(--space-mini);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  border-radius: var(--border-radius-small);
+}
+nav.admin .bottom button span {
+  display: grid;
+  place-content: center;
+}
+nav.admin .bottom button span svg {
+  stroke: var(--svg-fill);
+  stroke-width: 1.5px;
+  width: var(--svg-size);
+}
+nav.admin .bottom button p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  text-transform: capitalize;
+}
 
 .page {
   position: relative;
@@ -212,7 +367,7 @@ nav .logo p {
   justify-content: flex-start;
   flex-direction: column;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-1);
+  padding: var(--space-1) var(--space-1);
 }
 
 .porgress {
@@ -240,6 +395,12 @@ nav .logo p {
   text-transform: capitalize;
 }
 
+.home,
+.updates {
+  /* Skeleton Loading Styles */
+  /* Ensure the skeleton maintains the same layout structure */
+  /* Maintain spacing and layout */
+}
 .home .hero,
 .updates .hero {
   position: relative;
@@ -250,9 +411,20 @@ nav .logo p {
   flex-direction: column;
   gap: var(--space-2);
 }
-.home .hero > img,
-.updates .hero > img {
+.home .hero > .media,
+.updates .hero > .media {
+  position: relative;
   width: 100%;
+  min-height: 250px;
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+  display: flex;
+}
+.home .hero > .media > img,
+.updates .hero > .media > img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: var(--border-radius-large);
 }
 .home .hero h2,
@@ -512,6 +684,7 @@ nav .logo p {
   flex-direction: column;
   gap: var(--space-1);
   flex-grow: 1;
+  width: 100%;
 }
 .home .hero .card .updates .news .text .title,
 .updates .hero .card .updates .news .text .title {
@@ -547,6 +720,10 @@ nav .logo p {
   letter-spacing: var(--space-small);
   line-height: var(--line-small);
 }
+.home .hero .card .updates .news .text .date span:nth-last-child(1),
+.updates .hero .card .updates .news .text .date span:nth-last-child(1) {
+  text-transform: capitalize;
+}
 .home .hero .card .updates .news .text .desc,
 .updates .hero .card .updates .news .text .desc {
   width: 100%;
@@ -559,6 +736,12 @@ nav .logo p {
   line-height: var(--line-small);
   color: var(--txt-clr-gray);
   text-transform: capitalize;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* limits to 1 line */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .home .hero .card .updates .news span,
 .updates .hero .card .updates .news span {
@@ -571,6 +754,43 @@ nav .logo p {
   width: var(--space-2);
   stroke: var(--svg-fill-gray);
   fill: none;
+}
+.home .hero .card .updates .pagination,
+.updates .hero .card .updates .pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-1);
+}
+.home .hero .card .updates .pagination button,
+.home .hero .card .updates .pagination p,
+.updates .hero .card .updates .pagination button,
+.updates .hero .card .updates .pagination p {
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-large);
+  display: grid;
+  place-content: center;
+}
+.home .hero .card .updates .pagination button svg,
+.home .hero .card .updates .pagination p svg,
+.updates .hero .card .updates .pagination button svg,
+.updates .hero .card .updates .pagination p svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+.home .hero .card .updates .pagination p,
+.updates .hero .card .updates .pagination p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  padding: var(--space-mini) var(--space-3);
+  color: var(--txt-clr-sec);
 }
 .home .hero .card .progress,
 .updates .hero .card .progress {
@@ -699,6 +919,156 @@ nav .logo p {
   text-transform: capitalize;
   color: var(--txt-clr-light);
 }
+.home .skeleton-media,
+.updates .skeleton-media {
+  position: relative;
+  overflow: hidden;
+}
+.home .skeleton-img,
+.updates .skeleton-img {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+.home .skeleton-title,
+.updates .skeleton-title {
+  height: 32px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  width: 60%;
+}
+.home .skeleton-text,
+.updates .skeleton-text {
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.home .skeleton-text.short,
+.updates .skeleton-text.short {
+  width: 40%;
+}
+.home .skeleton-text.medium,
+.updates .skeleton-text.medium {
+  width: 70%;
+}
+.home .skeleton-text.long,
+.updates .skeleton-text.long {
+  width: 90%;
+}
+.home .skeleton-text.xshort,
+.updates .skeleton-text.xshort {
+  width: 30%;
+  height: 12px;
+}
+.home .skeleton-button,
+.updates .skeleton-button {
+  height: 44px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 6px;
+  width: 120px;
+}
+.home .skeleton-button.small,
+.updates .skeleton-button.small {
+  height: 32px;
+  width: 80px;
+}
+.home .skeleton-support,
+.updates .skeleton-support {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.home .skeleton-support .skeleton-icon,
+.updates .skeleton-support .skeleton-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 50%;
+}
+.home .skeleton-icon,
+.updates .skeleton-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 50%;
+}
+.home .skeleton-icon.small,
+.updates .skeleton-icon.small {
+  width: 16px;
+  height: 16px;
+}
+.home .skeleton-news,
+.updates .skeleton-news {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+.home .skeleton-news .skeleton-img,
+.updates .skeleton-news .skeleton-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.home .skeleton-news .text,
+.updates .skeleton-news .text {
+  flex: 1;
+}
+.home .skeleton-pagination,
+.updates .skeleton-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.home .skeleton-media,
+.home .skeleton-support,
+.home .skeleton-news,
+.updates .skeleton-media,
+.updates .skeleton-support,
+.updates .skeleton-news {
+  pointer-events: none;
+}
+.home .skeleton-support .text,
+.home .skeleton-news .text,
+.updates .skeleton-support .text,
+.updates .skeleton-news .text {
+  flex: 1;
+}
 
 .donation,
 .pay {
@@ -708,6 +1078,14 @@ nav .logo p {
   justify-content: flex-start;
   flex-direction: column;
   gap: var(--space-2);
+  /* Donation Skeleton Styles */
+  /* Cause selection skeleton */
+  /* Amount selection skeleton */
+  /* User details skeleton */
+  /* Payment selection skeleton */
+  /* Donate button skeleton */
+  /* Ensure the skeleton maintains the same layout structure */
+  /* Maintain spacing and layout */
 }
 .donation h2,
 .pay h2 {
@@ -1883,6 +2261,175 @@ nav .logo p {
 .pay .backBtn::first-letter {
   text-transform: capitalize;
 }
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.donation .skeleton-title,
+.pay .skeleton-title {
+  height: 32px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  width: 60%;
+}
+.donation .skeleton-text,
+.pay .skeleton-text {
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.donation .skeleton-text.short,
+.pay .skeleton-text.short {
+  width: 40%;
+}
+.donation .skeleton-text.medium,
+.pay .skeleton-text.medium {
+  width: 70%;
+}
+.donation .skeleton-text.long,
+.pay .skeleton-text.long {
+  width: 90%;
+}
+.donation .skeleton-text.xshort,
+.pay .skeleton-text.xshort {
+  width: 30%;
+  height: 12px;
+}
+.donation .skeleton-icon,
+.pay .skeleton-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 50%;
+}
+.donation .skeleton-icon.small,
+.pay .skeleton-icon.small {
+  width: 16px;
+  height: 16px;
+}
+.donation .skeleton-button,
+.pay .skeleton-button {
+  height: 44px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 6px;
+  width: 120px;
+}
+.donation .skeleton-button.small,
+.pay .skeleton-button.small {
+  height: 32px;
+  width: 80px;
+}
+.donation .skeleton-cause-button,
+.pay .skeleton-cause-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  pointer-events: none;
+}
+.donation .amount-buttons,
+.pay .amount-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.donation .skeleton-amount-button,
+.pay .skeleton-amount-button {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  pointer-events: none;
+  flex: 1;
+}
+.donation .skeleton-custom-amount,
+.pay .skeleton-custom-amount {
+  display: block;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  pointer-events: none;
+}
+.donation .skeleton-custom-amount .placeholder,
+.pay .skeleton-custom-amount .placeholder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.donation .skeleton-input,
+.pay .skeleton-input {
+  display: block;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  pointer-events: none;
+}
+.donation .skeleton-input .placeholder,
+.pay .skeleton-input .placeholder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.donation .skeleton-payment-button,
+.pay .skeleton-payment-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  pointer-events: none;
+}
+.donation .skeleton-donate-button,
+.pay .skeleton-donate-button {
+  padding: 16px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border: none;
+  width: 100%;
+  margin-top: 24px;
+  pointer-events: none;
+}
+.donation .skeleton-cause-button,
+.donation .skeleton-amount-button,
+.donation .skeleton-custom-amount,
+.donation .skeleton-input,
+.donation .skeleton-payment-button,
+.donation .skeleton-donate-button,
+.pay .skeleton-cause-button,
+.pay .skeleton-amount-button,
+.pay .skeleton-custom-amount,
+.pay .skeleton-input,
+.pay .skeleton-payment-button,
+.pay .skeleton-donate-button {
+  pointer-events: none;
+}
+.donation .skeleton-cause-button .text,
+.donation .skeleton-payment-button .text,
+.pay .skeleton-cause-button .text,
+.pay .skeleton-payment-button .text {
+  flex: 1;
+}
 
 #message {
   width: 100%;
@@ -2174,7 +2721,8 @@ nav .logo p {
   stroke: var(--svg-fill-sec);
 }
 
-.Article article {
+.Article article,
+.AdminViewArticle article {
   width: clamp(250px, 100%, 600px);
   display: flex;
   align-items: flex-start;
@@ -2182,14 +2730,152 @@ nav .logo p {
   flex-direction: column;
   gap: var(--space-2);
 }
-.Article article img {
+.Article article .header_actions,
+.AdminViewArticle article .header_actions {
+  position: relative;
+  width: 100%;
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-2);
+}
+.Article article .header_actions > button,
+.AdminViewArticle article .header_actions > button {
+  display: grid;
+  place-content: center;
+  padding: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-medium);
+  anchor-name: --menu-button;
+}
+.Article article .header_actions > button svg,
+.AdminViewArticle article .header_actions > button svg {
+  stroke: var(--svg-fill);
+  width: var(--svg-size);
+}
+.Article article .header_actions #menu,
+.AdminViewArticle article .header_actions #menu {
+  background: var(--body-bg-clr);
+  border-radius: var(--border-radius-medium);
+  border: 1px solid var(--border-clr);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  width: -moz-max-content;
+  width: max-content;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+  position-anchor: --menu-button;
+  top: anchor(bottom);
+  left: anchor(right);
+  position-try-fallbacks: --below-right, --below-left;
+}
+.Article article .header_actions #menu:popover-open,
+.AdminViewArticle article .header_actions #menu:popover-open {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+@position-try --below-right {
+  .Article article .header_actions #menu,
+  .AdminViewArticle article .header_actions #menu {
+    inset: unset;
+    top: anchor(bottom);
+    left: anchor(left);
+  }
+}
+@position-try --below-left {
+  .Article article .header_actions #menu,
+  .AdminViewArticle article .header_actions #menu {
+    inset: unset;
+    top: anchor(bottom);
+    right: anchor(right);
+  }
+}
+.Article article .header_actions #menu button,
+.AdminViewArticle article .header_actions #menu button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.Article article .header_actions #menu button span,
+.AdminViewArticle article .header_actions #menu button span {
+  display: grid;
+  place-content: center;
+}
+.Article article .header_actions #menu button span svg,
+.AdminViewArticle article .header_actions #menu button span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+.Article article .media-container,
+.AdminViewArticle article .media-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  display: flex;
+}
+.Article article .media-container img,
+.Article article .media-container video,
+.AdminViewArticle article .media-container img,
+.AdminViewArticle article .media-container video {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
-  max-height: 250px;
   border-radius: var(--border-radius-large);
 }
-.Article article h1 {
+.Article article .media-container.editing,
+.AdminViewArticle article .media-container.editing {
+  border: 2px dashed var(--border-clr);
+  border-radius: var(--border-radius-large);
+}
+.Article article .media-container .media-upload-overlay,
+.AdminViewArticle article .media-container .media-upload-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-content: center;
+}
+.Article article .media-container .media-upload-overlay .upload-button,
+.AdminViewArticle article .media-container .media-upload-overlay .upload-button {
+  position: relative;
+  background: var(--secondary-clr);
+  padding: var(--space-3);
+  border-radius: var(--border-radius-circle);
+  display: grid;
+  place-content: center;
+}
+.Article article .media-container .media-upload-overlay .upload-button span,
+.AdminViewArticle article .media-container .media-upload-overlay .upload-button span {
+  display: grid;
+  place-content: center;
+}
+.Article article .media-container .media-upload-overlay .upload-button span svg,
+.AdminViewArticle article .media-container .media-upload-overlay .upload-button span svg {
+  width: var(--space-3);
+  fill: var(--svg-fill);
+  stroke: var(--svg-fill);
+}
+.Article article .media-container .media-upload-overlay input,
+.AdminViewArticle article .media-container .media-upload-overlay input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.Article article h1,
+.AdminViewArticle article h1 {
   font-size: var(--font-h4);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-h4);
@@ -2198,7 +2884,8 @@ nav .logo p {
   font-family: var(--arabic-fm-b);
   text-transform: capitalize;
 }
-.Article article .user_info {
+.Article article .user_info,
+.AdminViewArticle article .user_info {
   width: 100%;
   display: flex;
   align-items: center;
@@ -2207,29 +2894,35 @@ nav .logo p {
   gap: var(--space-1);
   color: var(--txt-clr-gray);
 }
-.Article article .user_info #avatar {
+.Article article .user_info #avatar,
+.AdminViewArticle article .user_info #avatar {
   display: grid;
   place-content: center;
   background: var(--secondary-clr);
   border-radius: var(--border-radius-circle);
   padding: var(--space-mini);
 }
-.Article article .user_info #avatar svg {
+.Article article .user_info #avatar svg,
+.AdminViewArticle article .user_info #avatar svg {
   width: var(--svg-size);
   stroke: var(--svg-fill-gray);
 }
-.Article article .user_info p {
+.Article article .user_info p,
+.AdminViewArticle article .user_info p {
   text-transform: capitalize;
 }
 .Article article .user_info p,
-.Article article .user_info #date {
+.Article article .user_info #date,
+.AdminViewArticle article .user_info p,
+.AdminViewArticle article .user_info #date {
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
   line-height: var(--line-small);
   color: var(--txt-clr-gray);
 }
-.Article article > .impacts {
+.Article article > .impacts,
+.AdminViewArticle article > .impacts {
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -2238,7 +2931,8 @@ nav .logo p {
   gap: var(--space-1);
   flex-wrap: wrap;
 }
-.Article article > .impacts div {
+.Article article > .impacts div,
+.AdminViewArticle article > .impacts div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2248,7 +2942,8 @@ nav .logo p {
   border-radius: var(--border-radius-large);
   padding: var(--space-1) var(--space-2);
 }
-.Article article > .impacts div p {
+.Article article > .impacts div p,
+.AdminViewArticle article > .impacts div p {
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
@@ -2256,7 +2951,13 @@ nav .logo p {
   color: var(--txt-clr-sec);
   text-transform: capitalize;
 }
-.Article article .card {
+.Article article > .impacts select,
+.AdminViewArticle article > .impacts select {
+  background: var(--secondary-clr);
+  border: none;
+}
+.Article article .card,
+.AdminViewArticle article .card {
   width: 100%;
   border: 1px solid var(--border-clr);
   border-radius: var(--border-radius-large);
@@ -2268,18 +2969,23 @@ nav .logo p {
   gap: var(--space-mini);
   flex-wrap: wrap;
 }
-.Article article .card > span {
+.Article article .card > span,
+.AdminViewArticle article .card > span {
   position: relative;
+  width: 100%;
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
   line-height: var(--line-small);
   color: var(--txt-clr-gray);
+  white-space: per-line;
 }
-.Article article .card > span::first-letter {
+.Article article .card > span::first-letter,
+.AdminViewArticle article .card > span::first-letter {
   text-transform: capitalize;
 }
-.Article article .card > span::after {
+.Article article .card > span::after,
+.AdminViewArticle article .card > span::after {
   content: "";
   position: absolute;
   bottom: calc(-1 * var(--space-3) / 2);
@@ -2288,7 +2994,8 @@ nav .logo p {
   height: 1px;
   background: var(--border-clr);
 }
-.Article article .card > p {
+.Article article .card > p,
+.AdminViewArticle article .card > p {
   width: 100%;
   font-size: var(--font-p);
   font-family: var(--arabic-fm-r);
@@ -2297,10 +3004,33 @@ nav .logo p {
   color: var(--txt-clr);
   margin-top: var(--space-2);
 }
-.Article article .card > p::first-letter {
+.Article article .card > p::first-letter,
+.AdminViewArticle article .card > p::first-letter {
   text-transform: capitalize;
 }
-.Article article .card ul {
+.Article article .card .note-toggle,
+.AdminViewArticle article .card .note-toggle {
+  width: 100%;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+}
+.Article article .card .note-toggle::first-letter,
+.AdminViewArticle article .card .note-toggle::first-letter {
+  text-transform: capitalize;
+}
+.Article article .card label,
+.AdminViewArticle article .card label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.Article article .card ul,
+.AdminViewArticle article .card ul {
   width: 100%;
   padding: var(--space-1) var(--space-2);
   display: flex;
@@ -2309,17 +3039,43 @@ nav .logo p {
   flex-direction: column;
   gap: var(--space-1);
 }
-.Article article .card ul li {
+.Article article .card ul li,
+.AdminViewArticle article .card ul li {
   font-size: var(--font-p);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-p);
   line-height: var(--line-p);
   color: var(--txt-clr);
 }
-.Article article .card ul li::first-letter {
+.Article article .card ul li::first-letter,
+.AdminViewArticle article .card ul li::first-letter {
   text-transform: capitalize;
 }
-.Article article .card .top {
+.Article article .card ul li .list-content,
+.AdminViewArticle article .card ul li .list-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+.Article article .card ul li .list-content button,
+.AdminViewArticle article .card ul li .list-content button {
+  display: grid;
+  place-content: center;
+}
+.Article article .card ul li .list-content button svg,
+.AdminViewArticle article .card ul li .list-content button svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill);
+}
+.Article article .card ul li:nth-last-child(1):has(button),
+.AdminViewArticle article .card ul li:nth-last-child(1):has(button) {
+  list-style: none;
+}
+.Article article .card .top,
+.AdminViewArticle article .card .top {
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -2327,7 +3083,8 @@ nav .logo p {
   flex-direction: column;
   gap: var(--space-1);
 }
-.Article article .card .top > span {
+.Article article .card .top > span,
+.AdminViewArticle article .card .top > span {
   position: relative;
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
@@ -2335,10 +3092,12 @@ nav .logo p {
   line-height: var(--line-small);
   color: var(--txt-clr-gray);
 }
-.Article article .card .top > span::first-letter {
+.Article article .card .top > span::first-letter,
+.AdminViewArticle article .card .top > span::first-letter {
   text-transform: capitalize;
 }
-.Article article .card .top .title {
+.Article article .card .top .title,
+.AdminViewArticle article .card .top .title {
   width: 100%;
   display: flex;
   align-items: center;
@@ -2346,7 +3105,8 @@ nav .logo p {
   flex-direction: row;
   gap: var(--space-1);
 }
-.Article article .card .top .title p {
+.Article article .card .top .title p,
+.AdminViewArticle article .card .top .title p {
   width: 100%;
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
@@ -2356,7 +3116,8 @@ nav .logo p {
   font-family: var(--arabic-fm-b);
   text-transform: capitalize;
 }
-.Article article .card .top .title a {
+.Article article .card .top .title a,
+.AdminViewArticle article .card .top .title a {
   padding: var(--space-1) var(--space-2);
   background: var(--secondary-clr);
   border-radius: var(--border-radius-large);
@@ -2366,7 +3127,8 @@ nav .logo p {
   flex-direction: row;
   gap: var(--space-1);
 }
-.Article article .card .top .title a p {
+.Article article .card .top .title a p,
+.AdminViewArticle article .card .top .title a p {
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
@@ -2374,16 +3136,19 @@ nav .logo p {
   color: var(--txt-clr-sec);
   text-transform: capitalize;
 }
-.Article article .card .top .title a span {
+.Article article .card .top .title a span,
+.AdminViewArticle article .card .top .title a span {
   display: grid;
   place-content: center;
 }
-.Article article .card .top .title a span svg {
+.Article article .card .top .title a span svg,
+.AdminViewArticle article .card .top .title a span svg {
   width: var(--space-2);
   fill: none;
   stroke: var(--svg-fill-sec);
 }
-.Article article .card .note {
+.Article article .card .note,
+.AdminViewArticle article .card .note {
   width: 100%;
   margin-top: var(--space-2);
   display: flex;
@@ -2393,17 +3158,20 @@ nav .logo p {
   gap: var(--space-1);
   background: var(--secondary-clr);
   padding: var(--space-2) var(--space-1);
-  border-radius: var(--border-radius-large);
+  border-radius: var(--border-radius-medium);
 }
-.Article article .card .note span {
+.Article article .card .note span,
+.AdminViewArticle article .card .note span {
   display: grid;
   place-content: center;
 }
-.Article article .card .note span svg {
+.Article article .card .note span svg,
+.AdminViewArticle article .card .note span svg {
   width: var(--svg-size);
   stroke: var(--svg-fill-sec);
 }
-.Article article .card .note p {
+.Article article .card .note p,
+.AdminViewArticle article .card .note p {
   width: 100%;
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
@@ -2411,10 +3179,12 @@ nav .logo p {
   line-height: var(--line-small);
   color: var(--txt-clr-sec);
 }
-.Article article .card .note p::first-letter {
+.Article article .card .note p::first-letter,
+.AdminViewArticle article .card .note p::first-letter {
   text-transform: capitalize;
 }
-.Article article .card > .impacts {
+.Article article .card > .impacts,
+.AdminViewArticle article .card > .impacts {
   margin-top: var(--space-1);
   width: 100%;
   display: flex;
@@ -2424,7 +3194,8 @@ nav .logo p {
   gap: var(--space-1);
   flex-wrap: wrap;
 }
-.Article article .card > .impacts div {
+.Article article .card > .impacts div,
+.AdminViewArticle article .card > .impacts div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2434,7 +3205,8 @@ nav .logo p {
   border-radius: var(--border-radius-medium);
   padding: var(--space-1) var(--space-1);
 }
-.Article article .card > .impacts div p {
+.Article article .card > .impacts div p,
+.AdminViewArticle article .card > .impacts div p {
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
@@ -2442,16 +3214,20 @@ nav .logo p {
   color: var(--txt-clr-sec);
   text-transform: capitalize;
 }
-.Article article .card > .impacts div span {
+.Article article .card > .impacts div span,
+.AdminViewArticle article .card > .impacts div span {
   display: grid;
   place-content: center;
 }
-.Article article .card > .impacts div span svg {
+.Article article .card > .impacts div span svg,
+.AdminViewArticle article .card > .impacts div span svg {
   width: var(--svg-size);
   stroke: var(--svg-fill-sec);
 }
 .Article article .card a,
-.Article article .card button {
+.Article article .card button,
+.AdminViewArticle article .card a,
+.AdminViewArticle article .card button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2462,7 +3238,9 @@ nav .logo p {
   padding: var(--space-1) var(--space-2);
 }
 .Article article .card a p,
-.Article article .card button p {
+.Article article .card button p,
+.AdminViewArticle article .card a p,
+.AdminViewArticle article .card button p {
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
@@ -2472,20 +3250,26 @@ nav .logo p {
   text-transform: capitalize;
 }
 .Article article .card a span,
-.Article article .card button span {
+.Article article .card button span,
+.AdminViewArticle article .card a span,
+.AdminViewArticle article .card button span {
   display: grid;
   place-content: center;
 }
 .Article article .card a span svg,
-.Article article .card button span svg {
+.Article article .card button span svg,
+.AdminViewArticle article .card a span svg,
+.AdminViewArticle article .card button span svg {
   width: var(--space-2);
   stroke: var(--svg-fill-sec);
   fill: none;
 }
-.Article article .card #main {
+.Article article .card #main,
+.AdminViewArticle article .card #main {
   background: var(--primary-clr);
 }
-.Article article .card #main p {
+.Article article .card #main p,
+.AdminViewArticle article .card #main p {
   font-size: var(--font-small);
   font-family: var(--arabic-fm-r);
   letter-spacing: var(--space-small);
@@ -2493,8 +3277,1497 @@ nav .logo p {
   color: var(--txt-clr-light);
   font-family: var(--arabic-fm-b);
 }
-.Article article .card #main span svg {
+.Article article .card #main span svg,
+.AdminViewArticle article .card #main span svg {
   stroke: var(--svg-fill-light);
+}
+.Article article input[type=checkbox],
+.AdminViewArticle article input[type=checkbox] {
+  scale: 1.3;
+  color: red;
+  accent-color: var(--bar-clr);
+}
+
+.TopBar {
+  position: static;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--border-clr);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2);
+}
+.TopBar .left h5 {
+  font-size: var(--font-h5);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h5);
+  line-height: var(--line-h5);
+  font-family: var(--arabic-fm-b);
+}
+.TopBar .right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-2);
+}
+.TopBar .right a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--primary-clr);
+  border-radius: var(--border-radius-small);
+}
+.TopBar .right a span {
+  display: grid;
+  place-content: center;
+}
+.TopBar .right a span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-light);
+}
+.TopBar .right a p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-light);
+  text-transform: capitalize;
+}
+.TopBar .right .user {
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-circle);
+  display: grid;
+  place-content: center;
+  width: var(--space-4);
+  aspect-ratio: 1/1;
+}
+.TopBar .right .user svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill);
+}
+
+.AdminDashboared .slides,
+.AdminDonationPage .slides {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .slides .slide,
+.AdminDonationPage .slides .slide {
+  flex-grow: 1;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  /* Loading states */
+}
+.AdminDashboared .slides .slide span,
+.AdminDonationPage .slides .slide span {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-gray);
+  text-transform: capitalize;
+}
+.AdminDashboared .slides .slide h6,
+.AdminDonationPage .slides .slide h6 {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+  text-transform: capitalize;
+}
+.AdminDashboared .slides .slide p,
+.AdminDonationPage .slides .slide p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+  text-transform: capitalize;
+}
+.AdminDashboared .slides .slide.loading,
+.AdminDonationPage .slides .slide.loading {
+  animation: pulse 2s infinite;
+}
+.AdminDashboared .slides .slide .skeleton-line,
+.AdminDonationPage .slides .slide .skeleton-line {
+  background: #e5e7eb;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+}
+.AdminDashboared .slides .slide .skeleton-line.short,
+.AdminDonationPage .slides .slide .skeleton-line.short {
+  height: 12px;
+  width: 60%;
+  margin: 0 auto;
+}
+.AdminDashboared .slides .slide .skeleton-line.medium,
+.AdminDonationPage .slides .slide .skeleton-line.medium {
+  height: 20px;
+  width: 40%;
+  margin: 1rem auto;
+}
+.AdminDashboared .slides .slide .skeleton-line.long,
+.AdminDonationPage .slides .slide .skeleton-line.long {
+  height: 14px;
+  width: 70%;
+  margin: 0 auto;
+}
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.AdminDashboared .slides .slide .slide.error,
+.AdminDonationPage .slides .slide .slide.error {
+  grid-column: 1/-1;
+  text-align: center;
+  color: #ef4444;
+}
+.AdminDashboared .slides .error,
+.AdminDonationPage .slides .error {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 4px;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  background: var(--bg-err-clr);
+  border: 1px solid var(--border-err-clr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.AdminDashboared .slides .error p,
+.AdminDonationPage .slides .error p {
+  color: var(--txt-clr-err);
+  margin: 0;
+}
+.AdminDashboared .slides .error .retry-btn,
+.AdminDashboared .slides .error button,
+.AdminDonationPage .slides .error .retry-btn,
+.AdminDonationPage .slides .error button {
+  width: -moz-fit-content;
+  width: fit-content;
+  background: var(--txt-clr-err);
+  color: var(--txt-clr-light);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+.AdminDashboared .slides .error .retry-btn:hover,
+.AdminDashboared .slides .error button:hover,
+.AdminDonationPage .slides .error .retry-btn:hover,
+.AdminDonationPage .slides .error button:hover {
+  background: var(--dark-bg-err);
+}
+.AdminDashboared .cases-container,
+.AdminDonationPage .cases-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-content: center;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations,
+.AdminDonationPage .cases-container .recent-donations {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  padding: var(--space-2) var(--space-1);
+  margin-right: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.AdminDashboared .cases-container .recent-donations h3,
+.AdminDonationPage .cases-container .recent-donations h3 {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters h3,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters h3 {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .filter-group,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .filter-group,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .filter-group,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .filter-group {
+  background: var(--secondary-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-small);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .filter-group label,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .filter-group label,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .filter-group label,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .filter-group label {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .filter-group select,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .filter-group select,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .filter-group select,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .filter-group select {
+  field-sizing: content;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  accent-color: transparent;
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .clear-filters-btn,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .clear-filters-btn,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .clear-filters-btn,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .clear-filters-btn {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  background: var(--accent-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-small);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .export-csv-btn,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .export-csv-btn,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .export-csv-btn,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .export-csv-btn {
+  padding: var(--space-1);
+  background: var(--primary-clr);
+  border-radius: var(--border-radius-small);
+  color: var(--txt-clr-light);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  margin-left: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .export-csv-btn span,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .export-csv-btn span,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .export-csv-btn span,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .export-csv-btn span {
+  display: grid;
+  place-content: center;
+}
+.AdminDashboared .cases-container .recent-donations .header-with-filters .filters .export-csv-btn span svg,
+.AdminDashboared .cases-container .recent-donations .header-with-filters .campaigns-table .export-csv-btn span svg,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .filters .export-csv-btn span svg,
+.AdminDonationPage .cases-container .recent-donations .header-with-filters .campaigns-table .export-csv-btn span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-light);
+}
+.AdminDashboared .cases-container .recent-donations table,
+.AdminDonationPage .cases-container .recent-donations table {
+  width: 100%;
+  border: none;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-l);
+  text-align: auto;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-medium);
+  border-spacing: 0px;
+}
+.AdminDashboared .cases-container .recent-donations table thead,
+.AdminDonationPage .cases-container .recent-donations table thead {
+  border: none;
+}
+.AdminDashboared .cases-container .recent-donations table thead tr,
+.AdminDonationPage .cases-container .recent-donations table thead tr {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  color: var(--txt-clr-sec);
+  background: var(--sidebar-clr);
+}
+.AdminDashboared .cases-container .recent-donations table thead tr th,
+.AdminDonationPage .cases-container .recent-donations table thead tr th {
+  padding: var(--space-2);
+  border: none;
+  text-align: left;
+}
+.AdminDashboared .cases-container .recent-donations table thead tr th:nth-child(1),
+.AdminDonationPage .cases-container .recent-donations table thead tr th:nth-child(1) {
+  border-top-left-radius: var(--border-radius-medium);
+  overflow: hidden;
+}
+.AdminDashboared .cases-container .recent-donations table thead tr th:nth-last-child(1),
+.AdminDonationPage .cases-container .recent-donations table thead tr th:nth-last-child(1) {
+  border-top-right-radius: var(--border-radius-medium);
+  overflow: hidden;
+}
+.AdminDashboared .cases-container .recent-donations table tbody td,
+.AdminDonationPage .cases-container .recent-donations table tbody td {
+  padding: var(--space-2);
+}
+.AdminDashboared .cases-container .recent-donations table tbody td .method,
+.AdminDashboared .cases-container .recent-donations table tbody td .status,
+.AdminDonationPage .cases-container .recent-donations table tbody td .method,
+.AdminDonationPage .cases-container .recent-donations table tbody td .status {
+  background: var(--sidebar-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-small);
+  color: var(--txt-clr-sec);
+}
+.AdminDashboared .cases-container .recent-donations .footer,
+.AdminDonationPage .cases-container .recent-donations .footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations .footer > p,
+.AdminDonationPage .cases-container .recent-donations .footer > p {
+  color: var(--txt-clr-gray);
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+}
+.AdminDashboared .cases-container .recent-donations .footer .pagination-controls,
+.AdminDonationPage .cases-container .recent-donations .footer .pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations .footer .pagination-controls button,
+.AdminDonationPage .cases-container .recent-donations .footer .pagination-controls button {
+  background: var(--accent-clr);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-r);
+  transition: background 0.3s ease;
+}
+.AdminDashboared .cases-container .recent-donations .footer .pagination-controls button:hover,
+.AdminDonationPage .cases-container .recent-donations .footer .pagination-controls button:hover {
+  background: var(--secondary-clr);
+}
+.AdminDashboared .cases-container .recent-donations .loading-row td,
+.AdminDonationPage .cases-container .recent-donations .loading-row td {
+  padding: 1rem;
+}
+.AdminDashboared .cases-container .recent-donations .loading-row .skeleton,
+.AdminDonationPage .cases-container .recent-donations .loading-row .skeleton {
+  height: 16px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: loading 1.5s infinite;
+}
+.AdminDashboared .cases-container .recent-donations .error-message,
+.AdminDonationPage .cases-container .recent-donations .error-message {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 4px;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  background: var(--bg-err-clr);
+  border: 1px solid var(--border-err-clr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.AdminDashboared .cases-container .recent-donations .error-message p,
+.AdminDonationPage .cases-container .recent-donations .error-message p {
+  color: var(--txt-clr-err);
+  margin: 0;
+}
+.AdminDashboared .cases-container .recent-donations .error-message .retry-btn,
+.AdminDonationPage .cases-container .recent-donations .error-message .retry-btn {
+  width: -moz-fit-content;
+  width: fit-content;
+  background: var(--txt-clr-err);
+  color: var(--txt-clr-light);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+.AdminDashboared .cases-container .recent-donations .error-message .retry-btn:hover,
+.AdminDonationPage .cases-container .recent-donations .error-message .retry-btn:hover {
+  background: var(--dark-bg-err);
+}
+.AdminDashboared .cases-container .recent-donations .no-data,
+.AdminDonationPage .cases-container .recent-donations .no-data {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+  font-style: italic;
+}
+.AdminDashboared .cases-container .cases,
+.AdminDonationPage .cases-container .cases {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  padding: var(--space-2) var(--space-1);
+  margin-right: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.AdminDashboared .cases-container .cases .case,
+.AdminDonationPage .cases-container .cases .case {
+  width: 100%;
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-2);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+}
+.AdminDashboared .cases-container .cases .case p,
+.AdminDashboared .cases-container .cases .case span,
+.AdminDonationPage .cases-container .cases .case p,
+.AdminDonationPage .cases-container .cases .case span {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+  text-transform: capitalize;
+}
+.AdminDashboared .cases-container .cases .case.skeleton,
+.AdminDonationPage .cases-container .cases .case.skeleton {
+  background: white;
+  cursor: default;
+}
+.AdminDashboared .cases-container .cases .case.skeleton .skeleton-line,
+.AdminDonationPage .cases-container .cases .case.skeleton .skeleton-line {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: loading 1.5s infinite;
+}
+.AdminDashboared .cases-container .cases .case.skeleton .skeleton-title,
+.AdminDonationPage .cases-container .cases .case.skeleton .skeleton-title {
+  height: 20px;
+  width: 150px;
+}
+.AdminDashboared .cases-container .cases .case.skeleton .skeleton-amount,
+.AdminDonationPage .cases-container .cases .case.skeleton .skeleton-amount {
+  height: 24px;
+  width: 80px;
+}
+.AdminDashboared .cases-container .cases .case.error,
+.AdminDonationPage .cases-container .cases .case.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  text-align: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.AdminDashboared .cases-container .cases .case.error p,
+.AdminDonationPage .cases-container .cases .case.error p {
+  color: #dc2626;
+  margin: 0;
+}
+.AdminDashboared .cases-container .cases .case.error .retry-btn,
+.AdminDonationPage .cases-container .cases .case.error .retry-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.AdminDashboared .cases-container .cases .case.error .retry-btn:hover,
+.AdminDonationPage .cases-container .cases .case.error .retry-btn:hover {
+  background: #b91c1c;
+}
+.AdminDashboared .cases-container .cases .case.empty,
+.AdminDonationPage .cases-container .cases .case.empty {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+.AdminDashboared .cases-container .cases .case.empty p,
+.AdminDonationPage .cases-container .cases .case.empty p {
+  color: #6b7280;
+  font-style: italic;
+  margin: 0;
+}
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.AdminDashboared .QuickActions,
+.AdminDonationPage .QuickActions {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  background: var(--sidebar-clr);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1);
+}
+.AdminDashboared .QuickActions .left,
+.AdminDonationPage .QuickActions .left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .QuickActions .left span,
+.AdminDonationPage .QuickActions .left span {
+  display: grid;
+  place-content: center;
+}
+.AdminDashboared .QuickActions .left span svg,
+.AdminDonationPage .QuickActions .left span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.AdminDashboared .QuickActions .left p,
+.AdminDonationPage .QuickActions .left p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+  text-transform: capitalize;
+}
+.AdminDashboared .QuickActions .right,
+.AdminDonationPage .QuickActions .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .QuickActions .right button,
+.AdminDonationPage .QuickActions .right button {
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  padding: var(--space-1);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+}
+.AdminDashboared .QuickActions .right #primary,
+.AdminDonationPage .QuickActions .right #primary {
+  background: var(--primary-clr);
+  color: var(--txt-clr-light);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay,
+.AdminDonationPage .QuickActions .filter-popup-overlay {
+  position: fixed;
+  width: clamp(200px, 50%, 500px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--body-bg-clr);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-medium);
+  padding: var(--space-2) var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-shadow: 5px 5px 10px var(--txt-clr-gray);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-header,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-header h3,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-header h3 {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  font-family: var(--arabic-fm-b);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-content,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-content p,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-content p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-content .filter-section,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-content .filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-content .filter-section .filter-group,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-content .filter-section .filter-group {
+  background: var(--secondary-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-medium);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-content .filter-section .filter-group label,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-content .filter-section .filter-group label {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-content .filter-section .filter-group select,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-content .filter-section .filter-group select {
+  border: none;
+  outline: none;
+  field-sizing: content;
+  background: transparent;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .export-info,
+.AdminDonationPage .QuickActions .filter-popup-overlay .export-info {
+  width: 100%;
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .export-info p,
+.AdminDashboared .QuickActions .filter-popup-overlay .export-info strong,
+.AdminDonationPage .QuickActions .filter-popup-overlay .export-info p,
+.AdminDonationPage .QuickActions .filter-popup-overlay .export-info strong {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer .action-buttons,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer .action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-medium);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button span,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button span {
+  display: grid;
+  place-content: center;
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button span svg,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-sec);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button p,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button.export-btn,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button.export-btn {
+  background: var(--primary-clr);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button.export-btn p,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button.export-btn p {
+  color: var(--txt-clr-light);
+}
+.AdminDashboared .QuickActions .filter-popup-overlay .popup-footer button.export-btn svg,
+.AdminDonationPage .QuickActions .filter-popup-overlay .popup-footer button.export-btn svg {
+  stroke: var(--svg-fill-light);
+}
+
+.AdminDonationPage .cases-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+
+.article-table,
+.campaigns-table,
+.users-table {
+  width: 100%;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  padding: var(--space-2) var(--space-1);
+  margin-right: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.article-table .header-with-filters,
+.campaigns-table .header-with-filters,
+.users-table .header-with-filters {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.article-table .header-with-filters h3,
+.campaigns-table .header-with-filters h3,
+.users-table .header-with-filters h3 {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+}
+.article-table .header-with-filters .filters,
+.article-table .header-with-filters .campaigns-table,
+.campaigns-table .header-with-filters .filters,
+.campaigns-table .header-with-filters .campaigns-table,
+.users-table .header-with-filters .filters,
+.users-table .header-with-filters .campaigns-table {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.article-table .header-with-filters .filters .filter-group,
+.article-table .header-with-filters .campaigns-table .filter-group,
+.campaigns-table .header-with-filters .filters .filter-group,
+.campaigns-table .header-with-filters .campaigns-table .filter-group,
+.users-table .header-with-filters .filters .filter-group,
+.users-table .header-with-filters .campaigns-table .filter-group {
+  background: var(--secondary-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-small);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-mini);
+}
+.article-table .header-with-filters .filters .filter-group label,
+.article-table .header-with-filters .campaigns-table .filter-group label,
+.campaigns-table .header-with-filters .filters .filter-group label,
+.campaigns-table .header-with-filters .campaigns-table .filter-group label,
+.users-table .header-with-filters .filters .filter-group label,
+.users-table .header-with-filters .campaigns-table .filter-group label {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.article-table .header-with-filters .filters .filter-group select,
+.article-table .header-with-filters .campaigns-table .filter-group select,
+.campaigns-table .header-with-filters .filters .filter-group select,
+.campaigns-table .header-with-filters .campaigns-table .filter-group select,
+.users-table .header-with-filters .filters .filter-group select,
+.users-table .header-with-filters .campaigns-table .filter-group select {
+  field-sizing: content;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  accent-color: transparent;
+}
+.article-table .header-with-filters .filters .filter-group input,
+.article-table .header-with-filters .campaigns-table .filter-group input,
+.campaigns-table .header-with-filters .filters .filter-group input,
+.campaigns-table .header-with-filters .campaigns-table .filter-group input,
+.users-table .header-with-filters .filters .filter-group input,
+.users-table .header-with-filters .campaigns-table .filter-group input {
+  max-width: 250px;
+  min-width: 150px;
+  border: none;
+  outline: none;
+  field-sizing: content;
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  background: transparent;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  padding: var(--space-mini) var(--space-1);
+  background: var(--body-bg-clr);
+}
+.article-table .header-with-filters .filters .clear-filters-btn,
+.article-table .header-with-filters .campaigns-table .clear-filters-btn,
+.campaigns-table .header-with-filters .filters .clear-filters-btn,
+.campaigns-table .header-with-filters .campaigns-table .clear-filters-btn,
+.users-table .header-with-filters .filters .clear-filters-btn,
+.users-table .header-with-filters .campaigns-table .clear-filters-btn {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  background: var(--accent-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-small);
+}
+.article-table .header-with-filters .filters .export-csv-btn,
+.article-table .header-with-filters .campaigns-table .export-csv-btn,
+.campaigns-table .header-with-filters .filters .export-csv-btn,
+.campaigns-table .header-with-filters .campaigns-table .export-csv-btn,
+.users-table .header-with-filters .filters .export-csv-btn,
+.users-table .header-with-filters .campaigns-table .export-csv-btn {
+  padding: var(--space-1);
+  background: var(--primary-clr);
+  border-radius: var(--border-radius-small);
+  color: var(--txt-clr-light);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  margin-left: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.article-table .header-with-filters .filters .export-csv-btn span,
+.article-table .header-with-filters .campaigns-table .export-csv-btn span,
+.campaigns-table .header-with-filters .filters .export-csv-btn span,
+.campaigns-table .header-with-filters .campaigns-table .export-csv-btn span,
+.users-table .header-with-filters .filters .export-csv-btn span,
+.users-table .header-with-filters .campaigns-table .export-csv-btn span {
+  display: grid;
+  place-content: center;
+}
+.article-table .header-with-filters .filters .export-csv-btn span svg,
+.article-table .header-with-filters .campaigns-table .export-csv-btn span svg,
+.campaigns-table .header-with-filters .filters .export-csv-btn span svg,
+.campaigns-table .header-with-filters .campaigns-table .export-csv-btn span svg,
+.users-table .header-with-filters .filters .export-csv-btn span svg,
+.users-table .header-with-filters .campaigns-table .export-csv-btn span svg {
+  width: var(--svg-size);
+  stroke: var(--svg-fill-light);
+}
+.article-table h3,
+.campaigns-table h3,
+.users-table h3 {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-b);
+  color: var(--txt-clr);
+}
+.article-table table,
+.campaigns-table table,
+.users-table table {
+  width: 100%;
+  border: none;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-l);
+  text-align: auto;
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-medium);
+  border-spacing: 0px;
+}
+.article-table table thead,
+.campaigns-table table thead,
+.users-table table thead {
+  border: none;
+}
+.article-table table thead tr,
+.campaigns-table table thead tr,
+.users-table table thead tr {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  color: var(--txt-clr-sec);
+  background: var(--sidebar-clr);
+}
+.article-table table thead tr th,
+.campaigns-table table thead tr th,
+.users-table table thead tr th {
+  padding: var(--space-2);
+  border: none;
+  text-align: left;
+}
+.article-table table thead tr th:nth-child(1),
+.campaigns-table table thead tr th:nth-child(1),
+.users-table table thead tr th:nth-child(1) {
+  border-top-left-radius: var(--border-radius-medium);
+  overflow: hidden;
+}
+.article-table table thead tr th:nth-last-child(1),
+.campaigns-table table thead tr th:nth-last-child(1),
+.users-table table thead tr th:nth-last-child(1) {
+  border-top-right-radius: var(--border-radius-medium);
+  overflow: hidden;
+}
+.article-table table tbody td,
+.campaigns-table table tbody td,
+.users-table table tbody td {
+  padding: var(--space-2);
+}
+.article-table table tbody td .method,
+.article-table table tbody td .status,
+.campaigns-table table tbody td .method,
+.campaigns-table table tbody td .status,
+.users-table table tbody td .method,
+.users-table table tbody td .status {
+  background: var(--sidebar-clr);
+  padding: var(--space-1);
+  border-radius: var(--border-radius-small);
+  color: var(--txt-clr-sec);
+}
+.article-table table tbody td .role,
+.article-table table tbody td .emailVerified,
+.campaigns-table table tbody td .role,
+.campaigns-table table tbody td .emailVerified,
+.users-table table tbody td .role,
+.users-table table tbody td .emailVerified {
+  text-transform: capitalize;
+  padding: var(--space-1);
+  background: var(--secondary-clr);
+  border-radius: var(--border-radius-small);
+}
+.article-table table tbody td .actions,
+.campaigns-table table tbody td .actions,
+.users-table table tbody td .actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-2);
+}
+.article-table table tbody td .actions button,
+.campaigns-table table tbody td .actions button,
+.users-table table tbody td .actions button {
+  background: var(--sidebar-clr);
+  padding: var(--space-1);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  text-transform: capitalize;
+  border-radius: var(--border-radius-small);
+  color: var(--txt-clr-sec);
+}
+.article-table table tbody td .actions button span,
+.campaigns-table table tbody td .actions button span,
+.users-table table tbody td .actions button span {
+  display: grid;
+  place-content: center;
+}
+.article-table table tbody td .actions button span svg,
+.campaigns-table table tbody td .actions button span svg,
+.users-table table tbody td .actions button span svg {
+  width: var(--space-2);
+  stroke: var(--svg-fill-sec);
+}
+.article-table table tbody td .progress-bar,
+.campaigns-table table tbody td .progress-bar,
+.users-table table tbody td .progress-bar {
+  background: var(--accent-clr);
+  border-radius: var(--border-radius-small);
+  overflow: hidden;
+}
+.article-table table tbody td .progress-bar .progress-fill,
+.campaigns-table table tbody td .progress-bar .progress-fill,
+.users-table table tbody td .progress-bar .progress-fill {
+  background: var(--bar-clr);
+  padding: var(--space-mini);
+  border-radius: var(--border-radius-small);
+}
+.article-table .footer,
+.campaigns-table .footer,
+.users-table .footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.article-table .footer > p,
+.campaigns-table .footer > p,
+.users-table .footer > p {
+  color: var(--txt-clr-gray);
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+}
+.article-table .footer .pagination-controls,
+.campaigns-table .footer .pagination-controls,
+.users-table .footer .pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.article-table .footer .pagination-controls button,
+.campaigns-table .footer .pagination-controls button,
+.users-table .footer .pagination-controls button {
+  background: var(--accent-clr);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-family: var(--arabic-fm-r);
+  transition: background 0.3s ease;
+}
+.article-table .footer .pagination-controls button:hover,
+.campaigns-table .footer .pagination-controls button:hover,
+.users-table .footer .pagination-controls button:hover {
+  background: var(--secondary-clr);
+}
+.article-table .loading-row td,
+.campaigns-table .loading-row td,
+.users-table .loading-row td {
+  padding: 1rem;
+}
+.article-table .loading-row .skeleton,
+.campaigns-table .loading-row .skeleton,
+.users-table .loading-row .skeleton {
+  height: 16px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: loading 1.5s infinite;
+}
+.article-table .error-message,
+.campaigns-table .error-message,
+.users-table .error-message {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 4px;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  background: var(--bg-err-clr);
+  border: 1px solid var(--border-err-clr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.article-table .error-message p,
+.campaigns-table .error-message p,
+.users-table .error-message p {
+  color: var(--txt-clr-err);
+  margin: 0;
+}
+.article-table .error-message .retry-btn,
+.campaigns-table .error-message .retry-btn,
+.users-table .error-message .retry-btn {
+  width: -moz-fit-content;
+  width: fit-content;
+  background: var(--txt-clr-err);
+  color: var(--txt-clr-light);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+.article-table .error-message .retry-btn:hover,
+.campaigns-table .error-message .retry-btn:hover,
+.users-table .error-message .retry-btn:hover {
+  background: var(--dark-bg-err);
+}
+.article-table .no-data,
+.campaigns-table .no-data,
+.users-table .no-data {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.AdminEditCampaign .form-container,
+.AdminEditUser .form-container {
+  width: 100%;
+}
+.AdminEditCampaign .form-container:has(.campaign-stats),
+.AdminEditUser .form-container:has(.campaign-stats) {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-rows: 1fr 0.5fr 0.5fr;
+  gap: var(--space-1);
+}
+.AdminEditCampaign .form-container:has(.user-stats),
+.AdminEditUser .form-container:has(.user-stats) {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-rows: 1fr 0.5fr;
+  gap: var(--space-1);
+}
+.AdminEditCampaign .form-container:has(.user-stats) .info,
+.AdminEditUser .form-container:has(.user-stats) .info {
+  grid-area: 1/1/3/2;
+}
+.AdminEditCampaign .form-container .side,
+.AdminEditCampaign .form-container .actions,
+.AdminEditCampaign .form-container .campaign-stats,
+.AdminEditCampaign .form-container .user-stats,
+.AdminEditUser .form-container .side,
+.AdminEditUser .form-container .actions,
+.AdminEditUser .form-container .campaign-stats,
+.AdminEditUser .form-container .user-stats {
+  width: 100%;
+  padding: var(--space-1);
+  border: 1px solid var(--border-clr);
+  border-radius: var(--border-radius-small);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.AdminEditCampaign .form-container .side h6,
+.AdminEditCampaign .form-container .actions h6,
+.AdminEditCampaign .form-container .campaign-stats h6,
+.AdminEditCampaign .form-container .user-stats h6,
+.AdminEditUser .form-container .side h6,
+.AdminEditUser .form-container .actions h6,
+.AdminEditUser .form-container .campaign-stats h6,
+.AdminEditUser .form-container .user-stats h6 {
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  color: var(--txt-clr);
+}
+.AdminEditCampaign .form-container .side label,
+.AdminEditCampaign .form-container .actions label,
+.AdminEditCampaign .form-container .campaign-stats label,
+.AdminEditCampaign .form-container .user-stats label,
+.AdminEditUser .form-container .side label,
+.AdminEditUser .form-container .actions label,
+.AdminEditUser .form-container .campaign-stats label,
+.AdminEditUser .form-container .user-stats label {
+  position: relative;
+  width: 100%;
+  border-radius: var(--border-radius-small);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.AdminEditCampaign .form-container .side label input,
+.AdminEditCampaign .form-container .side label select,
+.AdminEditCampaign .form-container .side label span,
+.AdminEditCampaign .form-container .side label textarea,
+.AdminEditCampaign .form-container .actions label input,
+.AdminEditCampaign .form-container .actions label select,
+.AdminEditCampaign .form-container .actions label span,
+.AdminEditCampaign .form-container .actions label textarea,
+.AdminEditCampaign .form-container .campaign-stats label input,
+.AdminEditCampaign .form-container .campaign-stats label select,
+.AdminEditCampaign .form-container .campaign-stats label span,
+.AdminEditCampaign .form-container .campaign-stats label textarea,
+.AdminEditCampaign .form-container .user-stats label input,
+.AdminEditCampaign .form-container .user-stats label select,
+.AdminEditCampaign .form-container .user-stats label span,
+.AdminEditCampaign .form-container .user-stats label textarea,
+.AdminEditUser .form-container .side label input,
+.AdminEditUser .form-container .side label select,
+.AdminEditUser .form-container .side label span,
+.AdminEditUser .form-container .side label textarea,
+.AdminEditUser .form-container .actions label input,
+.AdminEditUser .form-container .actions label select,
+.AdminEditUser .form-container .actions label span,
+.AdminEditUser .form-container .actions label textarea,
+.AdminEditUser .form-container .campaign-stats label input,
+.AdminEditUser .form-container .campaign-stats label select,
+.AdminEditUser .form-container .campaign-stats label span,
+.AdminEditUser .form-container .campaign-stats label textarea,
+.AdminEditUser .form-container .user-stats label input,
+.AdminEditUser .form-container .user-stats label select,
+.AdminEditUser .form-container .user-stats label span,
+.AdminEditUser .form-container .user-stats label textarea {
+  width: 100%;
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--border-clr);
+  outline: none;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-sec);
+  padding: var(--space-1);
+  background: var(--sidebar-clr);
+}
+.AdminEditCampaign .form-container .side label #description,
+.AdminEditCampaign .form-container .actions label #description,
+.AdminEditCampaign .form-container .campaign-stats label #description,
+.AdminEditCampaign .form-container .user-stats label #description,
+.AdminEditUser .form-container .side label #description,
+.AdminEditUser .form-container .actions label #description,
+.AdminEditUser .form-container .campaign-stats label #description,
+.AdminEditUser .form-container .user-stats label #description {
+  width: 100%;
+  max-width: 1650px;
+  min-width: 650px;
+  field-sizing: content;
+  white-space: pre-wrap;
+  min-height: 42px;
+  max-height: 200px;
+}
+.AdminEditCampaign .form-container .side label p,
+.AdminEditCampaign .form-container .actions label p,
+.AdminEditCampaign .form-container .campaign-stats label p,
+.AdminEditCampaign .form-container .user-stats label p,
+.AdminEditUser .form-container .side label p,
+.AdminEditUser .form-container .actions label p,
+.AdminEditUser .form-container .campaign-stats label p,
+.AdminEditUser .form-container .user-stats label p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-gray);
+  text-transform: capitalize;
+}
+.AdminEditCampaign .form-container .side .twoInputs,
+.AdminEditCampaign .form-container .actions .twoInputs,
+.AdminEditCampaign .form-container .campaign-stats .twoInputs,
+.AdminEditCampaign .form-container .user-stats .twoInputs,
+.AdminEditUser .form-container .side .twoInputs,
+.AdminEditUser .form-container .actions .twoInputs,
+.AdminEditUser .form-container .campaign-stats .twoInputs,
+.AdminEditUser .form-container .user-stats .twoInputs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.AdminEditCampaign .form-container .side .twoInputs label,
+.AdminEditCampaign .form-container .actions .twoInputs label,
+.AdminEditCampaign .form-container .campaign-stats .twoInputs label,
+.AdminEditCampaign .form-container .user-stats .twoInputs label,
+.AdminEditUser .form-container .side .twoInputs label,
+.AdminEditUser .form-container .actions .twoInputs label,
+.AdminEditUser .form-container .campaign-stats .twoInputs label,
+.AdminEditUser .form-container .user-stats .twoInputs label {
+  flex-grow: 1;
+}
+.AdminEditCampaign .form-container .campaign-stats,
+.AdminEditCampaign .form-container .user-stats,
+.AdminEditUser .form-container .campaign-stats,
+.AdminEditUser .form-container .user-stats {
+  grid-area: 1/2/4/4;
+}
+.AdminEditCampaign .form-container .actions,
+.AdminEditUser .form-container .actions {
+  grid-area: 3/1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--space-2);
+}
+.AdminEditCampaign .form-container .actions button,
+.AdminEditUser .form-container .actions button {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-small);
+  background: var(--sidebar-clr);
+}
+.AdminEditCampaign .form-container .actions button p,
+.AdminEditUser .form-container .actions button p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+}
+.AdminEditCampaign .form-container .actions button.btn-danger,
+.AdminEditUser .form-container .actions button.btn-danger {
+  background: var(--txt-clr-err);
+}
+.AdminEditCampaign .form-container .actions button.btn-danger p,
+.AdminEditUser .form-container .actions button.btn-danger p {
+  color: var(--txt-clr-light);
+}
+.AdminEditCampaign .form-container .loading,
+.AdminEditCampaign .form-container .error,
+.AdminEditUser .form-container .loading,
+.AdminEditUser .form-container .error {
+  width: 100%;
+  display: grid;
+  place-content: center;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-gray);
+  font-style: italic;
+}
+.AdminEditCampaign .loading,
+.AdminEditUser .loading {
+  color: var(--txt-clr-gray);
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  font-style: italic;
 }
 
 footer {
@@ -2548,10 +4821,502 @@ footer p {
   color: var(--txt-clr-gray);
 }
 
+.signin-pages {
+  width: 100dvw;
+  position: relative;
+  height: 100vh !important;
+  overflow: hidden;
+  background: var(--body-bg-clr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  gap: 0rem;
+  flex-wrap: wrap;
+}
+.signin-pages .image {
+  width: clamp(200px, 40%, 900px);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+}
+.signin-pages .image > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: -1;
+}
+.signin-pages .image .logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+}
+.signin-pages .image .logo img {
+  width: 40px;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  filter: brightness(0);
+}
+.signin-pages .image .logo svg {
+  stroke: var(--svg-fill);
+  width: var(--svg-size);
+}
+.signin-pages .image .txt {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-inline: 3rem;
+  mix-blend-mode: difference;
+}
+.signin-pages .image .txt h2 {
+  font-size: var(--font-h2);
+  font-family: var(--arabic-fm-b);
+  letter-spacing: var(--space-h2);
+  line-height: var(--line-h2);
+  color: var(--txt-clr-light);
+}
+.signin-pages .image .txt p {
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr-light);
+}
+.signin-pages .image .bottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 3rem;
+  mix-blend-mode: difference;
+}
+.signin-pages .image .bottom p {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-light);
+}
+.signin-pages .main {
+  width: 60%;
+  height: 100%;
+  background: var(--body-bg-clr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0rem;
+}
+.signin-pages .main .form,
+.signin-pages .main .success-message,
+.signin-pages .main .error-message {
+  margin-top: auto;
+  width: clamp(150px, 60%, 400px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 1rem;
+}
+.signin-pages .main .form .top,
+.signin-pages .main .success-message .top,
+.signin-pages .main .error-message .top {
+  width: 100%;
+  display: grid;
+  place-content: center;
+  margin-bottom: 3rem;
+}
+.signin-pages .main .form .top > h1,
+.signin-pages .main .success-message .top > h1,
+.signin-pages .main .error-message .top > h1 {
+  width: -moz-max-content;
+  width: max-content;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  color: var(--txt-clr);
+}
+.signin-pages .main .form label,
+.signin-pages .main .success-message label,
+.signin-pages .main .error-message label {
+  width: 100%;
+  position: relative;
+  font-family: var(--arabic-fm-r);
+  font-size: var(--font-body);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: var(--space-1);
+}
+.signin-pages .main .form label > .pass,
+.signin-pages .main .success-message label > .pass,
+.signin-pages .main .error-message label > .pass {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.signin-pages .main .form label > .pass input,
+.signin-pages .main .success-message label > .pass input,
+.signin-pages .main .error-message label > .pass input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid lightgray;
+  padding: 0 var(--space-1);
+  padding-right: 40px;
+  border-radius: 0;
+  outline: none;
+  color: var(--txt-clr);
+  margin-top: 3ch;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.signin-pages .main .form label > .pass > .toggle,
+.signin-pages .main .success-message label > .pass > .toggle,
+.signin-pages .main .error-message label > .pass > .toggle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0rem;
+  display: grid;
+  place-content: center;
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+.signin-pages .main .form label > .pass > .toggle svg,
+.signin-pages .main .success-message label > .pass > .toggle svg,
+.signin-pages .main .error-message label > .pass > .toggle svg {
+  fill: var(--dark-svg-clr);
+}
+.signin-pages .main .form label input,
+.signin-pages .main .success-message label input,
+.signin-pages .main .error-message label input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid lightgray;
+  padding: 0 var(--space-1);
+  border-radius: 0;
+  outline: none;
+  color: var(--txt-clr);
+  margin-top: 3ch;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.signin-pages .main .form label p,
+.signin-pages .main .success-message label p,
+.signin-pages .main .error-message label p {
+  position: absolute;
+  color: var(--txt-clr-placeholder);
+  transform: translateY(calc(1 * var(--space-2)));
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.signin-pages .main .form label:has(input:focus) p,
+.signin-pages .main .success-message label:has(input:focus) p,
+.signin-pages .main .error-message label:has(input:focus) p {
+  transform: translateY(calc(-1 * var(--space-2)));
+  color: var(--txt-clr);
+}
+.signin-pages .main .form label button,
+.signin-pages .main .success-message label button,
+.signin-pages .main .error-message label button {
+  margin-top: var(--space-5);
+  width: 100%;
+  background: var(--txt-clr);
+  color: var(--body-bg-clr);
+  padding: 0.7rem 1rem;
+  font-size: var(--font-h6);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h6);
+  line-height: var(--line-h6);
+  border-radius: var(--border-radius-medium);
+}
+.signin-pages .main .bottom {
+  width: 100%;
+  margin-top: auto !important;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.signin-pages .main .auth-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-mini);
+  margin-top: var(--space-5);
+}
+.signin-pages .main .auth-links a,
+.signin-pages .main .auth-links div {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+}
+.signin-pages .main .auth-links a {
+  color: var(--primary-clr);
+}
+.signin-pages .main .password-requirements {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--space-mini);
+}
+.signin-pages .main .password-requirements strong {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.signin-pages .main .password-requirements ul li {
+  font-size: var(--font-small);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-small);
+  line-height: var(--line-small);
+  color: var(--txt-clr-gray);
+}
+.signin-pages .main .success-message,
+.signin-pages .main .error-message {
+  width: clamp(200px, 100%, 600px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.signin-pages .main .success-message h2,
+.signin-pages .main .error-message h2 {
+  font-size: var(--font-h4);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-h4);
+  line-height: var(--line-h4);
+  text-align: center;
+  font-family: var(--arabic-fm-b);
+}
+.signin-pages .main .success-message p,
+.signin-pages .main .success-message a,
+.signin-pages .main .error-message p,
+.signin-pages .main .error-message a {
+  text-align: center;
+  font-size: var(--font-p);
+  font-family: var(--arabic-fm-r);
+  letter-spacing: var(--space-p);
+  line-height: var(--line-p);
+}
+.signin-pages .main .success-message p strong,
+.signin-pages .main .success-message a strong,
+.signin-pages .main .error-message p strong,
+.signin-pages .main .error-message a strong {
+  color: var(--primary-clr);
+}
+.signin-pages .main .success-message a,
+.signin-pages .main .error-message a {
+  display: grid;
+  place-content: center;
+  background: var(--primary-clr);
+  color: var(--txt-clr-light);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-very-large);
+}
+.signin-pages .main .success-message .action-links,
+.signin-pages .main .error-message .action-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: var(--space-1);
+}
+.signin-pages .main .success-message .action-links .secondary-link,
+.signin-pages .main .error-message .action-links .secondary-link {
+  background: var(--sidebar-clr);
+  color: var(--txt-clr-sec);
+}
+
+@media (max-width: 1000px) {
+  .signin-pages {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
+    flex-direction: column;
+    gap: 0rem;
+    height: 100vh;
+  }
+  .signin-pages .image {
+    width: clamp(200px, 100%, 1000px) !important;
+    height: 25% !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top-left-radius: var(--border-radius-medium);
+    border-top-right-radius: var(--border-radius-medium);
+  }
+  .signin-pages .image .logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    display: none;
+  }
+  .signin-pages .image .logo img {
+    width: 20px;
+    aspect-ratio: 1/1;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .signin-pages .image .txt {
+    width: 100%;
+    padding-inline: 3rem;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+    flex-direction: column;
+    gap: 0rem;
+  }
+  .signin-pages .image .txt h2 {
+    width: 100%;
+    font-size: var(--font-h2);
+    font-family: var(--arabic-fm-b);
+    letter-spacing: var(--space-h2);
+    line-height: var(--line-h2);
+    text-align: center;
+  }
+  .signin-pages .image .txt p {
+    display: none;
+  }
+  .signin-pages .image .bottom {
+    display: none;
+  }
+  .signin-pages .main {
+    width: 100%;
+    height: -moz-fit-content !important;
+    height: fit-content !important;
+    background: var(--body-bg-clr);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    flex-direction: column;
+    gap: 0rem;
+  }
+  .signin-pages .main .form {
+    width: clamp(150px, 90%, 400px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 0;
+  }
+  .signin-pages .main .form .top {
+    width: 100%;
+    display: grid;
+    place-content: center;
+    padding-top: var(--space-5);
+    margin-bottom: 0;
+  }
+  .signin-pages .main .form .top h1 {
+    font-size: var(--font-h4);
+    font-family: var(--arabic-fm-r);
+    letter-spacing: var(--space-h4);
+    line-height: var(--line-h4);
+    font-family: var(--arabic-fm-b);
+    text-align: center;
+    color: var(--txt-clr);
+  }
+  .signin-pages .main .form label button {
+    margin-top: 1rem;
+    width: 100%;
+    background: var(--txt-clr);
+    color: var(--body-bg-clr);
+    padding: 0.7rem 1rem;
+    font-size: var(--font-h6);
+    font-family: var(--arabic-fm-r);
+    letter-spacing: var(--space-h6);
+    line-height: var(--line-h6);
+    border-radius: var(--border-radius-medium);
+  }
+  .signin-pages .main .bottom {
+    width: 100%;
+    margin-top: auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0rem;
+  }
+}
 .fillNone svg {
   fill: none !important;
 }
 
 .firstLetter::first-letter {
   text-transform: capitalize !important;
+}
+
+.loading-indecator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: grid;
+  place-content: center;
 }/*# sourceMappingURL=main.css.map */

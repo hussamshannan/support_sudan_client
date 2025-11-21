@@ -4,8 +4,12 @@ import Progress from "../components/Progress";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { PiPaypalLogoFill } from "react-icons/pi";
+import useAxios from "../hooks/useAxios";
 
 function Donation() {
+  const { data, error, loading, get, post, put } = useAxios();
+  const [campaigns, setcampaigns] = useState([]);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -81,6 +85,96 @@ function Donation() {
       });
     }
   };
+  useEffect(() => {
+    fetchcampaigns();
+  }, []);
+  const fetchcampaigns = async (pageNum) => {
+    try {
+      const res = await get(`/campaigns/all`);
+      const activeCampaigns = res.data.filter((campaign) => campaign.isActive);
+      setcampaigns(activeCampaigns);
+    } catch (err) {
+      console.error("Error fetching campaigns:", err);
+    }
+  };
+
+  // Donation Skeleton Component
+  const DonationSkeleton = () => (
+    <div className="page donation">
+      <Progress />
+      <div className="skeleton-title"></div>
+
+      {/* Cause selection skeleton */}
+      <div className="cause">
+        <div className="skeleton-text short"></div>
+        {[1, 2, 3].map((item) => (
+          <button key={item} className="skeleton-cause-button">
+            <span className="skeleton-icon"></span>
+            <div className="skeleton-text medium"></div>
+          </button>
+        ))}
+      </div>
+
+      {/* Amount selection skeleton */}
+      <div className="amount">
+        <div className="skeleton-text short"></div>
+        <div className="amount-buttons">
+          {[1, 2, 3, 4].map((item) => (
+            <button key={item} className="skeleton-amount-button">
+              <div className="skeleton-text xshort"></div>
+            </button>
+          ))}
+        </div>
+        <label className="skeleton-custom-amount">
+          <div className="placeholder">
+            <span className="skeleton-icon small"></span>
+            <div className="skeleton-text medium"></div>
+          </div>
+        </label>
+      </div>
+
+      {/* User details skeleton */}
+      <div className="details">
+        <div className="skeleton-text short"></div>
+        <label className="skeleton-input">
+          <div className="placeholder">
+            <span className="skeleton-icon small"></span>
+            <div className="skeleton-text medium"></div>
+          </div>
+        </label>
+        <label className="skeleton-input">
+          <div className="placeholder">
+            <span className="skeleton-icon small"></span>
+            <div className="skeleton-text medium"></div>
+          </div>
+        </label>
+      </div>
+
+      {/* Payment selection skeleton */}
+      <div className="payment">
+        <div className="skeleton-text short"></div>
+        <button className="skeleton-payment-button">
+          <span className="skeleton-icon"></span>
+          <div className="skeleton-text medium"></div>
+        </button>
+        <button className="skeleton-payment-button">
+          <span className="skeleton-icon"></span>
+          <div className="skeleton-text medium"></div>
+        </button>
+        <div className="skeleton-text xshort"></div>
+      </div>
+
+      {/* Donate button skeleton */}
+      <button className="skeleton-donate-button">
+        <div className="skeleton-text medium"></div>
+      </button>
+    </div>
+  );
+
+  if (loading && campaigns.length === 0) {
+    return <DonationSkeleton />;
+  }
+
   return (
     <div className="page donation">
       <Progress />
@@ -89,22 +183,14 @@ function Donation() {
       {/* Cause selection */}
       <div className="cause">
         <p>Choose a cause</p>
-        {[
-          { key: "Food & Water", label: "Food & Water", icon: icons.food },
-          { key: "Medical Aid", label: "Medical Aid", icon: icons.med },
-          {
-            key: "Shelter & Education",
-            label: "Shelter & Education",
-            icon: icons.shelter,
-          },
-        ].map((c) => (
+        {campaigns.map((campaign, index) => (
           <button
-            key={c.key}
-            className={selectedCause === c.key ? "active" : ""}
-            onClick={() => handleSelectCause(c.key)}
+            key={index}
+            className={selectedCause === campaign.cause ? "active" : ""}
+            onClick={() => handleSelectCause(campaign.cause)}
           >
-            <span>{c.icon}</span>
-            <p>{c.label}</p>
+            <span>{icons.target}</span>
+            <p>{campaign.cause}</p>
           </button>
         ))}
       </div>

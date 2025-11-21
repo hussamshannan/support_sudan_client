@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import img from "../assets/img/mobile/wadi-lissa-RsgIenJC8ag-unsplash.jpg";
-import water from "../assets/img/mobile/francesco-ungaro-Iuptsh6o5IM-unsplash.jpg";
-import health from "../assets/img/mobile/nappy-d2D_OF14-70-unsplash.jpg";
+
 import useAxios from "../hooks/useAxios";
 import { useLocation } from "react-router-dom";
 import icons from "../assets/icons/icons";
-
+import Loading from "../components/Loading";
+import gsap from "gsap";
 function Updates() {
   const [info, setInfo] = useState({ cause: "", email: "", receiptUrl: "" });
 
-
   const [target, setTarget] = useState(null);
   const location = useLocation();
-  const { get } = useAxios();
+  const { data, error, loading, get, post, put } = useAxios();
+  const [articles, setArticles] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const articlesRef = useRef([]);
 
   // Set info from location or localStorage
   useEffect(() => {
@@ -32,7 +34,7 @@ function Updates() {
     const getTargets = async () => {
       try {
         const response = await get(
-          `/targets/${encodeURIComponent(info.cause)}`
+          `/campaigns/${encodeURIComponent(info.cause)}`
         );
         if (response.success) {
           setTarget(response.data);
@@ -52,8 +54,63 @@ function Updates() {
   const donors = target?.donorCount || 0;
   const progressPercent = target?.progress || 0;
 
+  useEffect(() => {
+    // Animate all news elements that were just rendered
+    gsap.from(articlesRef.current, {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "power2.out",
+    });
+  }, [articles]);
+  useEffect(() => {
+    fetchArticles(page);
+  }, [page]);
+
+  const fetchArticles = async (pageNum) => {
+    try {
+      const res = await get(`/articles?page=${pageNum}`);
+      setArticles(res.articles);
+      setTotalPages(res.totalPages);
+    } catch (err) {
+      console.error("Error fetching articles:", err);
+    }
+  };
+  const formatRelativeDate = (dateString) => {
+    const now = new Date();
+    const past = new Date(dateString);
+    const diffInMs = now - past;
+
+    const minutes = Math.floor(diffInMs / (1000 * 60));
+    const hours = Math.floor(diffInMs / (1000 * 60 * 60));
+    const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor(days / 7);
+
+    if (minutes < 1) return "just now";
+    if (minutes === 1) return "1 minute ago";
+    if (minutes < 60) return `${minutes} minutes ago`;
+
+    if (hours === 1) return "1 hour ago";
+    if (hours < 24) return `${hours} hours ago`;
+
+    if (days === 1) return "1 day ago";
+    if (days < 7) return `${days} days ago`;
+
+    if (weeks === 1) return "1 week ago";
+    if (weeks < 4) return `${weeks} weeks ago`;
+
+    // If older than ~1 month, show the full date
+    return past.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
   return (
     <div className="page updates" dir="auto">
+      {loading && <Loading />}
+
       <div className="hero">
         <div className="card">
           <div className="title">
@@ -76,57 +133,50 @@ function Updates() {
             <span>timely reported from the field. Tap to read more.</span>
           </div>
           <div className="updates">
-            <Link to={"/Article"} className="news">
-              <div className="img">
-                <img src={water} alt="" />
-              </div>
-              <div className="text">
-                <div className="title">
-                  <p>clean water point restored</p>
+            {articles.map((article, index) => (
+              <Link
+                key={article._id}
+                to={`/Article/${article._id}`}
+                className="news"
+                ref={(el) => (articlesRef.current[index] = el)}
+              >
+                <div className="img">
+                  <img src={article.mediaUrl} alt={article.title} />
                 </div>
-                <div className="date">
-                  <span>2 days ago</span> • <span>Water</span>
+                <div className="text">
+                  <div className="title">
+                    <p>{article.title}</p>
+                  </div>
+                  <div className="date">
+                    <span>{formatRelativeDate(article.updatedAt)}</span> •{" "}
+                    <span>{article.impactType}</span>
+                  </div>
+                  <div className="desc">
+                    <p>{article.content}</p>
+                  </div>
                 </div>
-                <div className="desc">
-                  <p>12 wells repaired, 18,000 people reached</p>
-                </div>
-              </div>
-              <span>{icons.arrowRight}</span>
-            </Link>
-            <Link to={"/Article"} className="news">
-              <div className="img">
-                <img src={img} alt="" />
-              </div>
-              <div className="text">
-                <div className="title">
-                  <p>Emergency Food Parcels</p>
-                </div>
-                <div className="date">
-                  <span>2 weeks ago</span> • <span>Food</span>
-                </div>
-                <div className="desc">
-                  <p>6,500 parcels delivered to displaced families.</p>
-                </div>
-              </div>
-              <span>{icons.arrowRight}</span>
-            </Link>
-            <Link to={"/Article"} className="news">
-              <div className="img">
-                <img src={health} alt="" />
-              </div>
-              <div className="text">
-                <div className="title">
-                  <p>Mobile Health Clinics</p>
-                </div>
-                <div className="date">
-                  <span>3 weeks ago</span> • <span>Health</span>
-                </div>
-                <div className="desc">
-                  <p>Two clinics treating 300+ patients daily.</p>
-                </div>
-              </div>
-              <span>{icons.arrowRight}</span>
-            </Link>
+                <span>{icons.arrowRight}</span>
+              </Link>
+            ))}
+
+            {/* Pagination buttons */}
+            <div className="pagination">
+              <button
+                disabled={page <= 1}
+                onClick={() => setPage((prev) => prev - 1)}
+              >
+                {icons.arrowleft}
+              </button>
+              <p>
+                {totalPages}/{page}
+              </p>
+              <button
+                disabled={page >= totalPages}
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                {icons.arrowRight}
+              </button>
+            </div>
           </div>
         </div>
         <div className="card">

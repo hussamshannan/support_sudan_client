@@ -18,6 +18,10 @@ function Footer() {
         100% encrypted payments. Funds are allocated to on-the-ground partners
         with monthly impact reports.
       </p>
+      <p>
+        Created & Designed by{" "}
+        <a href="mailto:hussamshannan5@gmail.com">Hussam Shannan</a>
+      </p>
     </footer>
   );
 }
