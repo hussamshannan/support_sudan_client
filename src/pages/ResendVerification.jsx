@@ -174,7 +174,7 @@ export default function ResendVerification() {
                 value={formData.email}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder=""
+                placeholder=" "
                 dir="auto"
                 required
                 autoFocus

@@ -244,7 +244,7 @@ export default function VerifyEmail() {
               value={formData.password}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
               autoFocus
@@ -269,7 +269,7 @@ export default function VerifyEmail() {
               value={formData.confirmPassword}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
             />

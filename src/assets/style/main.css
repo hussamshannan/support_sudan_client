@@ -4824,7 +4824,7 @@ footer p {
 .signin-pages {
   width: 100dvw;
   position: relative;
-  height: 100vh !important;
+  height: 100dvh;
   overflow: hidden;
   background: var(--body-bg-clr);
   display: flex;
@@ -4948,15 +4948,15 @@ footer p {
   place-content: center;
   margin-bottom: 3rem;
 }
-.signin-pages .main .form .top > h1,
-.signin-pages .main .success-message .top > h1,
-.signin-pages .main .error-message .top > h1 {
+.signin-pages .main .form .top h1,
+.signin-pages .main .success-message .top h1,
+.signin-pages .main .error-message .top h1 {
   width: -moz-max-content;
   width: max-content;
-  font-size: var(--font-p);
-  font-family: var(--arabic-fm-r);
-  letter-spacing: var(--space-p);
-  line-height: var(--line-p);
+  font-size: var(--font-h1);
+  font-family: var(--arabic-fm-b);
+  letter-spacing: var(--space-h1);
+  line-height: var(--line-h1);
   color: var(--txt-clr);
 }
 .signin-pages .main .form label,
@@ -5052,9 +5052,15 @@ footer p {
   transition: all 0.3s ease;
   pointer-events: none;
 }
-.signin-pages .main .form label:has(input:focus) p,
+.signin-pages .main .form label:has(input:not(:-moz-placeholder)) p, .signin-pages .main .success-message label:has(input:not(:-moz-placeholder)) p, .signin-pages .main .error-message label:has(input:not(:-moz-placeholder)) p {
+  transform: translateY(calc(-1 * var(--space-2)));
+  color: var(--txt-clr);
+}
+.signin-pages .main .form label:has(input:focus) p, .signin-pages .main .form label:has(input:not(:placeholder-shown)) p,
 .signin-pages .main .success-message label:has(input:focus) p,
-.signin-pages .main .error-message label:has(input:focus) p {
+.signin-pages .main .success-message label:has(input:not(:placeholder-shown)) p,
+.signin-pages .main .error-message label:has(input:focus) p,
+.signin-pages .main .error-message label:has(input:not(:placeholder-shown)) p {
   transform: translateY(calc(-1 * var(--space-2)));
   color: var(--txt-clr);
 }
@@ -5074,7 +5080,7 @@ footer p {
 }
 .signin-pages .main .bottom {
   width: 100%;
-  margin-top: auto !important;
+  margin-top: auto;
   padding: 1rem;
   display: flex;
   align-items: center;

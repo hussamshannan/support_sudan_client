@@ -232,7 +232,7 @@ export default function ForgotPassword() {
                 value={formData.email}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder=""
+                placeholder=" "
                 dir="auto"
                 required
                 autoFocus

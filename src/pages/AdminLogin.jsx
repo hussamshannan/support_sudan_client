@@ -180,7 +180,7 @@ export default function Signin() {
               value={formData.login}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               autoFocus
             />
@@ -195,7 +195,7 @@ export default function Signin() {
                 value={formData.password}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder=""
+                placeholder=" "
                 dir="auto"
               />
               <button

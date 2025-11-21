@@ -276,7 +276,7 @@ export default function ResetPassword() {
               value={formData.password}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
               autoFocus
@@ -301,7 +301,7 @@ export default function ResetPassword() {
               value={formData.confirmPassword}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
             />

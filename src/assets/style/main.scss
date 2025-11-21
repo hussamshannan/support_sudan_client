@@ -2730,7 +2730,7 @@ footer {
 .signin-pages {
   width: 100dvw;
   position: relative;
-  height: 100vh !important;
+  height: 100dvh;
   overflow: hidden;
   background: var(--body-bg-clr);
   @include flex(center, center, row-reverse, 0rem);
@@ -2811,9 +2811,9 @@ footer {
         display: grid;
         place-content: center;
         margin-bottom: 3rem;
-        > h1 {
+        h1 {
           width: max-content;
-          @include p();
+          @include h1();
           // text-align: center;
           color: var(--txt-clr);
         }
@@ -2880,7 +2880,8 @@ footer {
           transition: all 0.3s ease;
           pointer-events: none;
         }
-        &:has(input:focus) {
+        &:has(input:focus),
+        &:has(input:not(:placeholder-shown)) {
           p {
             transform: translateY(calc(-1 * var(--space-2)));
             color: var(--txt-clr);
@@ -2899,7 +2900,7 @@ footer {
     }
     .bottom {
       width: 100%;
-      margin-top: auto !important;
+      margin-top: auto;
       padding: 1rem;
       @include flex(center, flex-start, row, 0rem);
       user-select: none;
@@ -3046,7 +3047,7 @@ footer {
       }
       .bottom {
         width: 100%;
-        margin-top: auto ;
+        margin-top: auto;
         padding: 1rem;
         @include flex(center, center, row, 0rem);
       }

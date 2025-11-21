@@ -208,7 +208,7 @@ export default function AdminSignup() {
               value={formData.name}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
             />
@@ -222,7 +222,7 @@ export default function AdminSignup() {
               value={formData.username}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
             />
@@ -236,7 +236,7 @@ export default function AdminSignup() {
               value={formData.email}
               onChange={handleChange}
               disabled={loading}
-              placeholder=""
+              placeholder=" "
               dir="auto"
               required
             />
